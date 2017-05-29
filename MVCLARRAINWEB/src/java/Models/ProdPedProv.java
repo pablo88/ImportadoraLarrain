@@ -22,16 +22,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "PROD_PED_PROV")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProdPedProv.findAll", query = "SELECT p FROM ProdPedProv p")
-    , @NamedQuery(name = "ProdPedProv.findByIdProdPedProv", query = "SELECT p FROM ProdPedProv p WHERE p.idProdPedProv = :idProdPedProv")
-    , @NamedQuery(name = "ProdPedProv.findByCantidad", query = "SELECT p FROM ProdPedProv p WHERE p.cantidad = :cantidad")
-    , @NamedQuery(name = "ProdPedProv.findByTotal", query = "SELECT p FROM ProdPedProv p WHERE p.total = :total")})
+    @NamedQuery(name = "ProdPedProv.findAll", query = "SELECT p FROM ProdPedProv p"),
+    @NamedQuery(name = "ProdPedProv.findByIdProdPedProv", query = "SELECT p FROM ProdPedProv p WHERE p.idProdPedProv = :idProdPedProv"),
+    @NamedQuery(name = "ProdPedProv.findByCantidad", query = "SELECT p FROM ProdPedProv p WHERE p.cantidad = :cantidad"),
+    @NamedQuery(name = "ProdPedProv.findByTotal", query = "SELECT p FROM ProdPedProv p WHERE p.total = :total")})
 public class ProdPedProv implements Serializable {
 
     private static final long serialVersionUID = 1L;

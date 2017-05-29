@@ -7,8 +7,8 @@ package Models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,15 +27,15 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "PEDIDO_A_PROVEEDOR")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PedidoAProveedor.findAll", query = "SELECT p FROM PedidoAProveedor p")
-    , @NamedQuery(name = "PedidoAProveedor.findByIdPedidoProv", query = "SELECT p FROM PedidoAProveedor p WHERE p.idPedidoProv = :idPedidoProv")
-    , @NamedQuery(name = "PedidoAProveedor.findByFechaPedido", query = "SELECT p FROM PedidoAProveedor p WHERE p.fechaPedido = :fechaPedido")})
+    @NamedQuery(name = "PedidoAProveedor.findAll", query = "SELECT p FROM PedidoAProveedor p"),
+    @NamedQuery(name = "PedidoAProveedor.findByIdPedidoProv", query = "SELECT p FROM PedidoAProveedor p WHERE p.idPedidoProv = :idPedidoProv"),
+    @NamedQuery(name = "PedidoAProveedor.findByFechaPedido", query = "SELECT p FROM PedidoAProveedor p WHERE p.fechaPedido = :fechaPedido")})
 public class PedidoAProveedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,7 +57,7 @@ public class PedidoAProveedor implements Serializable {
     @ManyToOne
     private Supervisor idSupervisor;
     @OneToMany(mappedBy = "idPedidoProv")
-    private List<ProdPedProv> prodPedProvList;
+    private Collection<ProdPedProv> prodPedProvCollection;
 
     public PedidoAProveedor() {
     }
@@ -104,12 +104,12 @@ public class PedidoAProveedor implements Serializable {
     }
 
     @XmlTransient
-    public List<ProdPedProv> getProdPedProvList() {
-        return prodPedProvList;
+    public Collection<ProdPedProv> getProdPedProvCollection() {
+        return prodPedProvCollection;
     }
 
-    public void setProdPedProvList(List<ProdPedProv> prodPedProvList) {
-        this.prodPedProvList = prodPedProvList;
+    public void setProdPedProvCollection(Collection<ProdPedProv> prodPedProvCollection) {
+        this.prodPedProvCollection = prodPedProvCollection;
     }
 
     @Override

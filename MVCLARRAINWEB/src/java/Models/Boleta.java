@@ -8,8 +8,8 @@ package Models;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,17 +26,17 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "BOLETA")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Boleta.findAll", query = "SELECT b FROM Boleta b")
-    , @NamedQuery(name = "Boleta.findByIdBoleta", query = "SELECT b FROM Boleta b WHERE b.idBoleta = :idBoleta")
-    , @NamedQuery(name = "Boleta.findByFechaBoleta", query = "SELECT b FROM Boleta b WHERE b.fechaBoleta = :fechaBoleta")
-    , @NamedQuery(name = "Boleta.findByMonto", query = "SELECT b FROM Boleta b WHERE b.monto = :monto")
-    , @NamedQuery(name = "Boleta.findByNumeroBoletaFiscal", query = "SELECT b FROM Boleta b WHERE b.numeroBoletaFiscal = :numeroBoletaFiscal")})
+    @NamedQuery(name = "Boleta.findAll", query = "SELECT b FROM Boleta b"),
+    @NamedQuery(name = "Boleta.findByIdBoleta", query = "SELECT b FROM Boleta b WHERE b.idBoleta = :idBoleta"),
+    @NamedQuery(name = "Boleta.findByFechaBoleta", query = "SELECT b FROM Boleta b WHERE b.fechaBoleta = :fechaBoleta"),
+    @NamedQuery(name = "Boleta.findByMonto", query = "SELECT b FROM Boleta b WHERE b.monto = :monto"),
+    @NamedQuery(name = "Boleta.findByNumeroBoletaFiscal", query = "SELECT b FROM Boleta b WHERE b.numeroBoletaFiscal = :numeroBoletaFiscal")})
 public class Boleta implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,11 +60,11 @@ public class Boleta implements Serializable {
     @Column(name = "NUMERO_BOLETA_FISCAL")
     private BigInteger numeroBoletaFiscal;
     @OneToMany(mappedBy = "idBoleta")
-    private List<BoletaProdCompra> boletaProdCompraList;
+    private Collection<BoletaProdCompra> boletaProdCompraCollection;
     @OneToMany(mappedBy = "idBoleta")
-    private List<BoletaProdpedido> boletaProdpedidoList;
+    private Collection<BoletaProdpedido> boletaProdpedidoCollection;
     @OneToMany(mappedBy = "idBoleta")
-    private List<Pago> pagoList;
+    private Collection<Pago> pagoCollection;
 
     public Boleta() {
     }
@@ -113,30 +113,30 @@ public class Boleta implements Serializable {
     }
 
     @XmlTransient
-    public List<BoletaProdCompra> getBoletaProdCompraList() {
-        return boletaProdCompraList;
+    public Collection<BoletaProdCompra> getBoletaProdCompraCollection() {
+        return boletaProdCompraCollection;
     }
 
-    public void setBoletaProdCompraList(List<BoletaProdCompra> boletaProdCompraList) {
-        this.boletaProdCompraList = boletaProdCompraList;
-    }
-
-    @XmlTransient
-    public List<BoletaProdpedido> getBoletaProdpedidoList() {
-        return boletaProdpedidoList;
-    }
-
-    public void setBoletaProdpedidoList(List<BoletaProdpedido> boletaProdpedidoList) {
-        this.boletaProdpedidoList = boletaProdpedidoList;
+    public void setBoletaProdCompraCollection(Collection<BoletaProdCompra> boletaProdCompraCollection) {
+        this.boletaProdCompraCollection = boletaProdCompraCollection;
     }
 
     @XmlTransient
-    public List<Pago> getPagoList() {
-        return pagoList;
+    public Collection<BoletaProdpedido> getBoletaProdpedidoCollection() {
+        return boletaProdpedidoCollection;
     }
 
-    public void setPagoList(List<Pago> pagoList) {
-        this.pagoList = pagoList;
+    public void setBoletaProdpedidoCollection(Collection<BoletaProdpedido> boletaProdpedidoCollection) {
+        this.boletaProdpedidoCollection = boletaProdpedidoCollection;
+    }
+
+    @XmlTransient
+    public Collection<Pago> getPagoCollection() {
+        return pagoCollection;
+    }
+
+    public void setPagoCollection(Collection<Pago> pagoCollection) {
+        this.pagoCollection = pagoCollection;
     }
 
     @Override

@@ -7,7 +7,7 @@ package Models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,15 +23,15 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "ESTADO_COMPRA")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "EstadoCompra.findAll", query = "SELECT e FROM EstadoCompra e")
-    , @NamedQuery(name = "EstadoCompra.findByIdEstadoCompra", query = "SELECT e FROM EstadoCompra e WHERE e.idEstadoCompra = :idEstadoCompra")
-    , @NamedQuery(name = "EstadoCompra.findByDescripcion", query = "SELECT e FROM EstadoCompra e WHERE e.descripcion = :descripcion")})
+    @NamedQuery(name = "EstadoCompra.findAll", query = "SELECT e FROM EstadoCompra e"),
+    @NamedQuery(name = "EstadoCompra.findByIdEstadoCompra", query = "SELECT e FROM EstadoCompra e WHERE e.idEstadoCompra = :idEstadoCompra"),
+    @NamedQuery(name = "EstadoCompra.findByDescripcion", query = "SELECT e FROM EstadoCompra e WHERE e.descripcion = :descripcion")})
 public class EstadoCompra implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,9 +47,9 @@ public class EstadoCompra implements Serializable {
     @Column(name = "DESCRIPCION")
     private String descripcion;
     @OneToMany(mappedBy = "idEstadoCompra")
-    private List<CorreoEstado> correoEstadoList;
+    private Collection<CorreoEstado> correoEstadoCollection;
     @OneToMany(mappedBy = "idEstadoCompra")
-    private List<Compra> compraList;
+    private Collection<Compra> compraCollection;
 
     public EstadoCompra() {
     }
@@ -80,21 +80,21 @@ public class EstadoCompra implements Serializable {
     }
 
     @XmlTransient
-    public List<CorreoEstado> getCorreoEstadoList() {
-        return correoEstadoList;
+    public Collection<CorreoEstado> getCorreoEstadoCollection() {
+        return correoEstadoCollection;
     }
 
-    public void setCorreoEstadoList(List<CorreoEstado> correoEstadoList) {
-        this.correoEstadoList = correoEstadoList;
+    public void setCorreoEstadoCollection(Collection<CorreoEstado> correoEstadoCollection) {
+        this.correoEstadoCollection = correoEstadoCollection;
     }
 
     @XmlTransient
-    public List<Compra> getCompraList() {
-        return compraList;
+    public Collection<Compra> getCompraCollection() {
+        return compraCollection;
     }
 
-    public void setCompraList(List<Compra> compraList) {
-        this.compraList = compraList;
+    public void setCompraCollection(Collection<Compra> compraCollection) {
+        this.compraCollection = compraCollection;
     }
 
     @Override

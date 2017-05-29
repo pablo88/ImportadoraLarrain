@@ -7,7 +7,7 @@ package Models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,18 +25,18 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "ENCARGADO_BODEGA")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "EncargadoBodega.findAll", query = "SELECT e FROM EncargadoBodega e")
-    , @NamedQuery(name = "EncargadoBodega.findByIdEncargadoBodega", query = "SELECT e FROM EncargadoBodega e WHERE e.idEncargadoBodega = :idEncargadoBodega")
-    , @NamedQuery(name = "EncargadoBodega.findByNombreEncargadoBodega", query = "SELECT e FROM EncargadoBodega e WHERE e.nombreEncargadoBodega = :nombreEncargadoBodega")
-    , @NamedQuery(name = "EncargadoBodega.findByAppEncargadoBodega", query = "SELECT e FROM EncargadoBodega e WHERE e.appEncargadoBodega = :appEncargadoBodega")
-    , @NamedQuery(name = "EncargadoBodega.findByApmEncargadoBodega", query = "SELECT e FROM EncargadoBodega e WHERE e.apmEncargadoBodega = :apmEncargadoBodega")
-    , @NamedQuery(name = "EncargadoBodega.findByCorreoEncargadoBodega", query = "SELECT e FROM EncargadoBodega e WHERE e.correoEncargadoBodega = :correoEncargadoBodega")})
+    @NamedQuery(name = "EncargadoBodega.findAll", query = "SELECT e FROM EncargadoBodega e"),
+    @NamedQuery(name = "EncargadoBodega.findByIdEncargadoBodega", query = "SELECT e FROM EncargadoBodega e WHERE e.idEncargadoBodega = :idEncargadoBodega"),
+    @NamedQuery(name = "EncargadoBodega.findByNombreEncargadoBodega", query = "SELECT e FROM EncargadoBodega e WHERE e.nombreEncargadoBodega = :nombreEncargadoBodega"),
+    @NamedQuery(name = "EncargadoBodega.findByAppEncargadoBodega", query = "SELECT e FROM EncargadoBodega e WHERE e.appEncargadoBodega = :appEncargadoBodega"),
+    @NamedQuery(name = "EncargadoBodega.findByApmEncargadoBodega", query = "SELECT e FROM EncargadoBodega e WHERE e.apmEncargadoBodega = :apmEncargadoBodega"),
+    @NamedQuery(name = "EncargadoBodega.findByCorreoEncargadoBodega", query = "SELECT e FROM EncargadoBodega e WHERE e.correoEncargadoBodega = :correoEncargadoBodega")})
 public class EncargadoBodega implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -67,7 +67,7 @@ public class EncargadoBodega implements Serializable {
     @Column(name = "CORREO_ENCARGADO_BODEGA")
     private String correoEncargadoBodega;
     @OneToMany(mappedBy = "idEncargadoBodega")
-    private List<RegistroBodega> registroBodegaList;
+    private Collection<RegistroBodega> registroBodegaCollection;
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     @ManyToOne
     private Usuario idUsuario;
@@ -128,12 +128,12 @@ public class EncargadoBodega implements Serializable {
     }
 
     @XmlTransient
-    public List<RegistroBodega> getRegistroBodegaList() {
-        return registroBodegaList;
+    public Collection<RegistroBodega> getRegistroBodegaCollection() {
+        return registroBodegaCollection;
     }
 
-    public void setRegistroBodegaList(List<RegistroBodega> registroBodegaList) {
-        this.registroBodegaList = registroBodegaList;
+    public void setRegistroBodegaCollection(Collection<RegistroBodega> registroBodegaCollection) {
+        this.registroBodegaCollection = registroBodegaCollection;
     }
 
     public Usuario getIdUsuario() {

@@ -8,7 +8,7 @@ package Models;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,16 +25,17 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "USUARIO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
-    , @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario")
-    , @NamedQuery(name = "Usuario.findByCorreo", query = "SELECT u FROM Usuario u WHERE u.correo = :correo")
-    , @NamedQuery(name = "Usuario.findByActiva", query = "SELECT u FROM Usuario u WHERE u.activa = :activa")})
+    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
+    @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario"),
+    @NamedQuery(name = "Usuario.findByCorreo", query = "SELECT u FROM Usuario u WHERE u.correo = :correo"),
+    @NamedQuery(name = "Usuario.findByActiva", query = "SELECT u FROM Usuario u WHERE u.activa = :activa"),
+    @NamedQuery(name = "Usuario.findByKeyActivacion", query = "SELECT u FROM Usuario u WHERE u.keyActivacion = :keyActivacion")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,20 +59,25 @@ public class Usuario implements Serializable {
     @NotNull
     @Column(name = "ACTIVA")
     private BigInteger activa;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "KEY_ACTIVACION")
+    private String keyActivacion;
     @OneToMany(mappedBy = "idUsuario")
-    private List<Administrador> administradorList;
+    private Collection<Administrador> administradorCollection;
     @OneToMany(mappedBy = "idUsuario")
-    private List<Vendedor> vendedorList;
+    private Collection<Vendedor> vendedorCollection;
     @OneToMany(mappedBy = "idUsuario")
-    private List<Cliente> clienteList;
+    private Collection<Cliente> clienteCollection;
     @OneToMany(mappedBy = "idUsuario")
-    private List<Proveedores> proveedoresList;
+    private Collection<Proveedores> proveedoresCollection;
     @OneToMany(mappedBy = "idUsuario")
-    private List<EncargadoBodega> encargadoBodegaList;
+    private Collection<EncargadoBodega> encargadoBodegaCollection;
     @OneToMany(mappedBy = "idUsuario")
-    private List<Supervisor> supervisorList;
+    private Collection<Supervisor> supervisorCollection;
     @OneToMany(mappedBy = "idUsuario")
-    private List<Agente> agenteList;
+    private Collection<Agente> agenteCollection;
 
     public Usuario() {
     }
@@ -80,11 +86,12 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(BigDecimal idUsuario, String correo, String pass, BigInteger activa) {
+    public Usuario(BigDecimal idUsuario, String correo, String pass, BigInteger activa, String keyActivacion) {
         this.idUsuario = idUsuario;
         this.correo = correo;
         this.pass = pass;
         this.activa = activa;
+        this.keyActivacion = keyActivacion;
     }
 
     public BigDecimal getIdUsuario() {
@@ -119,67 +126,75 @@ public class Usuario implements Serializable {
         this.activa = activa;
     }
 
-    @XmlTransient
-    public List<Administrador> getAdministradorList() {
-        return administradorList;
+    public String getKeyActivacion() {
+        return keyActivacion;
     }
 
-    public void setAdministradorList(List<Administrador> administradorList) {
-        this.administradorList = administradorList;
-    }
-
-    @XmlTransient
-    public List<Vendedor> getVendedorList() {
-        return vendedorList;
-    }
-
-    public void setVendedorList(List<Vendedor> vendedorList) {
-        this.vendedorList = vendedorList;
+    public void setKeyActivacion(String keyActivacion) {
+        this.keyActivacion = keyActivacion;
     }
 
     @XmlTransient
-    public List<Cliente> getClienteList() {
-        return clienteList;
+    public Collection<Administrador> getAdministradorCollection() {
+        return administradorCollection;
     }
 
-    public void setClienteList(List<Cliente> clienteList) {
-        this.clienteList = clienteList;
-    }
-
-    @XmlTransient
-    public List<Proveedores> getProveedoresList() {
-        return proveedoresList;
-    }
-
-    public void setProveedoresList(List<Proveedores> proveedoresList) {
-        this.proveedoresList = proveedoresList;
+    public void setAdministradorCollection(Collection<Administrador> administradorCollection) {
+        this.administradorCollection = administradorCollection;
     }
 
     @XmlTransient
-    public List<EncargadoBodega> getEncargadoBodegaList() {
-        return encargadoBodegaList;
+    public Collection<Vendedor> getVendedorCollection() {
+        return vendedorCollection;
     }
 
-    public void setEncargadoBodegaList(List<EncargadoBodega> encargadoBodegaList) {
-        this.encargadoBodegaList = encargadoBodegaList;
-    }
-
-    @XmlTransient
-    public List<Supervisor> getSupervisorList() {
-        return supervisorList;
-    }
-
-    public void setSupervisorList(List<Supervisor> supervisorList) {
-        this.supervisorList = supervisorList;
+    public void setVendedorCollection(Collection<Vendedor> vendedorCollection) {
+        this.vendedorCollection = vendedorCollection;
     }
 
     @XmlTransient
-    public List<Agente> getAgenteList() {
-        return agenteList;
+    public Collection<Cliente> getClienteCollection() {
+        return clienteCollection;
     }
 
-    public void setAgenteList(List<Agente> agenteList) {
-        this.agenteList = agenteList;
+    public void setClienteCollection(Collection<Cliente> clienteCollection) {
+        this.clienteCollection = clienteCollection;
+    }
+
+    @XmlTransient
+    public Collection<Proveedores> getProveedoresCollection() {
+        return proveedoresCollection;
+    }
+
+    public void setProveedoresCollection(Collection<Proveedores> proveedoresCollection) {
+        this.proveedoresCollection = proveedoresCollection;
+    }
+
+    @XmlTransient
+    public Collection<EncargadoBodega> getEncargadoBodegaCollection() {
+        return encargadoBodegaCollection;
+    }
+
+    public void setEncargadoBodegaCollection(Collection<EncargadoBodega> encargadoBodegaCollection) {
+        this.encargadoBodegaCollection = encargadoBodegaCollection;
+    }
+
+    @XmlTransient
+    public Collection<Supervisor> getSupervisorCollection() {
+        return supervisorCollection;
+    }
+
+    public void setSupervisorCollection(Collection<Supervisor> supervisorCollection) {
+        this.supervisorCollection = supervisorCollection;
+    }
+
+    @XmlTransient
+    public Collection<Agente> getAgenteCollection() {
+        return agenteCollection;
+    }
+
+    public void setAgenteCollection(Collection<Agente> agenteCollection) {
+        this.agenteCollection = agenteCollection;
     }
 
     @Override

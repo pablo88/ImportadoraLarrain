@@ -8,7 +8,7 @@ package Models;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,16 +25,16 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "PRODUCTO_PEDIDO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProductoPedido.findAll", query = "SELECT p FROM ProductoPedido p")
-    , @NamedQuery(name = "ProductoPedido.findByIdProductoPedido", query = "SELECT p FROM ProductoPedido p WHERE p.idProductoPedido = :idProductoPedido")
-    , @NamedQuery(name = "ProductoPedido.findByCantidad2", query = "SELECT p FROM ProductoPedido p WHERE p.cantidad2 = :cantidad2")
-    , @NamedQuery(name = "ProductoPedido.findByTotal", query = "SELECT p FROM ProductoPedido p WHERE p.total = :total")})
+    @NamedQuery(name = "ProductoPedido.findAll", query = "SELECT p FROM ProductoPedido p"),
+    @NamedQuery(name = "ProductoPedido.findByIdProductoPedido", query = "SELECT p FROM ProductoPedido p WHERE p.idProductoPedido = :idProductoPedido"),
+    @NamedQuery(name = "ProductoPedido.findByCantidad2", query = "SELECT p FROM ProductoPedido p WHERE p.cantidad2 = :cantidad2"),
+    @NamedQuery(name = "ProductoPedido.findByTotal", query = "SELECT p FROM ProductoPedido p WHERE p.total = :total")})
 public class ProductoPedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,9 +53,9 @@ public class ProductoPedido implements Serializable {
     @Column(name = "TOTAL")
     private BigInteger total;
     @OneToMany(mappedBy = "idProductoPedido")
-    private List<Despacho> despachoList;
+    private Collection<Despacho> despachoCollection;
     @OneToMany(mappedBy = "idProductoPedido")
-    private List<BoletaProdpedido> boletaProdpedidoList;
+    private Collection<BoletaProdpedido> boletaProdpedidoCollection;
     @JoinColumn(name = "ID_PEDIDO", referencedColumnName = "ID_PEDIDO")
     @ManyToOne
     private Pedido idPedido;
@@ -101,21 +101,21 @@ public class ProductoPedido implements Serializable {
     }
 
     @XmlTransient
-    public List<Despacho> getDespachoList() {
-        return despachoList;
+    public Collection<Despacho> getDespachoCollection() {
+        return despachoCollection;
     }
 
-    public void setDespachoList(List<Despacho> despachoList) {
-        this.despachoList = despachoList;
+    public void setDespachoCollection(Collection<Despacho> despachoCollection) {
+        this.despachoCollection = despachoCollection;
     }
 
     @XmlTransient
-    public List<BoletaProdpedido> getBoletaProdpedidoList() {
-        return boletaProdpedidoList;
+    public Collection<BoletaProdpedido> getBoletaProdpedidoCollection() {
+        return boletaProdpedidoCollection;
     }
 
-    public void setBoletaProdpedidoList(List<BoletaProdpedido> boletaProdpedidoList) {
-        this.boletaProdpedidoList = boletaProdpedidoList;
+    public void setBoletaProdpedidoCollection(Collection<BoletaProdpedido> boletaProdpedidoCollection) {
+        this.boletaProdpedidoCollection = boletaProdpedidoCollection;
     }
 
     public Pedido getIdPedido() {

@@ -22,17 +22,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "PAGO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Pago.findAll", query = "SELECT p FROM Pago p")
-    , @NamedQuery(name = "Pago.findByIdPago", query = "SELECT p FROM Pago p WHERE p.idPago = :idPago")
-    , @NamedQuery(name = "Pago.findByMonto", query = "SELECT p FROM Pago p WHERE p.monto = :monto")
-    , @NamedQuery(name = "Pago.findByCuotas", query = "SELECT p FROM Pago p WHERE p.cuotas = :cuotas")
-    , @NamedQuery(name = "Pago.findByCantCuotas", query = "SELECT p FROM Pago p WHERE p.cantCuotas = :cantCuotas")})
+    @NamedQuery(name = "Pago.findAll", query = "SELECT p FROM Pago p"),
+    @NamedQuery(name = "Pago.findByIdPago", query = "SELECT p FROM Pago p WHERE p.idPago = :idPago"),
+    @NamedQuery(name = "Pago.findByMonto", query = "SELECT p FROM Pago p WHERE p.monto = :monto"),
+    @NamedQuery(name = "Pago.findByCuotas", query = "SELECT p FROM Pago p WHERE p.cuotas = :cuotas"),
+    @NamedQuery(name = "Pago.findByCantCuotas", query = "SELECT p FROM Pago p WHERE p.cantCuotas = :cantCuotas")})
 public class Pago implements Serializable {
 
     private static final long serialVersionUID = 1L;

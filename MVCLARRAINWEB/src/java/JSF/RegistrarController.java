@@ -13,11 +13,14 @@ import SessionBeans.UsuarioFacade;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.mail.Message;
@@ -44,7 +47,17 @@ public class RegistrarController implements Serializable {
     private int selectedItemIndex;
     private int selectedItemIndex1;
     private String alerta;
-
+    @ManagedProperty("#{param.key}")
+    private String key;
+    
+    public String getKey()
+    {
+        return key;
+    }
+    public void setKey(String llave)
+    {
+        key=llave;
+    }
     public String getAlerta() {
         return alerta;
     }
@@ -78,7 +91,7 @@ public class RegistrarController implements Serializable {
             current.setIdCliente(BigDecimal.ZERO);
             getFacade().create(current);
             if (crearUsuario(current)) {
-                if (enviarMail(current.getCorreoCliente())) {
+                if (enviarMail(current1)) {
                     alerta = "<script>alert('Cuenta creada exitosamente');</script>";
                     return "registrar";
                 } else {
@@ -86,7 +99,9 @@ public class RegistrarController implements Serializable {
                     return "registrar";
                 }
             } else {
-                return null;
+                getFacade().remove(current);
+                alerta = "<script>alert('Error al crear usuario.');</script>";
+                return "registrar";
             }
         } catch (Exception e) {
             return null;
@@ -98,8 +113,10 @@ public class RegistrarController implements Serializable {
             for (Cliente cli : getFacade().findAll()) {
                 if (cli.getCorreoCliente().compareToIgnoreCase(cliente.getCorreoCliente()) == 0) {
                     current1.setIdUsuario(cli.getIdCliente());
+                    break;
                 }
             }
+            current1.setKeyActivacion(crearRandom());
             current1.setCorreo(cliente.getCorreoCliente());
             current1.setActiva(BigInteger.ZERO);
             getFacade1().create(current1);
@@ -109,7 +126,7 @@ public class RegistrarController implements Serializable {
         }
     }
 
-    private boolean enviarMail(String correo) {
+    private boolean enviarMail(Usuario usu) {
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");
         props.setProperty("mail.smtp.starttls,enable", "true");
@@ -118,14 +135,41 @@ public class RegistrarController implements Serializable {
         try {
             MimeMessage msg = new MimeMessage(session);
             msg.setFrom("importadora1@gmail.com");
-            msg.setRecipients(Message.RecipientType.TO, correo);
+            msg.setRecipients(Message.RecipientType.TO, usu.getCorreo());
             msg.setSubject("Activacion de Cuenta Importadora Larrain");
             msg.setSentDate(new Date());
-            msg.setText("Hello, world!\n");
+            msg.setText("Active la cuenta en el siguiente link \n"
+                    + "http://localhost:7001/MVCLARRAINWEB/faces/login/activacion.xhtml?key=" + usu.getKeyActivacion());
             Transport.send(msg, "importadoralarrain1@gmail.com", "importadoraLarrain2017");
             return true;
         } catch (MessagingException mex) {
             return false;
         }
+    }
+
+    private String crearRandom() {
+        int passwordSize = 20;
+        char[] chars = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < passwordSize; i++) {
+            char c = chars[random.nextInt(chars.length)];
+            sb.append(c);
+        }
+        String output = sb.toString();
+        return output;
+    }
+
+    public boolean activarCuenta() {
+        for (Usuario usu : getFacade1().findAll()) {
+            if (usu.getKeyActivacion().compareTo(key)==0) 
+            {
+                usu.setKeyActivacion(" ");
+                usu.setActiva(BigInteger.ONE);
+                ejbFacade1.edit(usu);
+                return true;
+            }
+        }
+        return false;
     }
 }

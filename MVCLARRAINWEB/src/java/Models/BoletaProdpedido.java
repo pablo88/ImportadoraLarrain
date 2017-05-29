@@ -21,14 +21,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "BOLETA_PRODPEDIDO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "BoletaProdpedido.findAll", query = "SELECT b FROM BoletaProdpedido b")
-    , @NamedQuery(name = "BoletaProdpedido.findByIdBoletaProdpedido", query = "SELECT b FROM BoletaProdpedido b WHERE b.idBoletaProdpedido = :idBoletaProdpedido")})
+    @NamedQuery(name = "BoletaProdpedido.findAll", query = "SELECT b FROM BoletaProdpedido b"),
+    @NamedQuery(name = "BoletaProdpedido.findByIdBoletaProdpedido", query = "SELECT b FROM BoletaProdpedido b WHERE b.idBoletaProdpedido = :idBoletaProdpedido")})
 public class BoletaProdpedido implements Serializable {
 
     private static final long serialVersionUID = 1L;

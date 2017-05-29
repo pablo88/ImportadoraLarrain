@@ -25,16 +25,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "REPORTE_DE_VENTAS")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ReporteDeVentas.findAll", query = "SELECT r FROM ReporteDeVentas r")
-    , @NamedQuery(name = "ReporteDeVentas.findByIdReporteDeVentas", query = "SELECT r FROM ReporteDeVentas r WHERE r.idReporteDeVentas = :idReporteDeVentas")
-    , @NamedQuery(name = "ReporteDeVentas.findByFecReporte", query = "SELECT r FROM ReporteDeVentas r WHERE r.fecReporte = :fecReporte")
-    , @NamedQuery(name = "ReporteDeVentas.findByDescripcion", query = "SELECT r FROM ReporteDeVentas r WHERE r.descripcion = :descripcion")})
+    @NamedQuery(name = "ReporteDeVentas.findAll", query = "SELECT r FROM ReporteDeVentas r"),
+    @NamedQuery(name = "ReporteDeVentas.findByIdReporteDeVentas", query = "SELECT r FROM ReporteDeVentas r WHERE r.idReporteDeVentas = :idReporteDeVentas"),
+    @NamedQuery(name = "ReporteDeVentas.findByFecReporte", query = "SELECT r FROM ReporteDeVentas r WHERE r.fecReporte = :fecReporte"),
+    @NamedQuery(name = "ReporteDeVentas.findByDescripcion", query = "SELECT r FROM ReporteDeVentas r WHERE r.descripcion = :descripcion")})
 public class ReporteDeVentas implements Serializable {
 
     private static final long serialVersionUID = 1L;
