@@ -13,11 +13,17 @@ import SessionBeans.UsuarioFacade;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -36,11 +42,11 @@ public class RegistrarController implements Serializable {
     private int selectedItemIndex;
     private int selectedItemIndex1;
     private String alerta;
-    
+
     public String getAlerta() {
         return alerta;
     }
-    
+
     public Cliente getSelected() {
         if (current == null) {
             current = new Cliente();
@@ -70,8 +76,13 @@ public class RegistrarController implements Serializable {
             current.setIdCliente(BigDecimal.ZERO);
             getFacade().create(current);
             if (crearUsuario(current)) {
-                alerta = "<script>alert('Cuenta creada exitosamente');</script>";
-                return "registrar";
+                if (enviarMail(current.getCorreoCliente())) {
+                    alerta = "<script>alert('Cuenta creada exitosamente');</script>";
+                    return "registrar";
+                } else {
+                    alerta = "<script>alert('Cuenta creada,pero no se pudo enviar el correo');</script>";
+                    return "registrar";
+                }
             } else {
                 return null;
             }
@@ -96,4 +107,23 @@ public class RegistrarController implements Serializable {
         }
     }
 
+    private boolean enviarMail(String correo) {
+        String para = correo;
+        String de = "pablo.silva1698@gmail.com";
+        String host = "localhost";
+        Properties propiedades = System.getProperties();
+        propiedades.setProperty("mail.smtp.host", host);
+        Session sesion = Session.getDefaultInstance(propiedades);
+        try {
+            MimeMessage mensaje = new MimeMessage(sesion);
+            mensaje.setFrom(new InternetAddress(de));
+            mensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(para));
+            mensaje.setSubject("Primer correo sencillo");
+            mensaje.setText("El mensaje de nuestro primer correo");
+            Transport.send(mensaje);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
 }
