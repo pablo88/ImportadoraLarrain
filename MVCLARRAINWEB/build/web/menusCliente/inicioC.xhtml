@@ -6,26 +6,28 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="titleP"> 
+    <c:if test="${sessionScope.sesion == null}">
+        <script type="text/javascript">
+            alert('Sesion no iniciada\nNo puede acceder a esta pagina.');
+            window.location.href = "index.xhtml";
+        </script>
+    </c:if>
+
+    <ui:composition template="/templateC.xhtml">
+        <ui:define name="titleP">
             <h:outputText value="Bienvenido Cliente"></h:outputText>
         </ui:define>
-        <ui:define name="head">
-            <c:if test="${sessionScope.sesion == null}">
-                <script type="text/javascript">
-                    alert('Sesion no iniciada\nNo puede acceder a esta pagina.');
-                    window.location.href = "../login/index.xhtml";
-                </script>
-            </c:if>
-        </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:panelGroup class="contenedor formulario registrar col-md-4 col-md-offset-4" layout="block">
-                <h:form>
-                    <h:commandLink class="login formulario boton ingresar btn btn-success" action="#{loginController.cerrarSesion()}" value="Cerrar sesion" />
-                </h:form>
+            <h:panelGroup class="contenedorbarra col-md-12" layout="block">
+                <a class="navbar-brand" href="#">Bienvenido</a>
+                <ul class="nav navbar-nav">                              
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                </ul>
+                <ul class="Logout">
+                    <li><a></a></li>
+                </ul>
             </h:panelGroup>
         </ui:define>
     </ui:composition>
