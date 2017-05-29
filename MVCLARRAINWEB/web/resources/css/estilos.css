@@ -1,0 +1,59 @@
+.contenedor.formulario.registrar.col-md-2>form>input {
+    width: 100%;
+    margin-bottom: 1%;
+}
+.letras.formulario>input {
+    width: 70%;
+}
+.letras.formulario{
+   text-align: center;
+   padding-bottom: 3%;
+    opacity: 0.85;
+}
+.letras.formulario{
+    background: black;
+}
+.letras.formulario>label {
+    margin-top: 10%;
+    color: white;
+}
+a.login.formulario.boton.ingresar{
+    margin-top: 10%;
+    width:50%;
+}
+a.login.boton.registrar{
+    margin-top: 10%;
+    width:50%
+}
+.panel.botones{
+    background: black;
+    text-align: center;
+    padding-bottom: 10%;
+    border-bottom-left-radius: 20%;
+    border-bottom-right-radius: 20%;
+    opacity: 0.85;    
+}
+body{
+    background-image: url(../resources/imagenes/cuerpo.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+body.col-md-12 {
+    padding: 0%;
+}
+.contenedor.formulario.registrar{
+    text-align: center;
+}
+h1.login.titulo {
+padding-top: 10%;
+}
+.titulo{
+    text-align: center;
+    margin-bottom: 3%;
+    color:white;
+    background: black;
+}
+.btn-registrar{
+    margin-top: 10%;
+}

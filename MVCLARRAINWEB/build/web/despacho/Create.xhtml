@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateDespachoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateDespachoLabel_idDespacho}" for="idDespacho" />
+                    <h:inputText id="idDespacho" value="#{despachoController.selected.idDespacho}" title="#{bundle.CreateDespachoTitle_idDespacho}" required="true" requiredMessage="#{bundle.CreateDespachoRequiredMessage_idDespacho}"/>
+                    <h:outputLabel value="#{bundle.CreateDespachoLabel_fechaDespacho}" for="fechaDespacho" />
+                    <h:inputText id="fechaDespacho" value="#{despachoController.selected.fechaDespacho}" title="#{bundle.CreateDespachoTitle_fechaDespacho}" required="true" requiredMessage="#{bundle.CreateDespachoRequiredMessage_fechaDespacho}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateDespachoLabel_idProductosCompra}" for="idProductosCompra" />
+                    <h:selectOneMenu id="idProductosCompra" value="#{despachoController.selected.idProductosCompra}" title="#{bundle.CreateDespachoTitle_idProductosCompra}" >
+                        <f:selectItems value="#{prodCompraController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateDespachoLabel_idProductoPedido}" for="idProductoPedido" />
+                    <h:selectOneMenu id="idProductoPedido" value="#{despachoController.selected.idProductoPedido}" title="#{bundle.CreateDespachoTitle_idProductoPedido}" >
+                        <f:selectItems value="#{productoPedidoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateDespachoLabel_idRegistroBodega}" for="idRegistroBodega" />
+                    <h:selectOneMenu id="idRegistroBodega" value="#{despachoController.selected.idRegistroBodega}" title="#{bundle.CreateDespachoTitle_idRegistroBodega}" >
+                        <f:selectItems value="#{registroBodegaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{despachoController.create}" value="#{bundle.CreateDespachoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{despachoController.prepareList}" value="#{bundle.CreateDespachoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateDespachoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

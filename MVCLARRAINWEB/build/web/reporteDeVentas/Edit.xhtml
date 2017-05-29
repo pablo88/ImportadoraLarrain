@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditReporteDeVentasTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditReporteDeVentasLabel_idReporteDeVentas}" for="idReporteDeVentas" />
+                    <h:inputText id="idReporteDeVentas" value="#{reporteDeVentasController.selected.idReporteDeVentas}" title="#{bundle.EditReporteDeVentasTitle_idReporteDeVentas}" required="true" requiredMessage="#{bundle.EditReporteDeVentasRequiredMessage_idReporteDeVentas}"/>
+                    <h:outputLabel value="#{bundle.EditReporteDeVentasLabel_fecReporte}" for="fecReporte" />
+                    <h:inputText id="fecReporte" value="#{reporteDeVentasController.selected.fecReporte}" title="#{bundle.EditReporteDeVentasTitle_fecReporte}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditReporteDeVentasLabel_descripcion}" for="descripcion" />
+                    <h:inputText id="descripcion" value="#{reporteDeVentasController.selected.descripcion}" title="#{bundle.EditReporteDeVentasTitle_descripcion}" />
+                    <h:outputLabel value="#{bundle.EditReporteDeVentasLabel_idSucursal}" for="idSucursal" />
+                    <h:selectOneMenu id="idSucursal" value="#{reporteDeVentasController.selected.idSucursal}" title="#{bundle.EditReporteDeVentasTitle_idSucursal}" >
+                        <f:selectItems value="#{sucursalController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{reporteDeVentasController.update}" value="#{bundle.EditReporteDeVentasSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditReporteDeVentasViewLink}"/>
+                <br />
+                <h:commandLink action="#{reporteDeVentasController.prepareList}" value="#{bundle.EditReporteDeVentasShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditReporteDeVentasIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

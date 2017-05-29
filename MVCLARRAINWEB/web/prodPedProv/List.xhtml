@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListProdPedProvTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListProdPedProvEmpty}" rendered="#{prodPedProvController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{prodPedProvController.items.rowCount > 0}">
+                    <h:outputText value="#{prodPedProvController.pagination.pageFirstItem + 1}..#{prodPedProvController.pagination.pageLastItem + 1}/#{prodPedProvController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{prodPedProvController.previous}" value="#{bundle.Previous} #{prodPedProvController.pagination.pageSize}" rendered="#{prodPedProvController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{prodPedProvController.next}" value="#{bundle.Next} #{prodPedProvController.pagination.pageSize}" rendered="#{prodPedProvController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{prodPedProvController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProdPedProvTitle_idProdPedProv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idProdPedProv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProdPedProvTitle_cantidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cantidad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProdPedProvTitle_total}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.total}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProdPedProvTitle_idPedidoProv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idPedidoProv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProdPedProvTitle_idProducto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idProducto}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{prodPedProvController.prepareView}" value="#{bundle.ListProdPedProvViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{prodPedProvController.prepareEdit}" value="#{bundle.ListProdPedProvEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{prodPedProvController.destroy}" value="#{bundle.ListProdPedProvDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{prodPedProvController.prepareCreate}" value="#{bundle.ListProdPedProvCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListProdPedProvIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

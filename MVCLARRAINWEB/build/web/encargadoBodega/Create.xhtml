@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateEncargadoBodegaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateEncargadoBodegaLabel_idEncargadoBodega}" for="idEncargadoBodega" />
+                    <h:inputText id="idEncargadoBodega" value="#{encargadoBodegaController.selected.idEncargadoBodega}" title="#{bundle.CreateEncargadoBodegaTitle_idEncargadoBodega}" required="true" requiredMessage="#{bundle.CreateEncargadoBodegaRequiredMessage_idEncargadoBodega}"/>
+                    <h:outputLabel value="#{bundle.CreateEncargadoBodegaLabel_nombreEncargadoBodega}" for="nombreEncargadoBodega" />
+                    <h:inputText id="nombreEncargadoBodega" value="#{encargadoBodegaController.selected.nombreEncargadoBodega}" title="#{bundle.CreateEncargadoBodegaTitle_nombreEncargadoBodega}" required="true" requiredMessage="#{bundle.CreateEncargadoBodegaRequiredMessage_nombreEncargadoBodega}"/>
+                    <h:outputLabel value="#{bundle.CreateEncargadoBodegaLabel_appEncargadoBodega}" for="appEncargadoBodega" />
+                    <h:inputText id="appEncargadoBodega" value="#{encargadoBodegaController.selected.appEncargadoBodega}" title="#{bundle.CreateEncargadoBodegaTitle_appEncargadoBodega}" required="true" requiredMessage="#{bundle.CreateEncargadoBodegaRequiredMessage_appEncargadoBodega}"/>
+                    <h:outputLabel value="#{bundle.CreateEncargadoBodegaLabel_apmEncargadoBodega}" for="apmEncargadoBodega" />
+                    <h:inputText id="apmEncargadoBodega" value="#{encargadoBodegaController.selected.apmEncargadoBodega}" title="#{bundle.CreateEncargadoBodegaTitle_apmEncargadoBodega}" required="true" requiredMessage="#{bundle.CreateEncargadoBodegaRequiredMessage_apmEncargadoBodega}"/>
+                    <h:outputLabel value="#{bundle.CreateEncargadoBodegaLabel_correoEncargadoBodega}" for="correoEncargadoBodega" />
+                    <h:inputText id="correoEncargadoBodega" value="#{encargadoBodegaController.selected.correoEncargadoBodega}" title="#{bundle.CreateEncargadoBodegaTitle_correoEncargadoBodega}" required="true" requiredMessage="#{bundle.CreateEncargadoBodegaRequiredMessage_correoEncargadoBodega}"/>
+                    <h:outputLabel value="#{bundle.CreateEncargadoBodegaLabel_idUsuario}" for="idUsuario" />
+                    <h:selectOneMenu id="idUsuario" value="#{encargadoBodegaController.selected.idUsuario}" title="#{bundle.CreateEncargadoBodegaTitle_idUsuario}" >
+                        <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{encargadoBodegaController.create}" value="#{bundle.CreateEncargadoBodegaSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{encargadoBodegaController.prepareList}" value="#{bundle.CreateEncargadoBodegaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateEncargadoBodegaIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

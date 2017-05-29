@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titleP">           
+            <h:outputText value="Registrar"></h:outputText>
+        </ui:define>
+        <ui:define name="head">
+            <c:if test="${sessionScope.sesion != null}">
+                <script type="text/javascript">
+                    alert('Sesion iniciada\nNo se puede registrar.');
+                    window.location.href = "../login/index.xhtml";
+                </script>
+            </c:if>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:panelGroup class="contenedor formulario registrar col-md-4 col-md-offset-4" layout="block">
+                <h:form>
+                    <h:panelGroup class="letras formulario" layout="block">
+                        <h1 class="login titulo">Registrarse</h1><br/>
+                        <h:outputLabel value="Nombre" for="Nombre" /><br/>
+                        <h:inputText id="nombre" value="#{registrarController.selected.nombreCliente}"  required="true" requiredMessage="#{bundle.ViewRegistrarRequiredMessage_nombre}"/><br/>
+                        <h:outputLabel value="Rut" for="Rut" /><br/>
+                        <h:inputText id="rut" value="#{registrarController.selected.rutCliente}" title="#{bundle.ViewLoginLabel_pass}" required="true" requiredMessage="#{bundle.ViewRegistrarRequiredMessage_rut}"/><br/>
+                        <h:outputLabel value="Apellido Paterno" for="Apellido Paterno" /><br/>
+                        <h:inputText id="app" value="#{registrarController.selected.appCliente}"  required="true" requiredMessage="#{bundle.ViewRegistrarRequiredMessage_app}"/><br/>
+                        <h:outputLabel value="Apellido Materno" for="Apellido Materno" /><br/>
+                        <h:inputText id="apm" value="#{registrarController.selected.apmCliente}"  required="true" requiredMessage="#{bundle.ViewRegistrarRequiredMessage_apm}"/><br/>
+                        <h:outputLabel value="Correo" for="Correo" /><br/>
+                        <h:inputText id="correo" value="#{registrarController.selected.correoCliente}"  required="true" requiredMessage="#{bundle.ViewRegistrarRequiredMessage_correo}"/><br/>
+                        <h:outputLabel value="Direccion" for="Direccion" /><br/>
+                        <h:inputText id="direccion" value="#{registrarController.selected.direccionCliente}"  required="true" requiredMessage="#{bundle.ViewRegistrarRequiredMessage_direccion}"/><br/>
+                        <h:outputLabel value="Telefono" for="Telefono" /><br/>
+                        <h:inputText id="telefono" value="#{registrarController.selected.telefono}"  required="true" requiredMessage="#{bundle.ViewRegistrarRequiredMessage_fono}"/><br/>
+                        <h:outputLabel value="Codigo Postal" for="Codigo Postal" /><br/>
+                        <h:inputText id="codigo" value="#{registrarController.selected.codigoPostal}"  required="true" requiredMessage="#{bundle.ViewRegistrarRequiredMessage_codpos}"/><br/>
+                        <h:outputLabel value="Contraseña" for="Contraseña" /><br/>
+                        <h:inputSecret id="pass" value="#{registrarController.selected1.pass}"  required="true" requiredMessage="#{bundle.ViewRegistrarRequiredMessage_pass}"/><br/>
+                    </h:panelGroup>
+                    <h:panelGroup class="panel botones" layout="block">
+                        <h:commandLink class="login formulario boton ingresar btn btn-success" action="#{registrarController.crearCliente()}" value="Registrar" /><br/>
+                        <h:link class="login boton registrar btn btn-danger" outcome="/login/index?faces-redirect=true" value="Volver"/>
+                    </h:panelGroup>
+                </h:form>
+            </h:panelGroup>
+            <h:outputText value="#{registrarController.alerta}"  escape="false"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

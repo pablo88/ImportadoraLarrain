@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewEncargadoBodegaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_idEncargadoBodega}"/>
+                    <h:outputText value="#{encargadoBodegaController.selected.idEncargadoBodega}" title="#{bundle.ViewEncargadoBodegaTitle_idEncargadoBodega}"/>
+                    <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_nombreEncargadoBodega}"/>
+                    <h:outputText value="#{encargadoBodegaController.selected.nombreEncargadoBodega}" title="#{bundle.ViewEncargadoBodegaTitle_nombreEncargadoBodega}"/>
+                    <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_appEncargadoBodega}"/>
+                    <h:outputText value="#{encargadoBodegaController.selected.appEncargadoBodega}" title="#{bundle.ViewEncargadoBodegaTitle_appEncargadoBodega}"/>
+                    <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_apmEncargadoBodega}"/>
+                    <h:outputText value="#{encargadoBodegaController.selected.apmEncargadoBodega}" title="#{bundle.ViewEncargadoBodegaTitle_apmEncargadoBodega}"/>
+                    <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_correoEncargadoBodega}"/>
+                    <h:outputText value="#{encargadoBodegaController.selected.correoEncargadoBodega}" title="#{bundle.ViewEncargadoBodegaTitle_correoEncargadoBodega}"/>
+                    <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_idUsuario}"/>
+                    <h:outputText value="#{encargadoBodegaController.selected.idUsuario}" title="#{bundle.ViewEncargadoBodegaTitle_idUsuario}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{encargadoBodegaController.destroyAndView}" value="#{bundle.ViewEncargadoBodegaDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewEncargadoBodegaEditLink}"/>
+                <br />
+                <h:commandLink action="#{encargadoBodegaController.prepareCreate}" value="#{bundle.ViewEncargadoBodegaCreateLink}" />
+                <br />
+                <h:commandLink action="#{encargadoBodegaController.prepareList}" value="#{bundle.ViewEncargadoBodegaShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewEncargadoBodegaIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

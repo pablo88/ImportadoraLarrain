@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewAgenteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewAgenteLabel_idAgente}"/>
+                    <h:outputText value="#{agenteController.selected.idAgente}" title="#{bundle.ViewAgenteTitle_idAgente}"/>
+                    <h:outputText value="#{bundle.ViewAgenteLabel_nombreAgente}"/>
+                    <h:outputText value="#{agenteController.selected.nombreAgente}" title="#{bundle.ViewAgenteTitle_nombreAgente}"/>
+                    <h:outputText value="#{bundle.ViewAgenteLabel_correoAgente}"/>
+                    <h:outputText value="#{agenteController.selected.correoAgente}" title="#{bundle.ViewAgenteTitle_correoAgente}"/>
+                    <h:outputText value="#{bundle.ViewAgenteLabel_idUsuario}"/>
+                    <h:outputText value="#{agenteController.selected.idUsuario}" title="#{bundle.ViewAgenteTitle_idUsuario}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{agenteController.destroyAndView}" value="#{bundle.ViewAgenteDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewAgenteEditLink}"/>
+                <br />
+                <h:commandLink action="#{agenteController.prepareCreate}" value="#{bundle.ViewAgenteCreateLink}" />
+                <br />
+                <h:commandLink action="#{agenteController.prepareList}" value="#{bundle.ViewAgenteShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewAgenteIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

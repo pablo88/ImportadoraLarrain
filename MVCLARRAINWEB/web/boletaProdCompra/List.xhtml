@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListBoletaProdCompraTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListBoletaProdCompraEmpty}" rendered="#{boletaProdCompraController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{boletaProdCompraController.items.rowCount > 0}">
+                    <h:outputText value="#{boletaProdCompraController.pagination.pageFirstItem + 1}..#{boletaProdCompraController.pagination.pageLastItem + 1}/#{boletaProdCompraController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{boletaProdCompraController.previous}" value="#{bundle.Previous} #{boletaProdCompraController.pagination.pageSize}" rendered="#{boletaProdCompraController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{boletaProdCompraController.next}" value="#{bundle.Next} #{boletaProdCompraController.pagination.pageSize}" rendered="#{boletaProdCompraController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{boletaProdCompraController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBoletaProdCompraTitle_idBoletaCompra}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idBoletaCompra}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBoletaProdCompraTitle_idBoleta}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idBoleta}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBoletaProdCompraTitle_idProductosCompra}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idProductosCompra}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{boletaProdCompraController.prepareView}" value="#{bundle.ListBoletaProdCompraViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{boletaProdCompraController.prepareEdit}" value="#{bundle.ListBoletaProdCompraEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{boletaProdCompraController.destroy}" value="#{bundle.ListBoletaProdCompraDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{boletaProdCompraController.prepareCreate}" value="#{bundle.ListBoletaProdCompraCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListBoletaProdCompraIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

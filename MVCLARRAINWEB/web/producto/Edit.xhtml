@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditProductoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditProductoLabel_idProducto}" for="idProducto" />
+                    <h:inputText id="idProducto" value="#{productoController.selected.idProducto}" title="#{bundle.EditProductoTitle_idProducto}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_idProducto}"/>
+                    <h:outputLabel value="#{bundle.EditProductoLabel_nombreProducto}" for="nombreProducto" />
+                    <h:inputText id="nombreProducto" value="#{productoController.selected.nombreProducto}" title="#{bundle.EditProductoTitle_nombreProducto}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_nombreProducto}"/>
+                    <h:outputLabel value="#{bundle.EditProductoLabel_onlineProducto}" for="onlineProducto" />
+                    <h:inputText id="onlineProducto" value="#{productoController.selected.onlineProducto}" title="#{bundle.EditProductoTitle_onlineProducto}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_onlineProducto}"/>
+                    <h:outputLabel value="#{bundle.EditProductoLabel_stockProducto}" for="stockProducto" />
+                    <h:inputText id="stockProducto" value="#{productoController.selected.stockProducto}" title="#{bundle.EditProductoTitle_stockProducto}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_stockProducto}"/>
+                    <h:outputLabel value="#{bundle.EditProductoLabel_precioProducto}" for="precioProducto" />
+                    <h:inputText id="precioProducto" value="#{productoController.selected.precioProducto}" title="#{bundle.EditProductoTitle_precioProducto}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_precioProducto}"/>
+                    <h:outputLabel value="#{bundle.EditProductoLabel_idLocacionDeProducto}" for="idLocacionDeProducto" />
+                    <h:selectOneMenu id="idLocacionDeProducto" value="#{productoController.selected.idLocacionDeProducto}" title="#{bundle.EditProductoTitle_idLocacionDeProducto}" >
+                        <f:selectItems value="#{locacionDeProductoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditProductoLabel_idTipoProducto}" for="idTipoProducto" />
+                    <h:selectOneMenu id="idTipoProducto" value="#{productoController.selected.idTipoProducto}" title="#{bundle.EditProductoTitle_idTipoProducto}" >
+                        <f:selectItems value="#{tipoProductoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{productoController.update}" value="#{bundle.EditProductoSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditProductoViewLink}"/>
+                <br />
+                <h:commandLink action="#{productoController.prepareList}" value="#{bundle.EditProductoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditProductoIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

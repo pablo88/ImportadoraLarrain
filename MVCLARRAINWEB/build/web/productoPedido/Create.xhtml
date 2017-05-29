@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateProductoPedidoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateProductoPedidoLabel_idProductoPedido}" for="idProductoPedido" />
+                    <h:inputText id="idProductoPedido" value="#{productoPedidoController.selected.idProductoPedido}" title="#{bundle.CreateProductoPedidoTitle_idProductoPedido}" required="true" requiredMessage="#{bundle.CreateProductoPedidoRequiredMessage_idProductoPedido}"/>
+                    <h:outputLabel value="#{bundle.CreateProductoPedidoLabel_cantidad2}" for="cantidad2" />
+                    <h:inputText id="cantidad2" value="#{productoPedidoController.selected.cantidad2}" title="#{bundle.CreateProductoPedidoTitle_cantidad2}" required="true" requiredMessage="#{bundle.CreateProductoPedidoRequiredMessage_cantidad2}"/>
+                    <h:outputLabel value="#{bundle.CreateProductoPedidoLabel_total}" for="total" />
+                    <h:inputText id="total" value="#{productoPedidoController.selected.total}" title="#{bundle.CreateProductoPedidoTitle_total}" required="true" requiredMessage="#{bundle.CreateProductoPedidoRequiredMessage_total}"/>
+                    <h:outputLabel value="#{bundle.CreateProductoPedidoLabel_idPedido}" for="idPedido" />
+                    <h:selectOneMenu id="idPedido" value="#{productoPedidoController.selected.idPedido}" title="#{bundle.CreateProductoPedidoTitle_idPedido}" >
+                        <f:selectItems value="#{pedidoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateProductoPedidoLabel_idProducto}" for="idProducto" />
+                    <h:selectOneMenu id="idProducto" value="#{productoPedidoController.selected.idProducto}" title="#{bundle.CreateProductoPedidoTitle_idProducto}" >
+                        <f:selectItems value="#{productoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{productoPedidoController.create}" value="#{bundle.CreateProductoPedidoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{productoPedidoController.prepareList}" value="#{bundle.CreateProductoPedidoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateProductoPedidoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateBoletaProdCompraTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateBoletaProdCompraLabel_idBoletaCompra}" for="idBoletaCompra" />
+                    <h:inputText id="idBoletaCompra" value="#{boletaProdCompraController.selected.idBoletaCompra}" title="#{bundle.CreateBoletaProdCompraTitle_idBoletaCompra}" required="true" requiredMessage="#{bundle.CreateBoletaProdCompraRequiredMessage_idBoletaCompra}"/>
+                    <h:outputLabel value="#{bundle.CreateBoletaProdCompraLabel_idBoleta}" for="idBoleta" />
+                    <h:selectOneMenu id="idBoleta" value="#{boletaProdCompraController.selected.idBoleta}" title="#{bundle.CreateBoletaProdCompraTitle_idBoleta}" >
+                        <f:selectItems value="#{boletaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateBoletaProdCompraLabel_idProductosCompra}" for="idProductosCompra" />
+                    <h:selectOneMenu id="idProductosCompra" value="#{boletaProdCompraController.selected.idProductosCompra}" title="#{bundle.CreateBoletaProdCompraTitle_idProductosCompra}" >
+                        <f:selectItems value="#{prodCompraController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{boletaProdCompraController.create}" value="#{bundle.CreateBoletaProdCompraSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{boletaProdCompraController.prepareList}" value="#{bundle.CreateBoletaProdCompraShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateBoletaProdCompraIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

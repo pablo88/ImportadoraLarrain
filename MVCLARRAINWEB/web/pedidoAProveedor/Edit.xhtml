@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditPedidoAProveedorTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditPedidoAProveedorLabel_idPedidoProv}" for="idPedidoProv" />
+                    <h:inputText id="idPedidoProv" value="#{pedidoAProveedorController.selected.idPedidoProv}" title="#{bundle.EditPedidoAProveedorTitle_idPedidoProv}" required="true" requiredMessage="#{bundle.EditPedidoAProveedorRequiredMessage_idPedidoProv}"/>
+                    <h:outputLabel value="#{bundle.EditPedidoAProveedorLabel_fechaPedido}" for="fechaPedido" />
+                    <h:inputText id="fechaPedido" value="#{pedidoAProveedorController.selected.fechaPedido}" title="#{bundle.EditPedidoAProveedorTitle_fechaPedido}" required="true" requiredMessage="#{bundle.EditPedidoAProveedorRequiredMessage_fechaPedido}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditPedidoAProveedorLabel_idProveedor}" for="idProveedor" />
+                    <h:selectOneMenu id="idProveedor" value="#{pedidoAProveedorController.selected.idProveedor}" title="#{bundle.EditPedidoAProveedorTitle_idProveedor}" >
+                        <f:selectItems value="#{proveedoresController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditPedidoAProveedorLabel_idSupervisor}" for="idSupervisor" />
+                    <h:selectOneMenu id="idSupervisor" value="#{pedidoAProveedorController.selected.idSupervisor}" title="#{bundle.EditPedidoAProveedorTitle_idSupervisor}" >
+                        <f:selectItems value="#{supervisorController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{pedidoAProveedorController.update}" value="#{bundle.EditPedidoAProveedorSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditPedidoAProveedorViewLink}"/>
+                <br />
+                <h:commandLink action="#{pedidoAProveedorController.prepareList}" value="#{bundle.EditPedidoAProveedorShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditPedidoAProveedorIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

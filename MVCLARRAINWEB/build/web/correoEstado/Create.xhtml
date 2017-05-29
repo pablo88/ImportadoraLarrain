@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateCorreoEstadoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateCorreoEstadoLabel_idCorreoEstado}" for="idCorreoEstado" />
+                    <h:inputText id="idCorreoEstado" value="#{correoEstadoController.selected.idCorreoEstado}" title="#{bundle.CreateCorreoEstadoTitle_idCorreoEstado}" required="true" requiredMessage="#{bundle.CreateCorreoEstadoRequiredMessage_idCorreoEstado}"/>
+                    <h:outputLabel value="#{bundle.CreateCorreoEstadoLabel_chile}" for="chile" />
+                    <h:inputText id="chile" value="#{correoEstadoController.selected.chile}" title="#{bundle.CreateCorreoEstadoTitle_chile}" required="true" requiredMessage="#{bundle.CreateCorreoEstadoRequiredMessage_chile}"/>
+                    <h:outputLabel value="#{bundle.CreateCorreoEstadoLabel_bodega}" for="bodega" />
+                    <h:inputText id="bodega" value="#{correoEstadoController.selected.bodega}" title="#{bundle.CreateCorreoEstadoTitle_bodega}" required="true" requiredMessage="#{bundle.CreateCorreoEstadoRequiredMessage_bodega}"/>
+                    <h:outputLabel value="#{bundle.CreateCorreoEstadoLabel_despachado}" for="despachado" />
+                    <h:inputText id="despachado" value="#{correoEstadoController.selected.despachado}" title="#{bundle.CreateCorreoEstadoTitle_despachado}" required="true" requiredMessage="#{bundle.CreateCorreoEstadoRequiredMessage_despachado}"/>
+                    <h:outputLabel value="#{bundle.CreateCorreoEstadoLabel_idEstadoCompra}" for="idEstadoCompra" />
+                    <h:selectOneMenu id="idEstadoCompra" value="#{correoEstadoController.selected.idEstadoCompra}" title="#{bundle.CreateCorreoEstadoTitle_idEstadoCompra}" >
+                        <f:selectItems value="#{estadoCompraController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{correoEstadoController.create}" value="#{bundle.CreateCorreoEstadoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{correoEstadoController.prepareList}" value="#{bundle.CreateCorreoEstadoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateCorreoEstadoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

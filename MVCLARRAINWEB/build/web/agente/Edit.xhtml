@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditAgenteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditAgenteLabel_idAgente}" for="idAgente" />
+                    <h:inputText id="idAgente" value="#{agenteController.selected.idAgente}" title="#{bundle.EditAgenteTitle_idAgente}" required="true" requiredMessage="#{bundle.EditAgenteRequiredMessage_idAgente}"/>
+                    <h:outputLabel value="#{bundle.EditAgenteLabel_nombreAgente}" for="nombreAgente" />
+                    <h:inputText id="nombreAgente" value="#{agenteController.selected.nombreAgente}" title="#{bundle.EditAgenteTitle_nombreAgente}" required="true" requiredMessage="#{bundle.EditAgenteRequiredMessage_nombreAgente}"/>
+                    <h:outputLabel value="#{bundle.EditAgenteLabel_correoAgente}" for="correoAgente" />
+                    <h:inputText id="correoAgente" value="#{agenteController.selected.correoAgente}" title="#{bundle.EditAgenteTitle_correoAgente}" required="true" requiredMessage="#{bundle.EditAgenteRequiredMessage_correoAgente}"/>
+                    <h:outputLabel value="#{bundle.EditAgenteLabel_idUsuario}" for="idUsuario" />
+                    <h:selectOneMenu id="idUsuario" value="#{agenteController.selected.idUsuario}" title="#{bundle.EditAgenteTitle_idUsuario}" >
+                        <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{agenteController.update}" value="#{bundle.EditAgenteSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditAgenteViewLink}"/>
+                <br />
+                <h:commandLink action="#{agenteController.prepareList}" value="#{bundle.EditAgenteShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditAgenteIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

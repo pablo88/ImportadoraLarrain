@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewSupervisorTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewSupervisorLabel_idSupervisor}"/>
+                    <h:outputText value="#{supervisorController.selected.idSupervisor}" title="#{bundle.ViewSupervisorTitle_idSupervisor}"/>
+                    <h:outputText value="#{bundle.ViewSupervisorLabel_nombreSupervisor}"/>
+                    <h:outputText value="#{supervisorController.selected.nombreSupervisor}" title="#{bundle.ViewSupervisorTitle_nombreSupervisor}"/>
+                    <h:outputText value="#{bundle.ViewSupervisorLabel_appSupervisor}"/>
+                    <h:outputText value="#{supervisorController.selected.appSupervisor}" title="#{bundle.ViewSupervisorTitle_appSupervisor}"/>
+                    <h:outputText value="#{bundle.ViewSupervisorLabel_apmSupervisor}"/>
+                    <h:outputText value="#{supervisorController.selected.apmSupervisor}" title="#{bundle.ViewSupervisorTitle_apmSupervisor}"/>
+                    <h:outputText value="#{bundle.ViewSupervisorLabel_correoSupervisor}"/>
+                    <h:outputText value="#{supervisorController.selected.correoSupervisor}" title="#{bundle.ViewSupervisorTitle_correoSupervisor}"/>
+                    <h:outputText value="#{bundle.ViewSupervisorLabel_idSucursal}"/>
+                    <h:outputText value="#{supervisorController.selected.idSucursal}" title="#{bundle.ViewSupervisorTitle_idSucursal}"/>
+                    <h:outputText value="#{bundle.ViewSupervisorLabel_idUsuario}"/>
+                    <h:outputText value="#{supervisorController.selected.idUsuario}" title="#{bundle.ViewSupervisorTitle_idUsuario}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{supervisorController.destroyAndView}" value="#{bundle.ViewSupervisorDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewSupervisorEditLink}"/>
+                <br />
+                <h:commandLink action="#{supervisorController.prepareCreate}" value="#{bundle.ViewSupervisorCreateLink}" />
+                <br />
+                <h:commandLink action="#{supervisorController.prepareList}" value="#{bundle.ViewSupervisorShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewSupervisorIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

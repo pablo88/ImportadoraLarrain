@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateAdministradorTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_idAdmin}" for="idAdmin" />
+                    <h:inputText id="idAdmin" value="#{administradorController.selected.idAdmin}" title="#{bundle.CreateAdministradorTitle_idAdmin}" required="true" requiredMessage="#{bundle.CreateAdministradorRequiredMessage_idAdmin}"/>
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_correoAdmin}" for="correoAdmin" />
+                    <h:inputText id="correoAdmin" value="#{administradorController.selected.correoAdmin}" title="#{bundle.CreateAdministradorTitle_correoAdmin}" required="true" requiredMessage="#{bundle.CreateAdministradorRequiredMessage_correoAdmin}"/>
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_nombreAdmin}" for="nombreAdmin" />
+                    <h:inputText id="nombreAdmin" value="#{administradorController.selected.nombreAdmin}" title="#{bundle.CreateAdministradorTitle_nombreAdmin}" />
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_idUsuario}" for="idUsuario" />
+                    <h:selectOneMenu id="idUsuario" value="#{administradorController.selected.idUsuario}" title="#{bundle.CreateAdministradorTitle_idUsuario}" >
+                        <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{administradorController.create}" value="#{bundle.CreateAdministradorSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{administradorController.prepareList}" value="#{bundle.CreateAdministradorShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateAdministradorIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

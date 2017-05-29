@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditRegistroBodegaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditRegistroBodegaLabel_idRegistroBodega}" for="idRegistroBodega" />
+                    <h:inputText id="idRegistroBodega" value="#{registroBodegaController.selected.idRegistroBodega}" title="#{bundle.EditRegistroBodegaTitle_idRegistroBodega}" required="true" requiredMessage="#{bundle.EditRegistroBodegaRequiredMessage_idRegistroBodega}"/>
+                    <h:outputLabel value="#{bundle.EditRegistroBodegaLabel_fechaSalida}" for="fechaSalida" />
+                    <h:inputText id="fechaSalida" value="#{registroBodegaController.selected.fechaSalida}" title="#{bundle.EditRegistroBodegaTitle_fechaSalida}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditRegistroBodegaLabel_fechaEntrada}" for="fechaEntrada" />
+                    <h:inputText id="fechaEntrada" value="#{registroBodegaController.selected.fechaEntrada}" title="#{bundle.EditRegistroBodegaTitle_fechaEntrada}" required="true" requiredMessage="#{bundle.EditRegistroBodegaRequiredMessage_fechaEntrada}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditRegistroBodegaLabel_idEncargadoBodega}" for="idEncargadoBodega" />
+                    <h:selectOneMenu id="idEncargadoBodega" value="#{registroBodegaController.selected.idEncargadoBodega}" title="#{bundle.EditRegistroBodegaTitle_idEncargadoBodega}" >
+                        <f:selectItems value="#{encargadoBodegaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditRegistroBodegaLabel_idSucursal}" for="idSucursal" />
+                    <h:selectOneMenu id="idSucursal" value="#{registroBodegaController.selected.idSucursal}" title="#{bundle.EditRegistroBodegaTitle_idSucursal}" required="true" requiredMessage="#{bundle.EditRegistroBodegaRequiredMessage_idSucursal}">
+                        <f:selectItems value="#{sucursalController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{registroBodegaController.update}" value="#{bundle.EditRegistroBodegaSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditRegistroBodegaViewLink}"/>
+                <br />
+                <h:commandLink action="#{registroBodegaController.prepareList}" value="#{bundle.EditRegistroBodegaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditRegistroBodegaIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

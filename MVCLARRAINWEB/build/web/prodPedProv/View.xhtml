@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewProdPedProvTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewProdPedProvLabel_idProdPedProv}"/>
+                    <h:outputText value="#{prodPedProvController.selected.idProdPedProv}" title="#{bundle.ViewProdPedProvTitle_idProdPedProv}"/>
+                    <h:outputText value="#{bundle.ViewProdPedProvLabel_cantidad}"/>
+                    <h:outputText value="#{prodPedProvController.selected.cantidad}" title="#{bundle.ViewProdPedProvTitle_cantidad}"/>
+                    <h:outputText value="#{bundle.ViewProdPedProvLabel_total}"/>
+                    <h:outputText value="#{prodPedProvController.selected.total}" title="#{bundle.ViewProdPedProvTitle_total}"/>
+                    <h:outputText value="#{bundle.ViewProdPedProvLabel_idPedidoProv}"/>
+                    <h:outputText value="#{prodPedProvController.selected.idPedidoProv}" title="#{bundle.ViewProdPedProvTitle_idPedidoProv}"/>
+                    <h:outputText value="#{bundle.ViewProdPedProvLabel_idProducto}"/>
+                    <h:outputText value="#{prodPedProvController.selected.idProducto}" title="#{bundle.ViewProdPedProvTitle_idProducto}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{prodPedProvController.destroyAndView}" value="#{bundle.ViewProdPedProvDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewProdPedProvEditLink}"/>
+                <br />
+                <h:commandLink action="#{prodPedProvController.prepareCreate}" value="#{bundle.ViewProdPedProvCreateLink}" />
+                <br />
+                <h:commandLink action="#{prodPedProvController.prepareList}" value="#{bundle.ViewProdPedProvShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewProdPedProvIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
