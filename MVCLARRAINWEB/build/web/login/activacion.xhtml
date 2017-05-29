@@ -14,11 +14,35 @@ and open the template in the editor.
         <f:viewParam name="key" value="#{registrarController.key}" />
     </f:metadata>
     <h:head>
-        <c:if test="#{registrarController.activarCuenta()}">
-            <script type="text/javascript">
-                alert('Cuenta activada exitosamente.');
-            </script>
+        <c:if test="${sessionScope.sesion==null}">
+            <c:if test="#{registrarController.key!=null}">
+                <c:if test="#{registrarController.activarCuenta()}">
+                    <script type="text/javascript">
+                        alert('Cuenta activada exitosamente.');
+                        window.location.href = "../login/index.xhtml";
+                    </script>
+                </c:if>
+                <c:otherwise>
+                    <script type="text/javascript">
+                        alert('Ocurrio un error.\nNo se puedo activar la cuenta.');
+                        window.location.href = "../login/index.xhtml";
+                    </script>
+                </c:otherwise>
+            </c:if>
+            <c:otherwise>
+                <script type="text/javascript">
+                    alert('La llave no es valida.');
+                    window.location.href = "../login/index.xhtml";
+                </script>
+            </c:otherwise>
         </c:if>
+        <c:otherwise>
+            <script type="text/javascript">
+                alert('Sesion iniciada.\nNo puede acceder a esta pagina.');
+                window.location.href = "../login/index.xhtml";
+            </script>
+        </c:otherwise>
+
     </h:head>
     <h:body>
     </h:body>
