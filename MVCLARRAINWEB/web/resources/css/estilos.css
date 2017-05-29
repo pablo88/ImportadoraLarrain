@@ -17,11 +17,11 @@
     margin-top: 10%;
     color: white;
 }
-a.login.formulario.boton.ingresar{
+.login.formulario.boton.ingresar{
     margin-top: 10%;
     width:50%;
 }
-a.login.boton.registrar{
+    .login.boton.registrar{
     margin-top: 10%;
     width:50%
 }

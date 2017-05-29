@@ -34,7 +34,7 @@
                         <h:inputSecret id="pass" value="#{loginController.selected.pass}" title="#{bundle.ViewLoginLabel_pass}" required="true" requiredMessage="#{bundle.ViewLoginUsuarioRequiredMessage_pass}"/>
                     </h:panelGroup>
                     <h:panelGroup class="panel botones" layout="block">
-                        <h:commandLink class="login formulario boton ingresar btn btn-success" action="#{loginController.autenticarUsuario()}" value="Ingresar" />
+                        <h:commandButton class="login formulario boton ingresar btn btn-success" action="#{loginController.autenticarUsuario()}" value="Ingresar" />
                         <br/>
                         <h:link class="login boton registrar btn btn-info" outcome="/login/registrar?faces-redirect=true" value="#{bundle.ViewLoginRegistrarLink}"/>
                     </h:panelGroup>
