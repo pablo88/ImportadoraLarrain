@@ -34,15 +34,17 @@
                 <h:panelGroup class="col-md-12" layout="block">
                     <h:panelGroup class="tablaTProd col-md-2 col-md-offset-1" layout="block">
                         <p class="col-md-12">Buscar por Categorias</p>
+                        <h:form>
                         <ui:repeat var="ListaTProducto" value="#{tipoProductoController.obtenerTProducto()}">
                             <div class="producto detalle col-md-12">
                                 <p>#{ListaTProducto[1]}</p>
-                                <input type="checkbox" name="categoria" value="$"/>
+                                <input type="checkbox" id="categoria" name="categoria" value="#{productoController.selected1.idTipoProducto}"/>
                             </div>
                         </ui:repeat>
                          <div class="boton buscar categoria">
-                            <input type="submit" class="btn btn-info col-md-offset-3 col-md-6" value="Buscar"/>
+                             <h:commandButton class="btn btn-info col-md-6 col-md-offset-6" action="#{productoController.obtenerProductosTipo()}" value="Buscar"/>
                         </div>
+                        </h:form>
                     </h:panelGroup>
                     <h:panelGroup class="tablaProd col-md-8" layout="block">                                                          
                         <ui:repeat var="ListaProducto" value="#{productoController.obtenerProductos()}">
