@@ -247,7 +247,7 @@ public class ProductoController implements Serializable {
             String[] indata = new String[6];
             indata[0] = null;
             indata[1] = foto.getNombreProducto();
-            indata[2] = null;
+            indata[2] = foto.getImagenProducto();
             indata[3] = "$ " + foto.getPrecioProducto();
             indata[4] = "Stock: " + foto.getStockProducto();
             indata[5]= ""+foto.getIdProducto();
