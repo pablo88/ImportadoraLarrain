@@ -183,6 +183,8 @@ public class RegistrarController implements Serializable {
             for (Cliente cli : getFacade().findAll()) {
                 if (usu.getIdUsuario().compareTo(cli.getIdCliente()) == 0) {
                     cli.setIdUsuario(usu);
+                    cli.setCorreoCliente(usu.getCorreo());
+                    getFacade().edit(cli);
                     return true;
                 }
             }
