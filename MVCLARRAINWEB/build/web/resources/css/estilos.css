@@ -57,3 +57,17 @@ padding-top: 10%;
 .btn-registrar{
     margin-top: 10%;
 }
+
+.contenedorbarra {
+    background: rgb(23, 22, 22);
+    position: absolute;
+}
+
+.contenedorbarra.col-md-12>ul>li>a {
+    color: white;
+    text-decoration: none;
+}
+.contenedorbarra.col-md-12>a {
+    color: wheat;
+    text-decoration: none;
+}
