@@ -238,10 +238,9 @@ public class ProductoController implements Serializable {
 
     }
     public List obtenerProductos() {
-        //List<TipoProducto> listaCategoria = ejbFacadeTP.findAll();
+        try{
         List<Producto> listaProducto = ejbFacade.findAll();
         List<String[]> listaFotos = new ArrayList<>();
-        //String url = "data:image/jpeg;base64,";
         int i = 0;
         for (Producto foto : listaProducto) {
             String[] indata = new String[6];
@@ -254,6 +253,32 @@ public class ProductoController implements Serializable {
             listaFotos.add(indata);
         }
         return listaFotos;
+        }catch(Exception ex){
+            return null;
+        }
+
+        }
+    public List obtenerProductosTipo() {
+        try{
+        String[] categorias = null;
+        List<Producto> listaProducto = ejbFacade.findAll();
+        List<String[]> listaFotos = new ArrayList<>();
+        int i = 0;
+        for (Producto foto : listaProducto) {
+            String[] indata = new String[6];
+            indata[0] = null;
+            indata[1] = foto.getNombreProducto();
+            indata[2] = foto.getImagenProducto();
+            indata[3] = "$ " + foto.getPrecioProducto();
+            indata[4] = "Stock: " + foto.getStockProducto();
+            indata[5]= ""+foto.getIdProducto();
+            listaFotos.add(indata);
+        }
+        return listaFotos;
+        }catch(Exception ex){
+            return null;
+        }
+
         }
 
 }
