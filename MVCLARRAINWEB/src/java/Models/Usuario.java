@@ -61,7 +61,7 @@ public class Usuario implements Serializable {
     private BigInteger activa;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
+    @Size(min = 1, max = 256)
     @Column(name = "KEY_ACTIVACION")
     private String keyActivacion;
     @OneToMany(mappedBy = "idUsuario")

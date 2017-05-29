@@ -49,15 +49,15 @@ public class RegistrarController implements Serializable {
     private String alerta;
     @ManagedProperty("#{param.key}")
     private String key;
-    
-    public String getKey()
-    {
+
+    public String getKey() {
         return key;
     }
-    public void setKey(String llave)
-    {
-        key=llave;
+
+    public void setKey(String llave) {
+        key = llave;
     }
+
     public String getAlerta() {
         return alerta;
     }
@@ -94,7 +94,7 @@ public class RegistrarController implements Serializable {
                 if (enviarMail(current1)) {
                     alerta = "<script>alert('Cuenta creada exitosamente');"
                             + "window.location.href = '../login/index.xhtml';</script>";
-                    
+
                     return "registrar";
                 } else {
                     alerta = "<script>alert('Cuenta creada ,pero no se pudo enviar el correo');</script>";
@@ -122,7 +122,11 @@ public class RegistrarController implements Serializable {
             current1.setCorreo(cliente.getCorreoCliente());
             current1.setActiva(BigInteger.ZERO);
             getFacade1().create(current1);
-            return true;
+            if (modificarUsuario(current1)) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (Exception e) {
             return false;
         }
@@ -150,7 +154,7 @@ public class RegistrarController implements Serializable {
     }
 
     private String crearRandom() {
-        int passwordSize = 20;
+        int passwordSize = 100;
         char[] chars = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
@@ -164,13 +168,26 @@ public class RegistrarController implements Serializable {
 
     public boolean activarCuenta() {
         for (Usuario usu : getFacade1().findAll()) {
-            if (usu.getKeyActivacion().compareTo(key)==0) 
-            {
+            if (usu.getKeyActivacion().compareTo(key) == 0) {
                 usu.setKeyActivacion(" ");
                 usu.setActiva(BigInteger.ONE);
                 ejbFacade1.edit(usu);
                 return true;
             }
+        }
+        return false;
+    }
+
+    private boolean modificarUsuario(Usuario usu) {
+        try {
+            for (Cliente cli : getFacade().findAll()) {
+                if (usu.getIdUsuario().compareTo(cli.getIdCliente()) == 0) {
+                    cli.setIdUsuario(usu);
+                    return true;
+                }
+            }
+        } catch (Exception ex) {
+            return false;
         }
         return false;
     }
