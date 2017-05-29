@@ -26,10 +26,13 @@
                     <li><a href="#">Link</a></li>
                 </ul>              
             </h:panelGroup>
-            <h:panelGroup class="contenedorbarra col-md-offset-11">
+            <h:panelGroup class="contenedorbarra col-md-offset-11" layout="block">
                 <h:form>
                     <h:commandButton action="#{loginController.cerrarSesion()}" value="Cerrar Sesion" />
                 </h:form>
+            </h:panelGroup>
+            <h:panelGroup class="tablaProd" layout="block">
+                
             </h:panelGroup>
         </ui:define>
     </ui:composition>
