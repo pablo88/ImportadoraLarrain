@@ -4,8 +4,11 @@ import Models.Producto;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
 import SessionBeans.ProductoFacade;
-
+import SessionBeans.TipoProductoFacade;
+import Models.TipoProducto;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -22,10 +25,13 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class ProductoController implements Serializable {
 
+    
     private Producto current;
     private DataModel items = null;
     @EJB
     private SessionBeans.ProductoFacade ejbFacade;
+    @EJB
+    private SessionBeans.TipoProductoFacade ejbFacadeTP;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -231,5 +237,23 @@ public class ProductoController implements Serializable {
         }
 
     }
+    public List obtenerProductos() {
+        //List<TipoProducto> listaCategoria = ejbFacadeTP.findAll();
+        List<Producto> listaProducto = ejbFacade.findAll();
+        List<String[]> listaFotos = new ArrayList<>();
+        //String url = "data:image/jpeg;base64,";
+        int i = 0;
+        for (Producto foto : listaProducto) {
+            String[] indata = new String[6];
+            indata[0] = null;
+            indata[1] = foto.getNombreProducto();
+            indata[2] = null;
+            indata[3] = "$ " + foto.getPrecioProducto();
+            indata[4] = "Stock: " + foto.getStockProducto();
+            indata[5]= ""+foto.getIdProducto();
+            listaFotos.add(indata);
+        }
+        return listaFotos;
+        }
 
 }

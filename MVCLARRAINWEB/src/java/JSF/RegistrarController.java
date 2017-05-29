@@ -13,6 +13,7 @@ import SessionBeans.UsuarioFacade;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -20,6 +21,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -80,7 +82,7 @@ public class RegistrarController implements Serializable {
                     alerta = "<script>alert('Cuenta creada exitosamente');</script>";
                     return "registrar";
                 } else {
-                    alerta = "<script>alert('Cuenta creada,pero no se pudo enviar el correo');</script>";
+                    alerta = "<script>alert('Cuenta creada ,pero no se pudo enviar el correo');</script>";
                     return "registrar";
                 }
             } else {
@@ -108,21 +110,21 @@ public class RegistrarController implements Serializable {
     }
 
     private boolean enviarMail(String correo) {
-        String para = correo;
-        String de = "pablo.silva1698@gmail.com";
-        String host = "localhost";
-        Properties propiedades = System.getProperties();
-        propiedades.setProperty("mail.smtp.host", host);
-        Session sesion = Session.getDefaultInstance(propiedades);
+        Properties props = new Properties();
+        props.setProperty("mail.smtp.host", "smtp.gmail.com");
+        props.setProperty("mail.smtp.starttls,enable", "true");
+        props.setProperty("mail.smtp.starttls.enable", "true");
+        Session session = Session.getInstance(props, null);
         try {
-            MimeMessage mensaje = new MimeMessage(sesion);
-            mensaje.setFrom(new InternetAddress(de));
-            mensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(para));
-            mensaje.setSubject("Primer correo sencillo");
-            mensaje.setText("El mensaje de nuestro primer correo");
-            Transport.send(mensaje);
+            MimeMessage msg = new MimeMessage(session);
+            msg.setFrom("importadora1@gmail.com");
+            msg.setRecipients(Message.RecipientType.TO, correo);
+            msg.setSubject("Activacion de Cuenta Importadora Larrain");
+            msg.setSentDate(new Date());
+            msg.setText("Hello, world!\n");
+            Transport.send(msg, "importadoralarrain1@gmail.com", "importadoraLarrain2017");
             return true;
-        } catch (Exception ex) {
+        } catch (MessagingException mex) {
             return false;
         }
     }
