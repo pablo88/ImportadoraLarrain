@@ -1,5 +1,3 @@
-*\MVCLARRAINWEB\build\*
-MVCLARRAINWEB\build\*
-MVCLARRAINWEB/build/*
-*/MVCLARRAINWEB/build/*
+build/*
+!build/build.xml
 
