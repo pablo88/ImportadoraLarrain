@@ -7,7 +7,7 @@ package Models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,15 +24,15 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "COMUNA")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Comuna.findAll", query = "SELECT c FROM Comuna c")
-    , @NamedQuery(name = "Comuna.findByIdComuna", query = "SELECT c FROM Comuna c WHERE c.idComuna = :idComuna")
-    , @NamedQuery(name = "Comuna.findByNombreComuna", query = "SELECT c FROM Comuna c WHERE c.nombreComuna = :nombreComuna")})
+    @NamedQuery(name = "Comuna.findAll", query = "SELECT c FROM Comuna c"),
+    @NamedQuery(name = "Comuna.findByIdComuna", query = "SELECT c FROM Comuna c WHERE c.idComuna = :idComuna"),
+    @NamedQuery(name = "Comuna.findByNombreComuna", query = "SELECT c FROM Comuna c WHERE c.nombreComuna = :nombreComuna")})
 public class Comuna implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,7 +48,7 @@ public class Comuna implements Serializable {
     @Column(name = "NOMBRE_COMUNA")
     private String nombreComuna;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idComuna")
-    private List<Sucursal> sucursalList;
+    private Collection<Sucursal> sucursalCollection;
 
     public Comuna() {
     }
@@ -79,12 +79,12 @@ public class Comuna implements Serializable {
     }
 
     @XmlTransient
-    public List<Sucursal> getSucursalList() {
-        return sucursalList;
+    public Collection<Sucursal> getSucursalCollection() {
+        return sucursalCollection;
     }
 
-    public void setSucursalList(List<Sucursal> sucursalList) {
-        this.sucursalList = sucursalList;
+    public void setSucursalCollection(Collection<Sucursal> sucursalCollection) {
+        this.sucursalCollection = sucursalCollection;
     }
 
     @Override

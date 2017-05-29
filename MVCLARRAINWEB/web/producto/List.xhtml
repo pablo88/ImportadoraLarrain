@@ -52,6 +52,12 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_imagenProducto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.imagenProducto}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProductoTitle_idLocacionDeProducto}"/>
                             </f:facet>
                             <h:outputText value="#{item.idLocacionDeProducto}"/>

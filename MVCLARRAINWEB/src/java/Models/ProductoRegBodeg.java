@@ -22,15 +22,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "PRODUCTO_REG_BODEG")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProductoRegBodeg.findAll", query = "SELECT p FROM ProductoRegBodeg p")
-    , @NamedQuery(name = "ProductoRegBodeg.findByIdProductoRegBodeg", query = "SELECT p FROM ProductoRegBodeg p WHERE p.idProductoRegBodeg = :idProductoRegBodeg")
-    , @NamedQuery(name = "ProductoRegBodeg.findByCantidad", query = "SELECT p FROM ProductoRegBodeg p WHERE p.cantidad = :cantidad")})
+    @NamedQuery(name = "ProductoRegBodeg.findAll", query = "SELECT p FROM ProductoRegBodeg p"),
+    @NamedQuery(name = "ProductoRegBodeg.findByIdProductoRegBodeg", query = "SELECT p FROM ProductoRegBodeg p WHERE p.idProductoRegBodeg = :idProductoRegBodeg"),
+    @NamedQuery(name = "ProductoRegBodeg.findByCantidad", query = "SELECT p FROM ProductoRegBodeg p WHERE p.cantidad = :cantidad")})
 public class ProductoRegBodeg implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -24,15 +24,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "DESPACHO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Despacho.findAll", query = "SELECT d FROM Despacho d")
-    , @NamedQuery(name = "Despacho.findByIdDespacho", query = "SELECT d FROM Despacho d WHERE d.idDespacho = :idDespacho")
-    , @NamedQuery(name = "Despacho.findByFechaDespacho", query = "SELECT d FROM Despacho d WHERE d.fechaDespacho = :fechaDespacho")})
+    @NamedQuery(name = "Despacho.findAll", query = "SELECT d FROM Despacho d"),
+    @NamedQuery(name = "Despacho.findByIdDespacho", query = "SELECT d FROM Despacho d WHERE d.idDespacho = :idDespacho"),
+    @NamedQuery(name = "Despacho.findByFechaDespacho", query = "SELECT d FROM Despacho d WHERE d.fechaDespacho = :fechaDespacho")})
 public class Despacho implements Serializable {
 
     private static final long serialVersionUID = 1L;

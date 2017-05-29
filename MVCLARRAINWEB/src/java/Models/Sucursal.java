@@ -7,7 +7,7 @@ package Models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,16 +26,16 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "SUCURSAL")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Sucursal.findAll", query = "SELECT s FROM Sucursal s")
-    , @NamedQuery(name = "Sucursal.findByIdSucursal", query = "SELECT s FROM Sucursal s WHERE s.idSucursal = :idSucursal")
-    , @NamedQuery(name = "Sucursal.findByNombreSucursal", query = "SELECT s FROM Sucursal s WHERE s.nombreSucursal = :nombreSucursal")
-    , @NamedQuery(name = "Sucursal.findByDireccion", query = "SELECT s FROM Sucursal s WHERE s.direccion = :direccion")})
+    @NamedQuery(name = "Sucursal.findAll", query = "SELECT s FROM Sucursal s"),
+    @NamedQuery(name = "Sucursal.findByIdSucursal", query = "SELECT s FROM Sucursal s WHERE s.idSucursal = :idSucursal"),
+    @NamedQuery(name = "Sucursal.findByNombreSucursal", query = "SELECT s FROM Sucursal s WHERE s.nombreSucursal = :nombreSucursal"),
+    @NamedQuery(name = "Sucursal.findByDireccion", query = "SELECT s FROM Sucursal s WHERE s.direccion = :direccion")})
 public class Sucursal implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,16 +54,16 @@ public class Sucursal implements Serializable {
     @Column(name = "DIRECCION")
     private String direccion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSucursal")
-    private List<RegistroBodega> registroBodegaList;
+    private Collection<RegistroBodega> registroBodegaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSucursal")
-    private List<Vendedor> vendedorList;
+    private Collection<Vendedor> vendedorCollection;
     @OneToMany(mappedBy = "idSucursal")
-    private List<ReporteDeVentas> reporteDeVentasList;
+    private Collection<ReporteDeVentas> reporteDeVentasCollection;
     @JoinColumn(name = "ID_COMUNA", referencedColumnName = "ID_COMUNA")
     @ManyToOne(optional = false)
     private Comuna idComuna;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSucursal")
-    private List<Supervisor> supervisorList;
+    private Collection<Supervisor> supervisorCollection;
 
     public Sucursal() {
     }
@@ -102,30 +102,30 @@ public class Sucursal implements Serializable {
     }
 
     @XmlTransient
-    public List<RegistroBodega> getRegistroBodegaList() {
-        return registroBodegaList;
+    public Collection<RegistroBodega> getRegistroBodegaCollection() {
+        return registroBodegaCollection;
     }
 
-    public void setRegistroBodegaList(List<RegistroBodega> registroBodegaList) {
-        this.registroBodegaList = registroBodegaList;
-    }
-
-    @XmlTransient
-    public List<Vendedor> getVendedorList() {
-        return vendedorList;
-    }
-
-    public void setVendedorList(List<Vendedor> vendedorList) {
-        this.vendedorList = vendedorList;
+    public void setRegistroBodegaCollection(Collection<RegistroBodega> registroBodegaCollection) {
+        this.registroBodegaCollection = registroBodegaCollection;
     }
 
     @XmlTransient
-    public List<ReporteDeVentas> getReporteDeVentasList() {
-        return reporteDeVentasList;
+    public Collection<Vendedor> getVendedorCollection() {
+        return vendedorCollection;
     }
 
-    public void setReporteDeVentasList(List<ReporteDeVentas> reporteDeVentasList) {
-        this.reporteDeVentasList = reporteDeVentasList;
+    public void setVendedorCollection(Collection<Vendedor> vendedorCollection) {
+        this.vendedorCollection = vendedorCollection;
+    }
+
+    @XmlTransient
+    public Collection<ReporteDeVentas> getReporteDeVentasCollection() {
+        return reporteDeVentasCollection;
+    }
+
+    public void setReporteDeVentasCollection(Collection<ReporteDeVentas> reporteDeVentasCollection) {
+        this.reporteDeVentasCollection = reporteDeVentasCollection;
     }
 
     public Comuna getIdComuna() {
@@ -137,12 +137,12 @@ public class Sucursal implements Serializable {
     }
 
     @XmlTransient
-    public List<Supervisor> getSupervisorList() {
-        return supervisorList;
+    public Collection<Supervisor> getSupervisorCollection() {
+        return supervisorCollection;
     }
 
-    public void setSupervisorList(List<Supervisor> supervisorList) {
-        this.supervisorList = supervisorList;
+    public void setSupervisorCollection(Collection<Supervisor> supervisorCollection) {
+        this.supervisorCollection = supervisorCollection;
     }
 
     @Override

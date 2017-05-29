@@ -6,14 +6,15 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <c:if test="${sessionScope.sesion == null}">
-        <script type="text/javascript">
-            alert('Sesion no iniciada\nNo puede acceder a esta pagina.');
-            window.location.href = "index.xhtml";
-        </script>
-    </c:if>
-
     <ui:composition template="/templateC.xhtml">
+        <ui:define name="head">
+            <c:if test="${sessionScope.sesion == null}">
+                <script type="text/javascript">
+                    alert('Sesion no iniciada\nNo puede ingresar a esta pagina.');
+                    window.location.href = "../login/index.xhtml";
+                </script>
+            </c:if>
+        </ui:define>
         <ui:define name="titleP">
             <h:outputText value="Bienvenido Cliente"></h:outputText>
         </ui:define>
@@ -27,7 +28,7 @@
                         <li><a href="#">Link</a></li>
                     </ul>     
                     <h:form>
-                        <h:commandButton class="col-md-offset-8" action="#{loginController.cerrarSesion()}" value="Cerrar Sesion" />
+                        <h:commandButton class="boton cerrar sesion col-md-offset-8" action="#{loginController.cerrarSesion()}" value="Cerrar Sesion" />
                     </h:form>
                 </h:panelGroup>
                 <h:panelGroup class="col-md-12" layout="block">
@@ -39,10 +40,10 @@
                         </ui:repeat>                                     
                     </h:panelGroup>
                     <h:panelGroup class="tablaProd col-md-8" layout="block">                                                          
-                         <ui:repeat var="ListaProducto" value="#{productoController.obtenerProductos()}">
+                        <ui:repeat var="ListaProducto" value="#{productoController.obtenerProductos()}">
                             <div class="producto detalle col-md-4">                              
                                 <td><img class="img img-responsive img-rounded" src="../resources/imagenes/shelar.jpg"></img></td>
-                                <div class="col-md-12">
+                                <div class="producto detalle texto col-md-12">
                                     <p>#{ListaProducto[1]}</p>
                                     <p>#{ListaProducto[3]}</p>
                                     <p>#{ListaProducto[4]}</p>

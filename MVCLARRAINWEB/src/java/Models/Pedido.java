@@ -7,8 +7,8 @@ package Models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,15 +27,15 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "PEDIDO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Pedido.findAll", query = "SELECT p FROM Pedido p")
-    , @NamedQuery(name = "Pedido.findByIdPedido", query = "SELECT p FROM Pedido p WHERE p.idPedido = :idPedido")
-    , @NamedQuery(name = "Pedido.findByFechaPedido", query = "SELECT p FROM Pedido p WHERE p.fechaPedido = :fechaPedido")})
+    @NamedQuery(name = "Pedido.findAll", query = "SELECT p FROM Pedido p"),
+    @NamedQuery(name = "Pedido.findByIdPedido", query = "SELECT p FROM Pedido p WHERE p.idPedido = :idPedido"),
+    @NamedQuery(name = "Pedido.findByFechaPedido", query = "SELECT p FROM Pedido p WHERE p.fechaPedido = :fechaPedido")})
 public class Pedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,7 +57,7 @@ public class Pedido implements Serializable {
     @ManyToOne
     private Vendedor idVendedor;
     @OneToMany(mappedBy = "idPedido")
-    private List<ProductoPedido> productoPedidoList;
+    private Collection<ProductoPedido> productoPedidoCollection;
 
     public Pedido() {
     }
@@ -104,12 +104,12 @@ public class Pedido implements Serializable {
     }
 
     @XmlTransient
-    public List<ProductoPedido> getProductoPedidoList() {
-        return productoPedidoList;
+    public Collection<ProductoPedido> getProductoPedidoCollection() {
+        return productoPedidoCollection;
     }
 
-    public void setProductoPedidoList(List<ProductoPedido> productoPedidoList) {
-        this.productoPedidoList = productoPedidoList;
+    public void setProductoPedidoCollection(Collection<ProductoPedido> productoPedidoCollection) {
+        this.productoPedidoCollection = productoPedidoCollection;
     }
 
     @Override

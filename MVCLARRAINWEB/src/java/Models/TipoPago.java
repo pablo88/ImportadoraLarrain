@@ -7,7 +7,7 @@ package Models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,15 +24,15 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "TIPO_PAGO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TipoPago.findAll", query = "SELECT t FROM TipoPago t")
-    , @NamedQuery(name = "TipoPago.findByIdTipoPago", query = "SELECT t FROM TipoPago t WHERE t.idTipoPago = :idTipoPago")
-    , @NamedQuery(name = "TipoPago.findByDescripcion", query = "SELECT t FROM TipoPago t WHERE t.descripcion = :descripcion")})
+    @NamedQuery(name = "TipoPago.findAll", query = "SELECT t FROM TipoPago t"),
+    @NamedQuery(name = "TipoPago.findByIdTipoPago", query = "SELECT t FROM TipoPago t WHERE t.idTipoPago = :idTipoPago"),
+    @NamedQuery(name = "TipoPago.findByDescripcion", query = "SELECT t FROM TipoPago t WHERE t.descripcion = :descripcion")})
 public class TipoPago implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,7 +46,7 @@ public class TipoPago implements Serializable {
     @Column(name = "DESCRIPCION")
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoPago")
-    private List<Pago> pagoList;
+    private Collection<Pago> pagoCollection;
 
     public TipoPago() {
     }
@@ -72,12 +72,12 @@ public class TipoPago implements Serializable {
     }
 
     @XmlTransient
-    public List<Pago> getPagoList() {
-        return pagoList;
+    public Collection<Pago> getPagoCollection() {
+        return pagoCollection;
     }
 
-    public void setPagoList(List<Pago> pagoList) {
-        this.pagoList = pagoList;
+    public void setPagoCollection(Collection<Pago> pagoCollection) {
+        this.pagoCollection = pagoCollection;
     }
 
     @Override

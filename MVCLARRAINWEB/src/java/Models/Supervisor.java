@@ -7,7 +7,7 @@ package Models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,18 +25,18 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "SUPERVISOR")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Supervisor.findAll", query = "SELECT s FROM Supervisor s")
-    , @NamedQuery(name = "Supervisor.findByIdSupervisor", query = "SELECT s FROM Supervisor s WHERE s.idSupervisor = :idSupervisor")
-    , @NamedQuery(name = "Supervisor.findByNombreSupervisor", query = "SELECT s FROM Supervisor s WHERE s.nombreSupervisor = :nombreSupervisor")
-    , @NamedQuery(name = "Supervisor.findByAppSupervisor", query = "SELECT s FROM Supervisor s WHERE s.appSupervisor = :appSupervisor")
-    , @NamedQuery(name = "Supervisor.findByApmSupervisor", query = "SELECT s FROM Supervisor s WHERE s.apmSupervisor = :apmSupervisor")
-    , @NamedQuery(name = "Supervisor.findByCorreoSupervisor", query = "SELECT s FROM Supervisor s WHERE s.correoSupervisor = :correoSupervisor")})
+    @NamedQuery(name = "Supervisor.findAll", query = "SELECT s FROM Supervisor s"),
+    @NamedQuery(name = "Supervisor.findByIdSupervisor", query = "SELECT s FROM Supervisor s WHERE s.idSupervisor = :idSupervisor"),
+    @NamedQuery(name = "Supervisor.findByNombreSupervisor", query = "SELECT s FROM Supervisor s WHERE s.nombreSupervisor = :nombreSupervisor"),
+    @NamedQuery(name = "Supervisor.findByAppSupervisor", query = "SELECT s FROM Supervisor s WHERE s.appSupervisor = :appSupervisor"),
+    @NamedQuery(name = "Supervisor.findByApmSupervisor", query = "SELECT s FROM Supervisor s WHERE s.apmSupervisor = :apmSupervisor"),
+    @NamedQuery(name = "Supervisor.findByCorreoSupervisor", query = "SELECT s FROM Supervisor s WHERE s.correoSupervisor = :correoSupervisor")})
 public class Supervisor implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -67,7 +67,7 @@ public class Supervisor implements Serializable {
     @Column(name = "CORREO_SUPERVISOR")
     private String correoSupervisor;
     @OneToMany(mappedBy = "idSupervisor")
-    private List<PedidoAProveedor> pedidoAProveedorList;
+    private Collection<PedidoAProveedor> pedidoAProveedorCollection;
     @JoinColumn(name = "ID_SUCURSAL", referencedColumnName = "ID_SUCURSAL")
     @ManyToOne(optional = false)
     private Sucursal idSucursal;
@@ -131,12 +131,12 @@ public class Supervisor implements Serializable {
     }
 
     @XmlTransient
-    public List<PedidoAProveedor> getPedidoAProveedorList() {
-        return pedidoAProveedorList;
+    public Collection<PedidoAProveedor> getPedidoAProveedorCollection() {
+        return pedidoAProveedorCollection;
     }
 
-    public void setPedidoAProveedorList(List<PedidoAProveedor> pedidoAProveedorList) {
-        this.pedidoAProveedorList = pedidoAProveedorList;
+    public void setPedidoAProveedorCollection(Collection<PedidoAProveedor> pedidoAProveedorCollection) {
+        this.pedidoAProveedorCollection = pedidoAProveedorCollection;
     }
 
     public Sucursal getIdSucursal() {

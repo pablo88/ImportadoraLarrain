@@ -7,8 +7,8 @@ package Models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,16 +27,16 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "REGISTRO_BODEGA")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "RegistroBodega.findAll", query = "SELECT r FROM RegistroBodega r")
-    , @NamedQuery(name = "RegistroBodega.findByIdRegistroBodega", query = "SELECT r FROM RegistroBodega r WHERE r.idRegistroBodega = :idRegistroBodega")
-    , @NamedQuery(name = "RegistroBodega.findByFechaSalida", query = "SELECT r FROM RegistroBodega r WHERE r.fechaSalida = :fechaSalida")
-    , @NamedQuery(name = "RegistroBodega.findByFechaEntrada", query = "SELECT r FROM RegistroBodega r WHERE r.fechaEntrada = :fechaEntrada")})
+    @NamedQuery(name = "RegistroBodega.findAll", query = "SELECT r FROM RegistroBodega r"),
+    @NamedQuery(name = "RegistroBodega.findByIdRegistroBodega", query = "SELECT r FROM RegistroBodega r WHERE r.idRegistroBodega = :idRegistroBodega"),
+    @NamedQuery(name = "RegistroBodega.findByFechaSalida", query = "SELECT r FROM RegistroBodega r WHERE r.fechaSalida = :fechaSalida"),
+    @NamedQuery(name = "RegistroBodega.findByFechaEntrada", query = "SELECT r FROM RegistroBodega r WHERE r.fechaEntrada = :fechaEntrada")})
 public class RegistroBodega implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,7 +55,7 @@ public class RegistroBodega implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEntrada;
     @OneToMany(mappedBy = "idRegistroBodega")
-    private List<Despacho> despachoList;
+    private Collection<Despacho> despachoCollection;
     @JoinColumn(name = "ID_ENCARGADO_BODEGA", referencedColumnName = "ID_ENCARGADO_BODEGA")
     @ManyToOne
     private EncargadoBodega idEncargadoBodega;
@@ -63,7 +63,7 @@ public class RegistroBodega implements Serializable {
     @ManyToOne(optional = false)
     private Sucursal idSucursal;
     @OneToMany(mappedBy = "idRegistroBodega")
-    private List<ProductoRegBodeg> productoRegBodegList;
+    private Collection<ProductoRegBodeg> productoRegBodegCollection;
 
     public RegistroBodega() {
     }
@@ -102,12 +102,12 @@ public class RegistroBodega implements Serializable {
     }
 
     @XmlTransient
-    public List<Despacho> getDespachoList() {
-        return despachoList;
+    public Collection<Despacho> getDespachoCollection() {
+        return despachoCollection;
     }
 
-    public void setDespachoList(List<Despacho> despachoList) {
-        this.despachoList = despachoList;
+    public void setDespachoCollection(Collection<Despacho> despachoCollection) {
+        this.despachoCollection = despachoCollection;
     }
 
     public EncargadoBodega getIdEncargadoBodega() {
@@ -127,12 +127,12 @@ public class RegistroBodega implements Serializable {
     }
 
     @XmlTransient
-    public List<ProductoRegBodeg> getProductoRegBodegList() {
-        return productoRegBodegList;
+    public Collection<ProductoRegBodeg> getProductoRegBodegCollection() {
+        return productoRegBodegCollection;
     }
 
-    public void setProductoRegBodegList(List<ProductoRegBodeg> productoRegBodegList) {
-        this.productoRegBodegList = productoRegBodegList;
+    public void setProductoRegBodegCollection(Collection<ProductoRegBodeg> productoRegBodegCollection) {
+        this.productoRegBodegCollection = productoRegBodegCollection;
     }
 
     @Override

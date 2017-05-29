@@ -7,7 +7,7 @@ package Models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,15 +23,15 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "LOCACION_DE_PRODUCTO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "LocacionDeProducto.findAll", query = "SELECT l FROM LocacionDeProducto l")
-    , @NamedQuery(name = "LocacionDeProducto.findByIdLocacionDeProducto", query = "SELECT l FROM LocacionDeProducto l WHERE l.idLocacionDeProducto = :idLocacionDeProducto")
-    , @NamedQuery(name = "LocacionDeProducto.findByDescripcion", query = "SELECT l FROM LocacionDeProducto l WHERE l.descripcion = :descripcion")})
+    @NamedQuery(name = "LocacionDeProducto.findAll", query = "SELECT l FROM LocacionDeProducto l"),
+    @NamedQuery(name = "LocacionDeProducto.findByIdLocacionDeProducto", query = "SELECT l FROM LocacionDeProducto l WHERE l.idLocacionDeProducto = :idLocacionDeProducto"),
+    @NamedQuery(name = "LocacionDeProducto.findByDescripcion", query = "SELECT l FROM LocacionDeProducto l WHERE l.descripcion = :descripcion")})
 public class LocacionDeProducto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,7 +47,7 @@ public class LocacionDeProducto implements Serializable {
     @Column(name = "DESCRIPCION")
     private String descripcion;
     @OneToMany(mappedBy = "idLocacionDeProducto")
-    private List<Producto> productoList;
+    private Collection<Producto> productoCollection;
 
     public LocacionDeProducto() {
     }
@@ -78,12 +78,12 @@ public class LocacionDeProducto implements Serializable {
     }
 
     @XmlTransient
-    public List<Producto> getProductoList() {
-        return productoList;
+    public Collection<Producto> getProductoCollection() {
+        return productoCollection;
     }
 
-    public void setProductoList(List<Producto> productoList) {
-        this.productoList = productoList;
+    public void setProductoCollection(Collection<Producto> productoCollection) {
+        this.productoCollection = productoCollection;
     }
 
     @Override

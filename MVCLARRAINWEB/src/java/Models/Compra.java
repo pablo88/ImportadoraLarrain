@@ -7,8 +7,8 @@ package Models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,15 +27,15 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "COMPRA")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Compra.findAll", query = "SELECT c FROM Compra c")
-    , @NamedQuery(name = "Compra.findByIdCompra", query = "SELECT c FROM Compra c WHERE c.idCompra = :idCompra")
-    , @NamedQuery(name = "Compra.findByFechaCompra", query = "SELECT c FROM Compra c WHERE c.fechaCompra = :fechaCompra")})
+    @NamedQuery(name = "Compra.findAll", query = "SELECT c FROM Compra c"),
+    @NamedQuery(name = "Compra.findByIdCompra", query = "SELECT c FROM Compra c WHERE c.idCompra = :idCompra"),
+    @NamedQuery(name = "Compra.findByFechaCompra", query = "SELECT c FROM Compra c WHERE c.fechaCompra = :fechaCompra")})
 public class Compra implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,7 +51,7 @@ public class Compra implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCompra;
     @OneToMany(mappedBy = "idCompra")
-    private List<ProdCompra> prodCompraList;
+    private Collection<ProdCompra> prodCompraCollection;
     @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE")
     @ManyToOne
     private Cliente idCliente;
@@ -88,12 +88,12 @@ public class Compra implements Serializable {
     }
 
     @XmlTransient
-    public List<ProdCompra> getProdCompraList() {
-        return prodCompraList;
+    public Collection<ProdCompra> getProdCompraCollection() {
+        return prodCompraCollection;
     }
 
-    public void setProdCompraList(List<ProdCompra> prodCompraList) {
-        this.prodCompraList = prodCompraList;
+    public void setProdCompraCollection(Collection<ProdCompra> prodCompraCollection) {
+        this.prodCompraCollection = prodCompraCollection;
     }
 
     public Cliente getIdCliente() {

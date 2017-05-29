@@ -22,17 +22,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "CORREO_ESTADO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "CorreoEstado.findAll", query = "SELECT c FROM CorreoEstado c")
-    , @NamedQuery(name = "CorreoEstado.findByIdCorreoEstado", query = "SELECT c FROM CorreoEstado c WHERE c.idCorreoEstado = :idCorreoEstado")
-    , @NamedQuery(name = "CorreoEstado.findByChile", query = "SELECT c FROM CorreoEstado c WHERE c.chile = :chile")
-    , @NamedQuery(name = "CorreoEstado.findByBodega", query = "SELECT c FROM CorreoEstado c WHERE c.bodega = :bodega")
-    , @NamedQuery(name = "CorreoEstado.findByDespachado", query = "SELECT c FROM CorreoEstado c WHERE c.despachado = :despachado")})
+    @NamedQuery(name = "CorreoEstado.findAll", query = "SELECT c FROM CorreoEstado c"),
+    @NamedQuery(name = "CorreoEstado.findByIdCorreoEstado", query = "SELECT c FROM CorreoEstado c WHERE c.idCorreoEstado = :idCorreoEstado"),
+    @NamedQuery(name = "CorreoEstado.findByChile", query = "SELECT c FROM CorreoEstado c WHERE c.chile = :chile"),
+    @NamedQuery(name = "CorreoEstado.findByBodega", query = "SELECT c FROM CorreoEstado c WHERE c.bodega = :bodega"),
+    @NamedQuery(name = "CorreoEstado.findByDespachado", query = "SELECT c FROM CorreoEstado c WHERE c.despachado = :despachado")})
 public class CorreoEstado implements Serializable {
 
     private static final long serialVersionUID = 1L;

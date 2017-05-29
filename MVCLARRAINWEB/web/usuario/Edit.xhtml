@@ -23,6 +23,8 @@
                     <h:inputTextarea rows="4" cols="30" id="pass" value="#{usuarioController.selected.pass}" title="#{bundle.EditUsuarioTitle_pass}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_pass}"/>
                     <h:outputLabel value="#{bundle.EditUsuarioLabel_activa}" for="activa" />
                     <h:inputText id="activa" value="#{usuarioController.selected.activa}" title="#{bundle.EditUsuarioTitle_activa}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_activa}"/>
+                    <h:outputLabel value="#{bundle.EditUsuarioLabel_keyActivacion}" for="keyActivacion" />
+                    <h:inputText id="keyActivacion" value="#{usuarioController.selected.keyActivacion}" title="#{bundle.EditUsuarioTitle_keyActivacion}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_keyActivacion}"/>
                 </h:panelGrid>
                 <h:commandLink action="#{usuarioController.update}" value="#{bundle.EditUsuarioSaveLink}"/>
                 <br />

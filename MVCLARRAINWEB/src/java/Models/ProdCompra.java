@@ -8,7 +8,7 @@ package Models;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,16 +25,16 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "PROD_COMPRA")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProdCompra.findAll", query = "SELECT p FROM ProdCompra p")
-    , @NamedQuery(name = "ProdCompra.findByIdProductosCompra", query = "SELECT p FROM ProdCompra p WHERE p.idProductosCompra = :idProductosCompra")
-    , @NamedQuery(name = "ProdCompra.findByCantidad", query = "SELECT p FROM ProdCompra p WHERE p.cantidad = :cantidad")
-    , @NamedQuery(name = "ProdCompra.findByTotal", query = "SELECT p FROM ProdCompra p WHERE p.total = :total")})
+    @NamedQuery(name = "ProdCompra.findAll", query = "SELECT p FROM ProdCompra p"),
+    @NamedQuery(name = "ProdCompra.findByIdProductosCompra", query = "SELECT p FROM ProdCompra p WHERE p.idProductosCompra = :idProductosCompra"),
+    @NamedQuery(name = "ProdCompra.findByCantidad", query = "SELECT p FROM ProdCompra p WHERE p.cantidad = :cantidad"),
+    @NamedQuery(name = "ProdCompra.findByTotal", query = "SELECT p FROM ProdCompra p WHERE p.total = :total")})
 public class ProdCompra implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,9 +53,9 @@ public class ProdCompra implements Serializable {
     @Column(name = "TOTAL")
     private BigInteger total;
     @OneToMany(mappedBy = "idProductosCompra")
-    private List<Despacho> despachoList;
+    private Collection<Despacho> despachoCollection;
     @OneToMany(mappedBy = "idProductosCompra")
-    private List<BoletaProdCompra> boletaProdCompraList;
+    private Collection<BoletaProdCompra> boletaProdCompraCollection;
     @JoinColumn(name = "ID_COMPRA", referencedColumnName = "ID_COMPRA")
     @ManyToOne
     private Compra idCompra;
@@ -101,21 +101,21 @@ public class ProdCompra implements Serializable {
     }
 
     @XmlTransient
-    public List<Despacho> getDespachoList() {
-        return despachoList;
+    public Collection<Despacho> getDespachoCollection() {
+        return despachoCollection;
     }
 
-    public void setDespachoList(List<Despacho> despachoList) {
-        this.despachoList = despachoList;
+    public void setDespachoCollection(Collection<Despacho> despachoCollection) {
+        this.despachoCollection = despachoCollection;
     }
 
     @XmlTransient
-    public List<BoletaProdCompra> getBoletaProdCompraList() {
-        return boletaProdCompraList;
+    public Collection<BoletaProdCompra> getBoletaProdCompraCollection() {
+        return boletaProdCompraCollection;
     }
 
-    public void setBoletaProdCompraList(List<BoletaProdCompra> boletaProdCompraList) {
-        this.boletaProdCompraList = boletaProdCompraList;
+    public void setBoletaProdCompraCollection(Collection<BoletaProdCompra> boletaProdCompraCollection) {
+        this.boletaProdCompraCollection = boletaProdCompraCollection;
     }
 
     public Compra getIdCompra() {

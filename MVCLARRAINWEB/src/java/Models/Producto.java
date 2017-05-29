@@ -8,7 +8,7 @@ package Models;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,18 +26,19 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "PRODUCTO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p")
-    , @NamedQuery(name = "Producto.findByIdProducto", query = "SELECT p FROM Producto p WHERE p.idProducto = :idProducto")
-    , @NamedQuery(name = "Producto.findByNombreProducto", query = "SELECT p FROM Producto p WHERE p.nombreProducto = :nombreProducto")
-    , @NamedQuery(name = "Producto.findByOnlineProducto", query = "SELECT p FROM Producto p WHERE p.onlineProducto = :onlineProducto")
-    , @NamedQuery(name = "Producto.findByStockProducto", query = "SELECT p FROM Producto p WHERE p.stockProducto = :stockProducto")
-    , @NamedQuery(name = "Producto.findByPrecioProducto", query = "SELECT p FROM Producto p WHERE p.precioProducto = :precioProducto")})
+    @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p"),
+    @NamedQuery(name = "Producto.findByIdProducto", query = "SELECT p FROM Producto p WHERE p.idProducto = :idProducto"),
+    @NamedQuery(name = "Producto.findByNombreProducto", query = "SELECT p FROM Producto p WHERE p.nombreProducto = :nombreProducto"),
+    @NamedQuery(name = "Producto.findByOnlineProducto", query = "SELECT p FROM Producto p WHERE p.onlineProducto = :onlineProducto"),
+    @NamedQuery(name = "Producto.findByStockProducto", query = "SELECT p FROM Producto p WHERE p.stockProducto = :stockProducto"),
+    @NamedQuery(name = "Producto.findByPrecioProducto", query = "SELECT p FROM Producto p WHERE p.precioProducto = :precioProducto"),
+    @NamedQuery(name = "Producto.findByImagenProducto", query = "SELECT p FROM Producto p WHERE p.imagenProducto = :imagenProducto")})
 public class Producto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -64,10 +65,13 @@ public class Producto implements Serializable {
     @NotNull
     @Column(name = "PRECIO_PRODUCTO")
     private BigInteger precioProducto;
+    @Size(max = 1500)
+    @Column(name = "IMAGEN_PRODUCTO")
+    private String imagenProducto;
     @OneToMany(mappedBy = "idProducto")
-    private List<ProdCompra> prodCompraList;
+    private Collection<ProdCompra> prodCompraCollection;
     @OneToMany(mappedBy = "idProducto")
-    private List<ProdPedProv> prodPedProvList;
+    private Collection<ProdPedProv> prodPedProvCollection;
     @JoinColumn(name = "ID_LOCACION_DE_PRODUCTO", referencedColumnName = "ID_LOCACION_DE_PRODUCTO")
     @ManyToOne
     private LocacionDeProducto idLocacionDeProducto;
@@ -75,9 +79,9 @@ public class Producto implements Serializable {
     @ManyToOne
     private TipoProducto idTipoProducto;
     @OneToMany(mappedBy = "idProducto")
-    private List<ProductoPedido> productoPedidoList;
+    private Collection<ProductoPedido> productoPedidoCollection;
     @OneToMany(mappedBy = "idProducto")
-    private List<ProductoRegBodeg> productoRegBodegList;
+    private Collection<ProductoRegBodeg> productoRegBodegCollection;
 
     public Producto() {
     }
@@ -134,22 +138,30 @@ public class Producto implements Serializable {
         this.precioProducto = precioProducto;
     }
 
+    public String getImagenProducto() {
+        return imagenProducto;
+    }
+
+    public void setImagenProducto(String imagenProducto) {
+        this.imagenProducto = imagenProducto;
+    }
+
     @XmlTransient
-    public List<ProdCompra> getProdCompraList() {
-        return prodCompraList;
+    public Collection<ProdCompra> getProdCompraCollection() {
+        return prodCompraCollection;
     }
 
-    public void setProdCompraList(List<ProdCompra> prodCompraList) {
-        this.prodCompraList = prodCompraList;
+    public void setProdCompraCollection(Collection<ProdCompra> prodCompraCollection) {
+        this.prodCompraCollection = prodCompraCollection;
     }
 
     @XmlTransient
-    public List<ProdPedProv> getProdPedProvList() {
-        return prodPedProvList;
+    public Collection<ProdPedProv> getProdPedProvCollection() {
+        return prodPedProvCollection;
     }
 
-    public void setProdPedProvList(List<ProdPedProv> prodPedProvList) {
-        this.prodPedProvList = prodPedProvList;
+    public void setProdPedProvCollection(Collection<ProdPedProv> prodPedProvCollection) {
+        this.prodPedProvCollection = prodPedProvCollection;
     }
 
     public LocacionDeProducto getIdLocacionDeProducto() {
@@ -169,21 +181,21 @@ public class Producto implements Serializable {
     }
 
     @XmlTransient
-    public List<ProductoPedido> getProductoPedidoList() {
-        return productoPedidoList;
+    public Collection<ProductoPedido> getProductoPedidoCollection() {
+        return productoPedidoCollection;
     }
 
-    public void setProductoPedidoList(List<ProductoPedido> productoPedidoList) {
-        this.productoPedidoList = productoPedidoList;
+    public void setProductoPedidoCollection(Collection<ProductoPedido> productoPedidoCollection) {
+        this.productoPedidoCollection = productoPedidoCollection;
     }
 
     @XmlTransient
-    public List<ProductoRegBodeg> getProductoRegBodegList() {
-        return productoRegBodegList;
+    public Collection<ProductoRegBodeg> getProductoRegBodegCollection() {
+        return productoRegBodegCollection;
     }
 
-    public void setProductoRegBodegList(List<ProductoRegBodeg> productoRegBodegList) {
-        this.productoRegBodegList = productoRegBodegList;
+    public void setProductoRegBodegCollection(Collection<ProductoRegBodeg> productoRegBodegCollection) {
+        this.productoRegBodegCollection = productoRegBodegCollection;
     }
 
     @Override

@@ -25,6 +25,8 @@
                     <h:inputText id="stockProducto" value="#{productoController.selected.stockProducto}" title="#{bundle.CreateProductoTitle_stockProducto}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_stockProducto}"/>
                     <h:outputLabel value="#{bundle.CreateProductoLabel_precioProducto}" for="precioProducto" />
                     <h:inputText id="precioProducto" value="#{productoController.selected.precioProducto}" title="#{bundle.CreateProductoTitle_precioProducto}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_precioProducto}"/>
+                    <h:outputLabel value="#{bundle.CreateProductoLabel_imagenProducto}" for="imagenProducto" />
+                    <h:inputText id="imagenProducto" value="#{productoController.selected.imagenProducto}" title="#{bundle.CreateProductoTitle_imagenProducto}" />
                     <h:outputLabel value="#{bundle.CreateProductoLabel_idLocacionDeProducto}" for="idLocacionDeProducto" />
                     <h:selectOneMenu id="idLocacionDeProducto" value="#{productoController.selected.idLocacionDeProducto}" title="#{bundle.CreateProductoTitle_idLocacionDeProducto}" >
                         <f:selectItems value="#{locacionDeProductoController.itemsAvailableSelectOne}"/>

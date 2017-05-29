@@ -22,16 +22,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "AGENTE")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Agente.findAll", query = "SELECT a FROM Agente a")
-    , @NamedQuery(name = "Agente.findByIdAgente", query = "SELECT a FROM Agente a WHERE a.idAgente = :idAgente")
-    , @NamedQuery(name = "Agente.findByNombreAgente", query = "SELECT a FROM Agente a WHERE a.nombreAgente = :nombreAgente")
-    , @NamedQuery(name = "Agente.findByCorreoAgente", query = "SELECT a FROM Agente a WHERE a.correoAgente = :correoAgente")})
+    @NamedQuery(name = "Agente.findAll", query = "SELECT a FROM Agente a"),
+    @NamedQuery(name = "Agente.findByIdAgente", query = "SELECT a FROM Agente a WHERE a.idAgente = :idAgente"),
+    @NamedQuery(name = "Agente.findByNombreAgente", query = "SELECT a FROM Agente a WHERE a.nombreAgente = :nombreAgente"),
+    @NamedQuery(name = "Agente.findByCorreoAgente", query = "SELECT a FROM Agente a WHERE a.correoAgente = :correoAgente")})
 public class Agente implements Serializable {
 
     private static final long serialVersionUID = 1L;

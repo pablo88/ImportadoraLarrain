@@ -7,7 +7,7 @@ package Models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,16 +25,16 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "PROVEEDORES")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Proveedores.findAll", query = "SELECT p FROM Proveedores p")
-    , @NamedQuery(name = "Proveedores.findByIdProveedor", query = "SELECT p FROM Proveedores p WHERE p.idProveedor = :idProveedor")
-    , @NamedQuery(name = "Proveedores.findByNombreProveedor", query = "SELECT p FROM Proveedores p WHERE p.nombreProveedor = :nombreProveedor")
-    , @NamedQuery(name = "Proveedores.findByCorreoProveedor", query = "SELECT p FROM Proveedores p WHERE p.correoProveedor = :correoProveedor")})
+    @NamedQuery(name = "Proveedores.findAll", query = "SELECT p FROM Proveedores p"),
+    @NamedQuery(name = "Proveedores.findByIdProveedor", query = "SELECT p FROM Proveedores p WHERE p.idProveedor = :idProveedor"),
+    @NamedQuery(name = "Proveedores.findByNombreProveedor", query = "SELECT p FROM Proveedores p WHERE p.nombreProveedor = :nombreProveedor"),
+    @NamedQuery(name = "Proveedores.findByCorreoProveedor", query = "SELECT p FROM Proveedores p WHERE p.correoProveedor = :correoProveedor")})
 public class Proveedores implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,7 +55,7 @@ public class Proveedores implements Serializable {
     @Column(name = "CORREO_PROVEEDOR")
     private String correoProveedor;
     @OneToMany(mappedBy = "idProveedor")
-    private List<PedidoAProveedor> pedidoAProveedorList;
+    private Collection<PedidoAProveedor> pedidoAProveedorCollection;
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     @ManyToOne
     private Usuario idUsuario;
@@ -98,12 +98,12 @@ public class Proveedores implements Serializable {
     }
 
     @XmlTransient
-    public List<PedidoAProveedor> getPedidoAProveedorList() {
-        return pedidoAProveedorList;
+    public Collection<PedidoAProveedor> getPedidoAProveedorCollection() {
+        return pedidoAProveedorCollection;
     }
 
-    public void setPedidoAProveedorList(List<PedidoAProveedor> pedidoAProveedorList) {
-        this.pedidoAProveedorList = pedidoAProveedorList;
+    public void setPedidoAProveedorCollection(Collection<PedidoAProveedor> pedidoAProveedorCollection) {
+        this.pedidoAProveedorCollection = pedidoAProveedorCollection;
     }
 
     public Usuario getIdUsuario() {

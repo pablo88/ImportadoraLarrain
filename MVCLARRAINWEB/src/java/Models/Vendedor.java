@@ -7,7 +7,7 @@ package Models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,18 +25,18 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Home
+ * @author P_Silva
  */
 @Entity
 @Table(name = "VENDEDOR")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Vendedor.findAll", query = "SELECT v FROM Vendedor v")
-    , @NamedQuery(name = "Vendedor.findByIdVendedor", query = "SELECT v FROM Vendedor v WHERE v.idVendedor = :idVendedor")
-    , @NamedQuery(name = "Vendedor.findByNombreVendedor", query = "SELECT v FROM Vendedor v WHERE v.nombreVendedor = :nombreVendedor")
-    , @NamedQuery(name = "Vendedor.findByAppVendedor", query = "SELECT v FROM Vendedor v WHERE v.appVendedor = :appVendedor")
-    , @NamedQuery(name = "Vendedor.findByApmVendedor", query = "SELECT v FROM Vendedor v WHERE v.apmVendedor = :apmVendedor")
-    , @NamedQuery(name = "Vendedor.findByCorreoVendedor", query = "SELECT v FROM Vendedor v WHERE v.correoVendedor = :correoVendedor")})
+    @NamedQuery(name = "Vendedor.findAll", query = "SELECT v FROM Vendedor v"),
+    @NamedQuery(name = "Vendedor.findByIdVendedor", query = "SELECT v FROM Vendedor v WHERE v.idVendedor = :idVendedor"),
+    @NamedQuery(name = "Vendedor.findByNombreVendedor", query = "SELECT v FROM Vendedor v WHERE v.nombreVendedor = :nombreVendedor"),
+    @NamedQuery(name = "Vendedor.findByAppVendedor", query = "SELECT v FROM Vendedor v WHERE v.appVendedor = :appVendedor"),
+    @NamedQuery(name = "Vendedor.findByApmVendedor", query = "SELECT v FROM Vendedor v WHERE v.apmVendedor = :apmVendedor"),
+    @NamedQuery(name = "Vendedor.findByCorreoVendedor", query = "SELECT v FROM Vendedor v WHERE v.correoVendedor = :correoVendedor")})
 public class Vendedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -73,7 +73,7 @@ public class Vendedor implements Serializable {
     @ManyToOne
     private Usuario idUsuario;
     @OneToMany(mappedBy = "idVendedor")
-    private List<Pedido> pedidoList;
+    private Collection<Pedido> pedidoCollection;
 
     public Vendedor() {
     }
@@ -147,12 +147,12 @@ public class Vendedor implements Serializable {
     }
 
     @XmlTransient
-    public List<Pedido> getPedidoList() {
-        return pedidoList;
+    public Collection<Pedido> getPedidoCollection() {
+        return pedidoCollection;
     }
 
-    public void setPedidoList(List<Pedido> pedidoList) {
-        this.pedidoList = pedidoList;
+    public void setPedidoCollection(Collection<Pedido> pedidoCollection) {
+        this.pedidoCollection = pedidoCollection;
     }
 
     @Override
