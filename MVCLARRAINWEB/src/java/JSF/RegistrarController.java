@@ -92,7 +92,9 @@ public class RegistrarController implements Serializable {
             getFacade().create(current);
             if (crearUsuario(current)) {
                 if (enviarMail(current1)) {
-                    alerta = "<script>alert('Cuenta creada exitosamente');</script>";
+                    alerta = "<script>alert('Cuenta creada exitosamente');"
+                            + "window.location.href = '../login/index.xhtml';</script>";
+                    
                     return "registrar";
                 } else {
                     alerta = "<script>alert('Cuenta creada ,pero no se pudo enviar el correo');</script>";
@@ -138,7 +140,7 @@ public class RegistrarController implements Serializable {
             msg.setRecipients(Message.RecipientType.TO, usu.getCorreo());
             msg.setSubject("Activacion de Cuenta Importadora Larrain");
             msg.setSentDate(new Date());
-            msg.setText("Active la cuenta en el siguiente link \n"
+            msg.setText("Active su cuenta en el siguiente link \n"
                     + "http://localhost:7001/MVCLARRAINWEB/faces/login/activacion.xhtml?key=" + usu.getKeyActivacion());
             Transport.send(msg, "importadoralarrain1@gmail.com", "importadoraLarrain2017");
             return true;
