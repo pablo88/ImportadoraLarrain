@@ -35,31 +35,35 @@
                     <h:panelGroup class="tablaTProd col-md-2 col-md-offset-1" layout="block">
                         <p class="col-md-12">Buscar por Categorias</p>
                         <h:form>
+                            <h:dataTable var="tipos" value="#{tipoProductoController.obtenerTProducto()}">
+                                <h:column>
+                                    <!-- column header -->
+                                    <f:facet name="header">Order No</f:facet>
+                                    <!-- row record -->
+                                    #{tipos.descripcion}
+                                </h:column>
+                                <h:column>
+                                    <h:selectBooleanCheckbox value="#{bean.checked[.id]}" />
+                                </h:column>
+                            </h:dataTable>
 
-                            <ui:repeat var="tipos" value="#{tipoProductoController.obtenerTProducto()}">
-                                <div class="producto detalle col-md-12">
-                                    <h:selectManyCheckbox value="#{productoController.setIds()}">
-                                        <f:selectItem itemValue="#{tipos.idTipoProducto}" itemLabel="#{tipos.descripcion}" />
-                                    </h:selectManyCheckbox>
-                                </div>
-                            </ui:repeat>
 
                             <div class="boton buscar categoria">
-                                <h:commandButton class="btn btn-info col-md-6 col-md-offset-6" action="#{productoController.obtenerProductosTipo()}" value="Buscar"/>
+                                <h:commandButton class="btn btn-info col-md-6 col-md-offset-6" action="#{productoController.obtenerTiposP()}" value="Buscar"/>
                             </div>
                         </h:form>
                     </h:panelGroup>
                     <h:panelGroup class="tablaProd col-md-8" layout="block">                                                          
-                        <ui:repeat var="ListaProducto" value="#{productoController.obtenerProductos()}">
+                        <ui:repeat var="productos" value="#{productoController.productos}">
                             <div class="producto detalle col-md-4">                              
-                                <td><img class="img img-responsive img-rounded" src="#{ListaProducto[2]}"></img></td>
+                                <td><img class="img img-responsive img-rounded" src="#{productos.imagenProducto}"></img></td>
                                 <div class="producto detalle texto col-md-12">
-                                    <p>#{ListaProducto[1]}</p>
-                                    <p>#{ListaProducto[3]}</p>
-                                    <p>#{ListaProducto[4]}</p>
-                                    <button class="btn agregar" name="compra" value="#{ListaProducto[5]}">+Agregar</button>
+                                    <p>#{productos.nombreProducto}</p>
+                                    <p>#{productos.stockProducto}</p>
+                                    <p>#{productos.precioProducto}</p>
+                                    <button class="btn agregar" name="compra" value="#{productos.idProducto}">+Agregar</button>
                                 </div>
-                            </div>
+                            </div> 
                         </ui:repeat>                           
                     </h:panelGroup>
                 </h:panelGroup>
