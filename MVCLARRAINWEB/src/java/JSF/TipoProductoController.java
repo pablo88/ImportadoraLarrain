@@ -233,23 +233,9 @@ public class TipoProductoController implements Serializable {
         }
 
     }
-    public List obtenerTProducto(){
-        try{
-        List<TipoProducto> listaProducto = ejbFacade.findAll();
-        List<String[]> listaTipos = new ArrayList<>();
-        //String url = "data:image/jpeg;base64,";
-        int i = 0;
-        for (TipoProducto tipo : listaProducto) {
-            String[] indata = new String[6];
-            indata[0] = tipo.getIdTipoProducto().toString();
-            indata[1] = tipo.getDescripcion();
-            listaTipos.add(indata);
-        }
-        return listaTipos;
-            
-        }catch(Exception ex){
-            return null;
-        }
+    public List<TipoProducto> obtenerTProducto(){
+        List<TipoProducto> tipos = ejbFacade.findAll();
+        return tipos;
     }
 
 }

@@ -34,7 +34,18 @@ public class ProductoController implements Serializable {
     private SessionBeans.TipoProductoFacade ejbFacadeTP;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-
+    private List<Integer> ids;
+    
+    public List<Integer> getIds()
+    {
+        return ids;
+    }
+    
+    public void setIds(int numero)
+    {
+        ids.add(numero);
+    }
+    
     public ProductoController() {
     }
 
@@ -248,54 +259,43 @@ public class ProductoController implements Serializable {
 
     public List obtenerProductos() {
         try {
-            if (current1.getIdTipoProducto() == null) {
-                List<Producto> listaProducto = ejbFacade.findAll();
-                List<String[]> listaFotos = new ArrayList<>();
-                int i = 0;
-                for (Producto foto : listaProducto) {
-                    String[] indata = new String[6];
-                    indata[0] = null;
-                    indata[1] = foto.getNombreProducto();
-                    indata[2] = foto.getImagenProducto();
-                    indata[3] = "$ " + foto.getPrecioProducto();
-                    indata[4] = "Stock: " + foto.getStockProducto();
-                    indata[5] = "" + foto.getIdProducto();
-                    listaFotos.add(indata);
-                }
-                return listaFotos;
-            } else {
-                List<TipoProducto> listaTProducto = ejbFacadeTP.findAll();
-                List<Producto> listaProducto = ejbFacade.findAll();
-                List<String[]> listaFotos = new ArrayList<>();
-                int i = 0;
 
-                for (Producto prod : ejbFacade.findAll()) {
-                    if (prod.getIdTipoProducto().getIdTipoProducto() == current1.getIdTipoProducto()) {
-                        String[] indata = new String[6];
-                        indata[0] = null;
-                        indata[1] = prod.getNombreProducto();
-                        indata[2] = prod.getImagenProducto();
-                        indata[3] = "$ " + prod.getPrecioProducto();
-                        indata[4] = "Stock: " + prod.getStockProducto();
-                        indata[5] = "" + prod.getIdProducto();
-                        listaFotos.add(indata);
-                    }
-                }
-                return listaFotos;
+            List<Producto> listaProducto = ejbFacade.findAll();
+            List<String[]> listaFotos = new ArrayList<>();
+            int i = 0;
+            for (Producto foto : listaProducto) {
+                String[] indata = new String[6];
+                indata[0] = null;
+                indata[1] = foto.getNombreProducto();
+                indata[2] = foto.getImagenProducto();
+                indata[3] = "$ " + foto.getPrecioProducto();
+                indata[4] = "Stock: " + foto.getStockProducto();
+                indata[5] = "" + foto.getIdProducto();
+                listaFotos.add(indata);
             }
+            return listaFotos;
         } catch (Exception ex) {
             return null;
         }
 
     }
 
-    public void obtenerProductosTipo() {
+    public List<Producto> obtenerProductosTipo() {
         try {
-            obtenerProductos();
+            List<Producto> productos = new ArrayList<Producto>();
+            for (int numero : ids) {
+                for (Producto prod : getFacade().findAll()) {
+                    if(prod.getIdProducto().intValueExact()==numero)
+                    {
+                        productos.add(prod);
+                    }
+                }
+            }
+            return productos;
         } catch (Exception ex) {
 
         }
-
+        return null;
     }
 
 }
