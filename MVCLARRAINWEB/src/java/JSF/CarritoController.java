@@ -26,8 +26,9 @@ import javax.inject.Inject;
  */
 @Named("carritoController")
 @SessionScoped
-public class CarritoController implements Serializable{
-     @EJB
+public class CarritoController implements Serializable {
+
+    @EJB
     private PedidoFacade pedidofacade;
     /**
      * Atributos utiles para el controlador Carrito
@@ -37,30 +38,37 @@ public class CarritoController implements Serializable{
     @Inject
     private UsuarioController usuarioController;
     private ArrayList<Producto> carrito = new ArrayList<Producto>();
-    private String id ;
+    private String id;
     private Producto productoSelecionado;
     private BigDecimal idProductoSeleccionado;
     private double totalCompra = 0.0;
-    
-     public CarritoController() {
+    private String alerta;
+    private int cantidad;
+
+    public CarritoController() {
     }
-     
-     //metodos
+
+    //metodos
     public String agregarAlCarrito(BigDecimal idProducto) {
+        //alerta = null;
         setIdProductoSeleccionado(idProducto);
         Producto p = buscarProductoCarrito(getIdProductoSeleccionado());
-        if (p != null && Integer.valueOf(p.getStockProducto().toString()) > 0 ) {
-            totalCompra+=p.getPrecioProducto().doubleValue();
+        if (p != null && Integer.valueOf(p.getStockProducto().toString()) > 0) {
+            setTotalCompra(getTotalCompra() + p.getPrecioProducto().doubleValue());
         } else {
-                setProductoSelecionado(productoController.buscarProductoParaElCarrito(getIdProductoSeleccionado()));
-                if(Integer.valueOf(getProductoSelecionado().getStockProducto().toString())>0){
-                    getCarrito().add(getProductoSelecionado());
-                    totalCompra+=getProductoSelecionado().getPrecioProducto().doubleValue();
-                }                  
-        }        
-        return "carritoactual";
+            setProductoSelecionado(productoController.buscarProductoParaElCarrito(getIdProductoSeleccionado()));
+            if (Integer.valueOf(getProductoSelecionado().getStockProducto().toString()) > 0) {
+                getCarrito().add(getProductoSelecionado());
+                setTotalCompra(getTotalCompra() + getProductoSelecionado().getPrecioProducto().doubleValue());
+            } else {
+                //alerta = "<script>alert('No hay stock.');</script>";
+            }
+        }
+
+        return "/inicioC.xhtml?faces-redirect=true";
     }
-     private Producto buscarProductoCarrito(BigDecimal idProducto) {
+
+    private Producto buscarProductoCarrito(BigDecimal idProducto) {
         Producto p = null;
         for (Producto prod : getCarrito()) {
             if (prod.getIdProducto() == idProducto) {
@@ -127,8 +135,46 @@ public class CarritoController implements Serializable{
         this.id = id;
     }
 
- 
-    
-    
-    
+    /**
+     * @return the alerta
+     */
+    public String getAlerta() {
+        return alerta;
+    }
+
+    /**
+     * @param alerta the alerta to set
+     */
+    public void setAlerta(String alerta) {
+        this.alerta = alerta;
+    }
+
+    /**
+     * @return the cantidad
+     */
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    /**
+     * @param cantidad the cantidad to set
+     */
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    /**
+     * @return the totalCompra
+     */
+    public double getTotalCompra() {
+        return totalCompra;
+    }
+
+    /**
+     * @param totalCompra the totalCompra to set
+     */
+    public void setTotalCompra(double totalCompra) {
+        this.totalCompra = totalCompra;
+    }
+
 }
