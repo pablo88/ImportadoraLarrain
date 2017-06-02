@@ -37,11 +37,11 @@
                             <h:selectManyCheckbox class="col-md-12" value="#{tipoProductoController.selectedProd}" styleClass="order_form_riskcheckboxes" layout="pageDirection">
                                 <f:selectItems value="#{tipoProductoController.tipos}" var="tipos" itemLabel="#{tipos.descripcion}" itemValue="#{tipos.idTipoProducto}" />
                             </h:selectManyCheckbox>
-                            <h:commandLink value="Buscar" action="#{tipoProductoController.listaProductos()}" />
+                            <h:commandLink value="Buscar" class="btn btn-info col-md-offset-3 col-md-6" action="#{tipoProductoController.listaProductos()}" />
                         </h:form>
                     </h:panelGroup>
                     <h:panelGroup class="tablaProd col-md-8" layout="block">
-                        <c:if test="#{empty tipoProductoController.selectedProd}">
+                        <c:if test="#{empty tipoProductoController.productos}">
                             <h:form>
                                 <ui:repeat var="productos" value="#{productoController.productos}">
                                     <div class="producto detalle col-md-4">                              
@@ -74,6 +74,7 @@
                     </h:panelGroup>
                 </h:panelGroup>
             </h:panelGroup>
+            <h:outputText value="#{tipoProductoController.alerta}" escape="false"/>
         </ui:define>
     </ui:composition>
 
