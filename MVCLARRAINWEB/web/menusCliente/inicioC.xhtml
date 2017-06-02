@@ -40,10 +40,14 @@
                             <h:commandLink value="Buscar" class="btn btn-info col-md-offset-3 col-md-6" action="#{tipoProductoController.listaProductos()}" />
                         </h:form>
                     </h:panelGroup>
+
+
+
+
                     <h:panelGroup class="tablaProd col-md-8" layout="block">
                         <c:if test="#{empty tipoProductoController.productos}">
                             <h:form>
-                                <ui:repeat var="productos" value="#{productoController.productos}">
+                                <ui:repeat var="productos" value="#{productoController.paginator.model}">
                                     <div class="producto detalle col-md-4">                                                                   
                                         <h:graphicImage class="center-block" height="100px" url="#{productos.imagenProducto}"/>
                                         <div class="producto detalle texto col-md-12">
@@ -54,6 +58,12 @@
                                         </div>
                                     </div> 
                                 </ui:repeat>
+                                <div class="botones paginacion col-md-12">
+                                    <h:commandLink value="Anterior" class="btn btn-default glyphicon glyphicon-chevron-left" action="#{productoController.paginator.prev()}"/>
+                                    <h:outputLabel  class="btn" value="#{productoController.paginator.pageIndex} / #{productoController.paginator.pages}"/>
+                                    <h:commandLink value="Siguente" class="btn btn-default glyphicon glyphicon-chevron-right" action="#{productoController.paginator.next()}"/>
+                                    <h:inputHidden value="#{productoController.paginator.pageIndex}"/>
+                                </div>
                             </h:form>
                         </c:if>
                         <c:otherwise>
