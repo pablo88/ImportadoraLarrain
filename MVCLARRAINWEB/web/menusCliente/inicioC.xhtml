@@ -54,10 +54,11 @@
                                             <p>#{productos.nombreProducto}</p>
                                             <p>#{productos.stockProducto}</p>
                                             <p>#{productos.precioProducto}</p>
-                                            <button class="btn agregar" name="compra" value="#{productos.idProducto}">+Agregar</button>
+                                            <h:commandButton class="btn agregar" action="#{carritoController.agregarAlCarrito(productos.)}" value="+Agregar" />
                                         </div>
                                     </div> 
                                 </ui:repeat>
+                                <h:outputText value="#{carritoController.carrito}"/>
                                 <div class="botones paginacion col-md-12">
                                     <h:commandLink value="Anterior" class="btn btn-default glyphicon glyphicon-chevron-left" action="#{productoController.paginator.prev()}"/>
                                     <h:outputLabel  class="btn" value="#{productoController.paginator.pageIndex} / #{productoController.paginator.pages}"/>

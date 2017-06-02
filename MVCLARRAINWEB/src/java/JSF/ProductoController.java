@@ -8,6 +8,7 @@ import SessionBeans.ProductoFacade;
 import SessionBeans.TipoProductoFacade;
 import Models.TipoProducto;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -73,6 +74,11 @@ public class ProductoController implements Serializable {
 
     public RepeatPaginator getPaginator() {
         return paginator;
+    }
+    
+    
+    public Producto buscarProductoParaElCarrito(BigDecimal idProducto){          
+        return ejbFacade.find(idProducto);
     }
 
 }
