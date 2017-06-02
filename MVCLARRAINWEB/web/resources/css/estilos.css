@@ -2,12 +2,14 @@
     width: 100%;
     margin-bottom: 1%;
 }
-.producto.barra.izquierda    {
-    background-color: black;
-    margin-top: 0px;
-    padding-top: 20px;
-    padding-bottom: 70px;
+
+.botones.paginacion.col-md-12 {
+    text-align: center;
+    padding-top: 1%;
+    padding-bottom: 2%;
 }
+
+
 .letras.formulario>input {
     width: 70%;
 }

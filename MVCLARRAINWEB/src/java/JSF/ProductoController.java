@@ -3,6 +3,7 @@ package JSF;
 import Models.Producto;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
+import JSF.util.RepeatPaginator;
 import SessionBeans.ProductoFacade;
 import SessionBeans.TipoProductoFacade;
 import Models.TipoProducto;
@@ -26,6 +27,7 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class ProductoController implements Serializable {
 
+    private RepeatPaginator paginator;
     private Producto current;
     private TipoProducto current1;
     private DataModel items = null;
@@ -33,11 +35,8 @@ public class ProductoController implements Serializable {
     private SessionBeans.ProductoFacade ejbFacade;
     @EJB
     private SessionBeans.TipoProductoFacade ejbFacadeTP;
-    private PaginationHelper pagination;
     private int selectedItemIndex;
-    private List<Producto> productos;
-
-    
+    private List<Producto> productos = new ArrayList<Producto>();
 
     public ProductoController() {
     }
@@ -63,11 +62,17 @@ public class ProductoController implements Serializable {
     }
 
     @PostConstruct
-    private void init() {
+    public void init() {
         productos = ejbFacade.findAll();
+        paginator = new RepeatPaginator(productos);
     }
 
     public List<Producto> getProductos() {
         return productos;
     }
+
+    public RepeatPaginator getPaginator() {
+        return paginator;
+    }
+
 }
