@@ -44,8 +44,8 @@
                         <c:if test="#{empty tipoProductoController.productos}">
                             <h:form>
                                 <ui:repeat var="productos" value="#{productoController.productos}">
-                                    <div class="producto detalle col-md-4">                              
-                                        <td><img class="img img-responsive img-rounded" src="#{productos.imagenProducto}"></img></td>
+                                    <div class="producto detalle col-md-4">                                                                   
+                                        <h:graphicImage class="center-block" height="100px" url="#{productos.imagenProducto}"/>
                                         <div class="producto detalle texto col-md-12">
                                             <p>#{productos.nombreProducto}</p>
                                             <p>#{productos.stockProducto}</p>
