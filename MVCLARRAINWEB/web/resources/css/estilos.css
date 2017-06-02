@@ -100,7 +100,7 @@ h1.login.titulo {
     margin-bottom: 2%;
 }
 
-button.btn.agregar {
+.btn.agregar {
     background: rgba(210,255,82,1);
     background: -moz-linear-gradient(top, rgba(210,255,82,1) 0%, rgba(145,232,66,1) 41%, rgba(107,194,25,1) 59%, rgba(145,232,66,1) 100%);
     background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(210,255,82,1)), color-stop(41%, rgba(145,232,66,1)), color-stop(59%, rgba(107,194,25,1)), color-stop(100%, rgba(145,232,66,1)));

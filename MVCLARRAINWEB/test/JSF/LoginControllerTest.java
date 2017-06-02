@@ -5,10 +5,7 @@
  */
 package JSF;
 
-import Models.Producto;
-import Models.TipoProducto;
-import SessionBeans.ProductoFacade;
-import java.util.List;
+import Models.Usuario;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author Home
  */
-public class ProductoControllerTest {
+public class LoginControllerTest {
     
-    public ProductoControllerTest() {
+    public LoginControllerTest() {
     }
     
     @BeforeClass
@@ -42,44 +39,56 @@ public class ProductoControllerTest {
     }
 
     /**
-     * Test of getSelected method, of class ProductoController.
+     * Test of getAlerta method, of class LoginController.
+     */
+    @Test
+    public void testGetAlerta() {
+        System.out.println("getAlerta");
+        LoginController instance = new LoginController();
+        String expResult = null;
+        String result = instance.getAlerta();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getSelected method, of class LoginController.
      */
     @Test
     public void testGetSelected() {
         System.out.println("getSelected");
-        ProductoController instance = new ProductoController();
-        Producto expResult = new Producto();
-        Producto result = instance.getSelected();
+        LoginController instance = new LoginController();
+        Usuario expResult = null;
+        Usuario result = instance.getSelected();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        if(!result.equals(expResult))
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of getSelected1 method, of class ProductoController.
+     * Test of autenticarUsuario method, of class LoginController.
      */
     @Test
-    public void testGetSelected1() {
-        System.out.println("getSelected1");
-        ProductoController instance = new ProductoController();
-        TipoProducto expResult = new TipoProducto();
-        TipoProducto result = instance.getSelected1();
+    public void testAutenticarUsuario() {
+        System.out.println("autenticarUsuario");
+        LoginController instance = new LoginController();
+        String expResult = "";
+        String result = instance.autenticarUsuario();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        if(!result.equals(expResult))
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of getProductos method, of class ProductoController.
+     * Test of cerrarSesion method, of class LoginController.
      */
     @Test
-    public void testGetProductos() {
-        System.out.println("getProductos");
-        ProductoController instance = new ProductoController();
-        List<Producto> expResult = null;
-        List<Producto> result = instance.getProductos();
+    public void testCerrarSesion() {
+        System.out.println("cerrarSesion");
+        LoginController instance = new LoginController();
+        String expResult = instance.cerrarSesion();
+        String result = instance.cerrarSesion();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         if(!result.equals(expResult))
