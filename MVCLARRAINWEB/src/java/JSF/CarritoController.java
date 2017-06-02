@@ -42,7 +42,7 @@ public class CarritoController implements Serializable {
     private Producto productoSelecionado;
     private BigDecimal idProductoSeleccionado;
     private BigDecimal totalCompra = BigDecimal.valueOf(0);
-    private String alerta;
+    private String alerta=null;
     private int cantidad=1;
     private List<Integer> cantidades=new ArrayList<>();
 
@@ -51,7 +51,7 @@ public class CarritoController implements Serializable {
 
     //metodos
     public String agregarAlCarrito(BigDecimal idProducto) {
-        //alerta = null;
+        alerta = null;
         setIdProductoSeleccionado(idProducto);
         Producto p = buscarProductoCarrito(getIdProductoSeleccionado());
         if (p != null && Integer.valueOf(p.getStockProducto().toString()) > 0) {
@@ -62,7 +62,7 @@ public class CarritoController implements Serializable {
                 getCarrito().add(getProductoSelecionado());
                 setTotalCompra(getTotalCompra().add(new BigDecimal(getProductoSelecionado().getPrecioProducto().doubleValue())));
             } else {
-                //alerta = "<script>alert('No hay stock.');</script>";
+                alerta = "<script>alert('No hay stock.');</script>";
             }
         }
 

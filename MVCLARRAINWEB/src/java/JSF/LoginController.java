@@ -29,7 +29,7 @@ public class LoginController implements Serializable {
     private SessionBeans.UsuarioFacade ejbFacade;
     private Usuario current;
     private int selectedItemIndex;
-    private String alerta;
+    private String alerta=null;
     private boolean erroractiva = false;
     private boolean errorpass = false;
     private boolean errororreo = false;

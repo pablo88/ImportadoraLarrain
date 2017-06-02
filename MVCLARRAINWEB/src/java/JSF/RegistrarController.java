@@ -46,7 +46,7 @@ public class RegistrarController implements Serializable {
     private Usuario current1;
     private int selectedItemIndex;
     private int selectedItemIndex1;
-    private String alerta;
+    private String alerta=null;
     @ManagedProperty("#{param.key}")
     private String key;
 

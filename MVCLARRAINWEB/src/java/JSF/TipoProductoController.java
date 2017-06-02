@@ -38,7 +38,7 @@ public class TipoProductoController implements Serializable {
     private String[] selectedProd;
     private List<TipoProducto> tipos;
     private List<Producto> productos = new ArrayList<>();
-    private String alerta;
+    private String alerta=null;
     private RepeatPaginator paginator;
     
     public String getAlerta()
