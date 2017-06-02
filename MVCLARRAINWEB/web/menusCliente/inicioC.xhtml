@@ -8,6 +8,16 @@
 
     <ui:composition template="/templateC.xhtml">
         <ui:define name="head">
+            <script>
+                function carritoConfirm() {
+                    confirmar = confirm("Press a button!");
+                    if (confirmar){
+                    // si pulsamos en aceptar
+                         window.location.href = "../menusCliente/carrito.xhtml";
+                     }
+                 
+                }
+            </script>
             <c:if test="${sessionScope.sesion == null}">
                 <script type="text/javascript">
                     alert('Sesion no iniciada\nNo puede ingresar a esta pagina.');
@@ -23,7 +33,7 @@
                 <h:panelGroup class="contenedorbarra col-md-12" layout="block">
                     <a class="navbar-brand" href="#">Bienvenido</a>
                     <ul class="nav navbar-nav">                              
-                        <li><a href="../menusCliente/carrito.xhtml">Link</a></li>
+                        <li><a class="glyphicon glyphicon-shopping-cart" href="../menusCliente/carrito.xhtml"></a></li>
                         <li><a href="#">Link</a></li>
                         <li><a href="#">Link</a></li>
                     </ul>     
@@ -40,7 +50,7 @@
                             <h:commandLink value="Buscar" class="btn btn-info col-md-offset-3 col-md-6" action="#{tipoProductoController.listaProductos()}" />
                         </h:form>
                     </h:panelGroup>
-    
+
                     <h:panelGroup class="tablaProd col-md-8" layout="block">
                         <c:if test="#{empty tipoProductoController.productos}">
                             <h:form>
@@ -50,9 +60,10 @@
                                         <div class="producto detalle texto col-md-12">
                                             <p>Nombre: #{productos.nombreProducto}</p>
                                             <p>Precio: $#{productos.precioProducto}</p>
-                                            
+
                                             <h:commandButton class="btn agregar" action="#{carritoController.agregarAlCarrito(productos.idProducto)}" value="+Agregar" />
                                         </div>
+                                        <button onclick="carritoConfirm();" value="test"/>
                                     </div> 
                                 </ui:repeat>
                                 <div class="botones paginacion col-md-12">

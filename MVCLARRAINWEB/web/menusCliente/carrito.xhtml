@@ -12,6 +12,12 @@
                     window.location.href = "../login/index.xhtml";
                 </script>
             </c:if>
+            <c:if test="#{empty carritoController.carrito}">
+                <script type="text/javascript">
+                    alert('No hay productos en el carrito.\nNo puede ingresar a esta pagina.');
+                    window.location.href = "../menusCliente/inicioC.xhtml";
+                </script>
+            </c:if>
         </ui:define>
         <ui:define name="titleP">
             <h:outputText value="Detalle Compra"></h:outputText>

@@ -42,9 +42,9 @@ public class CarritoController implements Serializable {
     private Producto productoSelecionado;
     private BigDecimal idProductoSeleccionado;
     private BigDecimal totalCompra = BigDecimal.valueOf(0);
-    private String alerta=null;
-    private int cantidad=1;
-    private List<Integer> cantidades=new ArrayList<>();
+    private String alerta = null;
+    private int cantidad = 1;
+    private List<Integer> cantidades = new ArrayList<>();
 
     public CarritoController() {
     }
@@ -62,11 +62,11 @@ public class CarritoController implements Serializable {
                 getCarrito().add(getProductoSelecionado());
                 setTotalCompra(getTotalCompra().add(new BigDecimal(getProductoSelecionado().getPrecioProducto().doubleValue())));
             } else {
-                alerta = "<script>alert('No hay stock.');</script>";
+                alerta = "<script>confirm('No hay stock.');</script>";
             }
         }
 
-        return "/menusCliente/inicioC.xhtml?faces-redirect=true";
+        return null;//"/menusCliente/inicioC.xhtml?faces-redirect=true";
     }
 
     private Producto buscarProductoCarrito(BigDecimal idProducto) {
@@ -162,7 +162,7 @@ public class CarritoController implements Serializable {
      */
     public void setCantidad(int cantidad) {
         this.getCantidades().add(cantidad);
-        cantidad=0;
+        cantidad = 0;
     }
 
     /**
@@ -180,15 +180,15 @@ public class CarritoController implements Serializable {
     }
 
     public String cotizar() {
-        BigDecimal total=BigDecimal.valueOf(0);
-        int i=0;
+        BigDecimal total = BigDecimal.valueOf(0);
+        int i = 0;
         for (Producto prod : carrito) {
-            total=total.add(new BigDecimal(prod.getPrecioProducto().multiply(BigInteger.valueOf(cantidades.get(i)))));
+            total = total.add(new BigDecimal(prod.getPrecioProducto().multiply(BigInteger.valueOf(cantidades.get(i)))));
             i++;
         }
-        this.totalCompra=total;
+        this.totalCompra = total;
         cantidades.clear();
-        return"carrito.xhtml?faces-redirect=true";
+        return "carrito.xhtml?faces-redirect=true";
     }
 
     /**
