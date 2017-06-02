@@ -37,6 +37,12 @@ public class TipoProductoController implements Serializable {
     private String[] selectedProd;
     private List<TipoProducto> tipos;
     private List<Producto> productos = new ArrayList<>();
+    private String alerta;
+    
+    public String getAlerta()
+    {
+        return alerta;
+    }
 
     public List<Producto> getProductos() {
         return productos;
@@ -59,17 +65,22 @@ public class TipoProductoController implements Serializable {
         this.selectedProd = selectedProd;
     }
 
-    public List<Producto> listaProductos() {
+    public String listaProductos() {
         productos.clear();
         for (String id : getSelectedProd()) {
             for (Producto prod : ejbFacade1.findAll()) {
                 String ids = prod.getIdTipoProducto().toString().replaceAll("[^0-9]", "").trim();
                 if (id.compareTo(ids) == 0) {
                     productos.add(prod);
+                    alerta="";
                 }
             }
         }
-        return productos;
+        if(productos.isEmpty())
+        {
+            alerta="<script>alert('No hay productos de ese tipo.');</script>";
+        }
+        return "/menusCliente/inicioC.xhtml?faces-redirect=true";
     }
 
     public TipoProductoController() {
