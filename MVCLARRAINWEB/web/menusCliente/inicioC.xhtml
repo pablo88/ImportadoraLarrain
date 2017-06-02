@@ -51,10 +51,9 @@
                                     <div class="producto detalle col-md-4">                                                                   
                                         <h:graphicImage class="center-block" height="100px" url="#{productos.imagenProducto}"/>
                                         <div class="producto detalle texto col-md-12">
-                                            <p>#{productos.nombreProducto}</p>
-                                            <p>#{productos.stockProducto}</p>
-                                            <p>#{productos.precioProducto}</p>
-                                            <h:commandButton class="btn agregar" action="#{carritoController.agregarAlCarrito(productos.)}" value="+Agregar" />
+                                            <p>Nombre: #{productos.nombreProducto}</p>
+                                            <p>Precio: $#{productos.precioProducto}</p>
+                                            <h:commandButton class="btn agregar" action="#{carritoController.agregarAlCarrito(productos.idProducto)}" value="+Agregar" />
                                         </div>
                                     </div> 
                                 </ui:repeat>
