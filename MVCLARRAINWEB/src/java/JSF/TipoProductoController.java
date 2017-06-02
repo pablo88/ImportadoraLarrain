@@ -3,6 +3,7 @@ package JSF;
 import Models.TipoProducto;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
+import JSF.util.RepeatPaginator;
 import Models.Producto;
 import SessionBeans.TipoProductoFacade;
 
@@ -38,10 +39,15 @@ public class TipoProductoController implements Serializable {
     private List<TipoProducto> tipos;
     private List<Producto> productos = new ArrayList<>();
     private String alerta;
+    private RepeatPaginator paginator;
     
     public String getAlerta()
     {
         return alerta;
+    }
+    
+    public RepeatPaginator getPaginator() {
+        return paginator;
     }
 
     public List<Producto> getProductos() {
@@ -78,8 +84,9 @@ public class TipoProductoController implements Serializable {
         }
         if(productos.isEmpty())
         {
-            alerta="<script>alert('No hay productos de ese tipo.');</script>";
+            alerta="<script>alert('No hay productos de ese tipo,actualmente.');</script>";
         }
+        paginator = new RepeatPaginator(productos);
         return "/menusCliente/inicioC.xhtml?faces-redirect=true";
     }
 

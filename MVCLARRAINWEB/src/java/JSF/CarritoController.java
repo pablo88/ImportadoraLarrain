@@ -41,9 +41,10 @@ public class CarritoController implements Serializable {
     private String id;
     private Producto productoSelecionado;
     private BigDecimal idProductoSeleccionado;
-    private double totalCompra = 0.0;
+    private BigDecimal totalCompra = BigDecimal.valueOf(0);
     private String alerta;
-    private int cantidad;
+    private int cantidad=1;
+    private List<Integer> cantidades=new ArrayList<>();
 
     public CarritoController() {
     }
@@ -54,18 +55,18 @@ public class CarritoController implements Serializable {
         setIdProductoSeleccionado(idProducto);
         Producto p = buscarProductoCarrito(getIdProductoSeleccionado());
         if (p != null && Integer.valueOf(p.getStockProducto().toString()) > 0) {
-            setTotalCompra(getTotalCompra() + p.getPrecioProducto().doubleValue());
+            setTotalCompra(getTotalCompra().add(new BigDecimal(p.getPrecioProducto().doubleValue())));
         } else {
             setProductoSelecionado(productoController.buscarProductoParaElCarrito(getIdProductoSeleccionado()));
             if (Integer.valueOf(getProductoSelecionado().getStockProducto().toString()) > 0) {
                 getCarrito().add(getProductoSelecionado());
-                setTotalCompra(getTotalCompra() + getProductoSelecionado().getPrecioProducto().doubleValue());
+                setTotalCompra(getTotalCompra().add(new BigDecimal(getProductoSelecionado().getPrecioProducto().doubleValue())));
             } else {
                 //alerta = "<script>alert('No hay stock.');</script>";
             }
         }
 
-        return "/inicioC.xhtml?faces-redirect=true";
+        return "/menusCliente/inicioC.xhtml?faces-redirect=true";
     }
 
     private Producto buscarProductoCarrito(BigDecimal idProducto) {
@@ -160,21 +161,48 @@ public class CarritoController implements Serializable {
      * @param cantidad the cantidad to set
      */
     public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+        this.getCantidades().add(cantidad);
+        cantidad=0;
     }
 
     /**
      * @return the totalCompra
      */
-    public double getTotalCompra() {
+    public BigDecimal getTotalCompra() {
         return totalCompra;
     }
 
     /**
      * @param totalCompra the totalCompra to set
      */
-    public void setTotalCompra(double totalCompra) {
+    public void setTotalCompra(BigDecimal totalCompra) {
         this.totalCompra = totalCompra;
+    }
+
+    public String cotizar() {
+        BigDecimal total=BigDecimal.valueOf(0);
+        int i=0;
+        for (Producto prod : carrito) {
+            total=total.add(new BigDecimal(prod.getPrecioProducto().multiply(BigInteger.valueOf(cantidades.get(i)))));
+            i++;
+        }
+        this.totalCompra=total;
+        cantidades.clear();
+        return"carrito.xhtml?faces-redirect=true";
+    }
+
+    /**
+     * @return the cantidades
+     */
+    public List<Integer> getCantidades() {
+        return cantidades;
+    }
+
+    /**
+     * @param cantidades the cantidades to set
+     */
+    public void setCantidades(List<Integer> cantidades) {
+        this.cantidades = cantidades;
     }
 
 }

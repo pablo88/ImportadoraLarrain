@@ -2,6 +2,42 @@
     width: 100%;
     margin-bottom: 1%;
 }
+.elemento.centro>input {
+    width: 13%;
+    text-align: center;
+    color: black;
+}
+.elemento.derecho.final.total{
+    padding-top: 1%;
+}
+.elemento.derecho.final{
+    padding-top: 1%;
+}
+
+.nav-bar.col-md-12 {
+    width:100%;
+    padding-top: 3%;
+    border-bottom: 4px solid rgba(255,255,255,.25);
+}
+
+
+.tabla.carrito{
+    background: black;
+    text-align: center;
+    padding-bottom: 1%;
+    border-bottom-left-radius: 20%;
+    border-bottom-right-radius: 20%;
+    opacity: 0.85;
+    color: white;
+}
+span.col-md-8 {
+    background: black;
+    color: white;
+    opacity: 0.85;
+    padding-bottom: 2%;
+    text-align: center;
+    margin-top:1%;
+}
 
 .botones.paginacion.col-md-12 {
     text-align: center;

@@ -65,14 +65,13 @@
                         </c:if>
                         <c:otherwise>
                             <h:form>
-                                <ui:repeat var="productost" value="#{tipoProductoController.productos}">
+                                <ui:repeat var="productost" value="#{tipoProductoController.paginator.model}">
                                     <div class="producto detalle col-md-4">                              
-                                        <td><img class="img img-responsive img-rounded" src="#{productost.imagenProducto}"></img></td>
+                                        <h:graphicImage class="center-block" height="100px" url="#{productost.imagenProducto}"/>
                                         <div class="producto detalle texto col-md-12">
-                                            <p>#{productost.nombreProducto}</p>
-                                            <p>#{productost.stockProducto}</p>
-                                            <p>#{productost.precioProducto}</p>
-                                            <button class="btn agregar" name="compra" value="#{productost.idProducto}">+Agregar</button>
+                                            <p>Nombre: #{productost.nombreProducto}</p>
+                                            <p>Precio: $#{productost.precioProducto}</p>
+                                            <h:commandButton class="btn agregar" action="#{carritoController.agregarAlCarrito(productos.idProducto)}" value="+Agregar" />
                                         </div>
                                     </div> 
                                 </ui:repeat>
