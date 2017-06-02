@@ -33,38 +33,44 @@
                 </h:panelGroup>
                 <h:panelGroup class="col-md-12" layout="block">
                     <h:panelGroup class="tablaTProd col-md-2 col-md-offset-1" layout="block">
-                        <p class="col-md-12">Buscar por Categorias</p>
                         <h:form>
-                            <h:dataTable var="tipos" value="#{tipoProductoController.obtenerTProducto()}">
-                                <h:column>
-                                    <!-- column header -->
-                                    <f:facet name="header">Order No</f:facet>
-                                    <!-- row record -->
-                                    #{tipos.descripcion}
-                                </h:column>
-                                <h:column>
-                                    <h:selectBooleanCheckbox value="#{bean.checked[.id]}" />
-                                </h:column>
-                            </h:dataTable>
-
-
-                            <div class="boton buscar categoria">
-                                <h:commandButton class="btn btn-info col-md-6 col-md-offset-6" action="#{productoController.obtenerTiposP()}" value="Buscar"/>
-                            </div>
+                            <h:selectManyCheckbox class="col-md-12" value="#{tipoProductoController.selectedProd}" styleClass="order_form_riskcheckboxes" layout="pageDirection">
+                                <f:selectItems value="#{tipoProductoController.tipos}" var="tipos" itemLabel="#{tipos.descripcion}" itemValue="#{tipos.idTipoProducto}" />
+                            </h:selectManyCheckbox>
+                            <h:commandLink value="Buscar" action="#{tipoProductoController.listaProductos()}" />
                         </h:form>
                     </h:panelGroup>
-                    <h:panelGroup class="tablaProd col-md-8" layout="block">                                                          
-                        <ui:repeat var="productos" value="#{productoController.productos}">
-                            <div class="producto detalle col-md-4">                              
-                                <td><img class="img img-responsive img-rounded" src="#{productos.imagenProducto}"></img></td>
-                                <div class="producto detalle texto col-md-12">
-                                    <p>#{productos.nombreProducto}</p>
-                                    <p>#{productos.stockProducto}</p>
-                                    <p>#{productos.precioProducto}</p>
-                                    <button class="btn agregar" name="compra" value="#{productos.idProducto}">+Agregar</button>
-                                </div>
-                            </div> 
-                        </ui:repeat>                           
+                    <h:panelGroup class="tablaProd col-md-8" layout="block">
+                        <c:if test="#{empty tipoProductoController.selectedProd}">
+                            <h:form>
+                                <ui:repeat var="productos" value="#{productoController.productos}">
+                                    <div class="producto detalle col-md-4">                              
+                                        <td><img class="img img-responsive img-rounded" src="#{productos.imagenProducto}"></img></td>
+                                        <div class="producto detalle texto col-md-12">
+                                            <p>#{productos.nombreProducto}</p>
+                                            <p>#{productos.stockProducto}</p>
+                                            <p>#{productos.precioProducto}</p>
+                                            <button class="btn agregar" name="compra" value="#{productos.idProducto}">+Agregar</button>
+                                        </div>
+                                    </div> 
+                                </ui:repeat>
+                            </h:form>
+                        </c:if>
+                        <c:otherwise>
+                            <h:form>
+                                <ui:repeat var="productost" value="#{tipoProductoController.productos}">
+                                    <div class="producto detalle col-md-4">                              
+                                        <td><img class="img img-responsive img-rounded" src="#{productost.imagenProducto}"></img></td>
+                                        <div class="producto detalle texto col-md-12">
+                                            <p>#{productost.nombreProducto}</p>
+                                            <p>#{productost.stockProducto}</p>
+                                            <p>#{productost.precioProducto}</p>
+                                            <button class="btn agregar" name="compra" value="#{productost.idProducto}">+Agregar</button>
+                                        </div>
+                                    </div> 
+                                </ui:repeat>
+                            </h:form>
+                        </c:otherwise>
                     </h:panelGroup>
                 </h:panelGroup>
             </h:panelGroup>

@@ -3,12 +3,14 @@ package JSF;
 import Models.TipoProducto;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
+import Models.Producto;
 import SessionBeans.TipoProductoFacade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -28,8 +30,47 @@ public class TipoProductoController implements Serializable {
     private DataModel items = null;
     @EJB
     private SessionBeans.TipoProductoFacade ejbFacade;
+    @EJB
+    private SessionBeans.ProductoFacade ejbFacade1;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private String[] selectedProd;
+    private List<TipoProducto> tipos;
+    private List<Producto> productos = new ArrayList<>();
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    @PostConstruct
+    private void init() {
+        tipos = ejbFacade.findAll();
+    }
+
+    public List<TipoProducto> getTipos() {
+        return tipos;
+    }
+
+    public String[] getSelectedProd() {
+        return selectedProd;
+    }
+
+    public void setSelectedProd(String[] selectedProd) {
+        this.selectedProd = selectedProd;
+    }
+
+    public List<Producto> listaProductos() {
+        productos.clear();
+        for (String id : getSelectedProd()) {
+            for (Producto prod : ejbFacade1.findAll()) {
+                String ids = prod.getIdTipoProducto().toString().replaceAll("[^0-9]", "").trim();
+                if (id.compareTo(ids) == 0) {
+                    productos.add(prod);
+                }
+            }
+        }
+        return productos;
+    }
 
     public TipoProductoController() {
     }
@@ -233,7 +274,8 @@ public class TipoProductoController implements Serializable {
         }
 
     }
-    public List<TipoProducto> obtenerTProducto(){
+
+    public List<TipoProducto> obtenerTProducto() {
         List<TipoProducto> tipos = ejbFacade.findAll();
         return tipos;
     }

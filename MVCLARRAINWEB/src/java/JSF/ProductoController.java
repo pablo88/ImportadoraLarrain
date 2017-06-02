@@ -37,6 +37,8 @@ public class ProductoController implements Serializable {
     private int selectedItemIndex;
     private List<Producto> productos;
 
+    
+
     public ProductoController() {
     }
 
@@ -59,14 +61,13 @@ public class ProductoController implements Serializable {
     private ProductoFacade getFacade() {
         return ejbFacade;
     }
-    
+
     @PostConstruct
     private void init() {
-        productos=ejbFacade.findAll();
+        productos = ejbFacade.findAll();
     }
-    
-    public List<Producto> getProductos()
-    {
+
+    public List<Producto> getProductos() {
         return productos;
     }
 }
