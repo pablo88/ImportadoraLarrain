@@ -79,6 +79,9 @@
                     </h:panelGroup>
                 </h:panelGroup>
             </h:panelGroup>
+            <h:form>
+            <h:commandButton action="#{carritoController.comprar()}" value="test2" /></h:form>
+            <h:outputText value="#{carritoController.correo_}" />
             <h:outputText value="#{tipoProductoController.alerta}" escape="false"/>
             <h:outputText value="#{carritoController.alerta}" escape="false"/>
         </ui:define>

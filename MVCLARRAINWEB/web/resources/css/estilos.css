@@ -169,3 +169,53 @@ h1.login.titulo {
     margin-top: 1%;
     font-weight: bold;
 }
+
+.btn-volver {
+  display: inline-block;
+    padding: 0% 6% 1% 20%;
+    margin-bottom: 0%;
+    font-size: 14px;
+    font-weight: bolder;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-bottom-left-radius: 96px;
+    color: #333;
+    background-color: #fcf8e3;
+    border-color: #ccc;
+}
+
+.btn-comprar{
+    display: inline-block;
+    padding: 0% 6% 1% 17%;
+    margin-bottom: 0%;
+    font-size: 14px;
+    font-weight: bolder;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-bottom-right-radius: 96px;
+    color: #fcf8e3;
+    background-color: rgba(145,232,66,1);
+    border-color: #3c763d;
+}

@@ -23,6 +23,7 @@ import javax.faces.model.SelectItem;
 public class UsuarioController implements Serializable {
 
     private Usuario current;
+    private Usuario usuario_= new Usuario();
     private DataModel items = null;
     @EJB
     private SessionBeans.UsuarioFacade ejbFacade;
@@ -230,6 +231,16 @@ public class UsuarioController implements Serializable {
             }
         }
 
+    }
+    public Usuario buscarUsuarioParaBoleta(String correo){
+        for (Usuario item : ejbFacade.findAll()) {
+            if(item.getCorreo().compareToIgnoreCase(correo)==0)
+            {
+                usuario_ = item;
+                break;
+            }
+        }
+        return usuario_;
     }
 
 }
