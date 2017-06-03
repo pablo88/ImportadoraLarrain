@@ -83,6 +83,9 @@ body{
     background-attachment: fixed;
     background-position: center;
 }
+a.btn-sm.btn-danger {
+    text-decoration: none;
+}
 body.col-md-12 {
     padding: 0%;
 }

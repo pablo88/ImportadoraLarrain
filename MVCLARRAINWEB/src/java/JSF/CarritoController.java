@@ -46,11 +46,29 @@ public class CarritoController implements Serializable {
     private int cantidad = 1;
     private List<Integer> cantidades = new ArrayList<>();
 
-    public CarritoController() {
+    public void clear()
+    {
+        alerta=null;
     }
-
+    public CarritoController() {
+        alerta = null;
+    }
+    
+    public String quitardelCarrito(BigDecimal idProducto)
+    {
+        setIdProductoSeleccionado(idProducto);
+        for (Producto producto : carrito) {
+            if(producto.getIdProducto() == idProducto)
+            {
+                carrito.remove(producto);
+                break;
+            }
+        }
+        cotizar();
+        return "carrito.xhtml?faces-redirect=true";
+    }
     //metodos
-    public String agregarAlCarrito(BigDecimal idProducto) {
+    public void agregarAlCarrito(BigDecimal idProducto) {
         alerta = null;
         setIdProductoSeleccionado(idProducto);
         Producto p = buscarProductoCarrito(getIdProductoSeleccionado());
@@ -63,10 +81,13 @@ public class CarritoController implements Serializable {
                 setTotalCompra(getTotalCompra().add(new BigDecimal(getProductoSelecionado().getPrecioProducto().doubleValue())));
             } else {
                 alerta = "<script>confirm('No hay stock.');</script>";
+                return;
             }
         }
-
-        return null;//"/menusCliente/inicioC.xhtml?faces-redirect=true";
+        alerta = "<script>confirmar=confirm('Producto añadido.\\n¿Desea finalizar su compra?');\n"
+                + "if(confirmar)\n"
+                + "window.location.href = \"../menusCliente/carrito.xhtml\";</script>";
+        return;
     }
 
     private Producto buscarProductoCarrito(BigDecimal idProducto) {
