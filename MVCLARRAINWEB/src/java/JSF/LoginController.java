@@ -5,6 +5,7 @@
  */
 package JSF;
 
+import Models.Administrador;
 import Models.Usuario;
 import SessionBeans.UsuarioFacade;
 import java.io.Serializable;
@@ -27,13 +28,16 @@ public class LoginController implements Serializable {
 
     @EJB
     private SessionBeans.UsuarioFacade ejbFacade;
+    @EJB
+    private SessionBeans.AdministradorFacade ejbFacade2;
     private Usuario current;
+    private Administrador current2;
     private int selectedItemIndex;
     private String alerta=null;
     private boolean erroractiva = false;
     private boolean errorpass = false;
     private boolean errororreo = false;
-
+    private FacesContext context = FacesContext.getCurrentInstance();
     public String getAlerta() {
         return alerta;
     }
@@ -49,13 +53,14 @@ public class LoginController implements Serializable {
     private UsuarioFacade getFacade() {
         return ejbFacade;
     }
-
+  
+    
     public String autenticarUsuario() {
         boolean erroractiva = false;
         boolean errorcorreo = false;
         boolean errorpass = false;
         boolean autenticar = false;
-        FacesContext context = FacesContext.getCurrentInstance();
+       
         for (Usuario usu : getFacade().findAll()) {
             if (current.getCorreo().compareToIgnoreCase(usu.getCorreo()) == 0) {
                 if (current.getPass().compareTo(usu.getPass()) == 0) {
@@ -95,8 +100,66 @@ public class LoginController implements Serializable {
     }
 
     public String cerrarSesion() {
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "/login/index?faces-redirect=true";
+            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+            return "/login/index?faces-redirect=true";
+           
+    }
+    
+        public String cerrarAdmin() {
+             FacesContext.getCurrentInstance().getExternalContext().invalidateSession(); 
+            return "/login/indexAdmin?faces-redirect=true";
+    }
+    
+    public String autenticarAdmin() {
+        boolean erroractiva = false;
+        boolean errorcorreo = false;
+        boolean errorpass = false;
+        boolean autenticar = false;
+        FacesContext context = FacesContext.getCurrentInstance();
+        for (Usuario usu : getFacade().findAll()) {
+            if (current.getCorreo().compareToIgnoreCase(usu.getCorreo()) == 0) {
+                if (current.getPass().compareTo(usu.getPass()) == 0) {
+                    if (usu.getActiva() == BigInteger.ONE) {
+                        autenticar = true;
+                        erroractiva = false;
+                        errorcorreo = false;
+                        errorpass = false;
+                        break;
+                    } else {
+                        erroractiva = true;
+                    }
+                } else {
+                    errorpass = true;
+                }
+            } else {
+                errorcorreo = true;
+            }
+        }
+        if (erroractiva) {
+            alerta = "<script>alert('La cuenta no esta activa.');</script>";
+            return "index";
+        }
+        if (errorpass) {
+            alerta = "<script>alert('Contraseña incorrecta.');</script>";
+            return "index";
+        }
+        if (errorcorreo) {
+            alerta = "<script>alert('El correo no existe.');</script>";
+            return "index";
+        }
+        if (autenticar) {
+            context.getExternalContext().getSessionMap().put("sesionAdmin", current.getCorreo());
+            return "/menusAdmin/inicioAdmin?faces-redirect=true";
+        }
+        return null;
+    }
+
+   
+    /**
+     * @return the ejbFacade2
+     */
+    public SessionBeans.AdministradorFacade getEjbFacade2() {
+        return ejbFacade2;
     }
 
 }
