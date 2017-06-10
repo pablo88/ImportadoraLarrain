@@ -8,6 +8,7 @@ package JSF;
 import Models.Producto;
 import Models.TipoProducto;
 import SessionBeans.ProductoFacade;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -78,7 +79,7 @@ public class ProductoControllerTest {
     public void testGetProductos() {
         System.out.println("getProductos");
         ProductoController instance = new ProductoController();
-        List<Producto> expResult = null;
+        List<Producto> expResult = new ArrayList<>();
         List<Producto> result = instance.getProductos();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
