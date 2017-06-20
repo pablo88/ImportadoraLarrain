@@ -17,8 +17,8 @@ public class RepeatPaginator {
     private static final int DEFAULT_PAGE_INDEX = 1;
 
     private int records;
-    private int recordsTotal;
     private int pageIndex;
+    private int recordsTotal;
     private int pages;
     private List<?> origModel;
     private List<?> model;
@@ -26,7 +26,7 @@ public class RepeatPaginator {
     public RepeatPaginator(List<?> model) {
         this.origModel = model;
         this.records = DEFAULT_RECORDS_NUMBER;
-        this.pageIndex = DEFAULT_PAGE_INDEX;        
+        this.pageIndex = DEFAULT_PAGE_INDEX;
         this.recordsTotal = model.size();
 
         if (records > 0) {
@@ -51,7 +51,7 @@ public class RepeatPaginator {
         int fromIndex = getFirst();
         int toIndex = getFirst() + records;
 
-        if(toIndex > this.recordsTotal) {
+        if (toIndex > this.recordsTotal) {
             toIndex = this.recordsTotal;
         }
 
@@ -59,7 +59,7 @@ public class RepeatPaginator {
     }
 
     public void next() {
-        if(this.pageIndex < pages) {
+        if (this.pageIndex < pages) {
             this.pageIndex++;
         }
 
@@ -67,12 +67,12 @@ public class RepeatPaginator {
     }
 
     public void prev() {
-        if(this.pageIndex > 1) {
+        if (this.pageIndex > 1) {
             this.pageIndex--;
         }
 
         updateModel();
-    }   
+    }
 
     public int getRecords() {
         return records;
@@ -101,5 +101,6 @@ public class RepeatPaginator {
     public void setPageIndex(int pageIndex) {
         this.pageIndex = pageIndex;
     }
+
 
 }

@@ -23,12 +23,12 @@
                 <h:panelGroup class="contenedorbarra col-md-12" layout="block">
                     <a class="navbar-brand" href="#">Bienvenido</a>
                     <ul class="nav navbar-nav">                              
-                        <li><a class="glyphicon glyphicon-shopping-cart" href="../menusCliente/carrito.xhtml"></a></li>
-                        <li><a href="#">Link</a></li>
+                        <li><a class="glyphicon glyphicon-shopping-cart" href="../menusCliente/carrito.xhtml">Compra</a></li>
+                        <li><a href="#" class="fa fa-money">Pago</a></li>
                         <li><a href="#">Link</a></li>
                     </ul>     
                     <h:form>
-                        <h:commandButton class="boton cerrar sesion col-md-offset-8" action="#{loginController.cerrarSesion()}" value="Cerrar Sesion" />
+                        <h:commandButton class="boton cerrar sesion col-md-offset-6" action="#{loginController.cerrarSesion()}" value="Cerrar Sesion" />
                     </h:form>
                 </h:panelGroup>
                 <h:panelGroup class="col-md-12" layout="block">
@@ -42,7 +42,7 @@
                     </h:panelGroup>
 
                     <h:panelGroup class="tablaProd col-md-8" layout="block">
-                        <c:if test="#{empty tipoProductoController.productos}">
+                        <c:if test="#{empty tipoProductoController.productost}">
                             <h:form>
                                 <ui:repeat var="productos" value="#{productoController.paginator.model}">
                                     <div class="producto detalle col-md-4">                                                                   
@@ -50,7 +50,7 @@
                                         <div class="producto detalle texto col-md-12">
                                             <p>Nombre: #{productos.nombreProducto}</p>
                                             <p>Precio: $#{productos.precioProducto}</p>
-                                            <h:commandButton class="btn agregar" action="#{carritoController.agregarAlCarrito(productos.idProducto)}" value="+Agregar" />
+                                            <h:commandButton class="btn agregar" action="#{carritoController.agregarAlCarrito(productos.idProducto)}" value="+Agregar" onclick="fCompra(#{productos.stockProducto});"/>
                                         </div>
                                     </div> 
                                 </ui:repeat>
@@ -62,28 +62,47 @@
                                 </div>
                             </h:form>
                         </c:if>
-                        <c:otherwise>
+                        <c:if test="#{!empty tipoProductoController.productost}">
                             <h:form>
                                 <ui:repeat var="productost" value="#{tipoProductoController.paginator.model}">
-                                    <div class="producto detalle col-md-4">                              
+                                    <div class="producto detalle col-md-4">                                                                   
                                         <h:graphicImage class="center-block" height="100px" url="#{productost.imagenProducto}"/>
                                         <div class="producto detalle texto col-md-12">
                                             <p>Nombre: #{productost.nombreProducto}</p>
                                             <p>Precio: $#{productost.precioProducto}</p>
-                                            <h:commandButton class="btn agregar" action="#{carritoController.agregarAlCarrito(productos.idProducto)}" value="+Agregar" />
+                                            <h:commandButton class="btn agregar" action="#{carritoController.agregarAlCarrito(productost.idProducto)}" value="+Agregar" onclick="fCompra(#{productost.stockProducto});"/>
                                         </div>
                                     </div> 
                                 </ui:repeat>
+                                <div class="botones paginacion col-md-12">
+                                    <h:commandLink value="Anterior" class="btn btn-default glyphicon glyphicon-chevron-left" action="#{tipoProductoController.paginator.prev()}"/>
+                                    <h:outputLabel  class="btn" value="#{tipoProductoController.paginator.pageIndex} / #{tipoProductoController.paginator.pages}"/>
+                                    <h:commandLink value="Siguente" class="btn btn-default glyphicon glyphicon-chevron-right" action="#{tipoProductoController.paginator.next()}"/>
+                                    <h:inputHidden value="#{tipoProductoController.paginator.pageIndex}"/>
+                                </div>
                             </h:form>
-                        </c:otherwise>
+                        </c:if>
                     </h:panelGroup>
                 </h:panelGroup>
             </h:panelGroup>
-            <h:form>
-            <h:commandButton action="#{carritoController.comprar()}" value="test2" /></h:form>
-            <h:outputText value="#{carritoController.correo_}" />
             <h:outputText value="#{tipoProductoController.alerta}" escape="false"/>
             <h:outputText value="#{carritoController.alerta}" escape="false"/>
+
+            <script type="text/javascript">
+                function fCompra(stock) {
+                    this.stock
+                    if (stock > 0)
+                    {
+                        confirmar = confirm('Producto añadido.\n¿Desea finalizar su compra?');
+                        if (confirmar)
+                        {
+                            window.open("../menusCliente/carrito.xhtml",'_self');
+                        }
+                    } else {
+                        alert('No hay stock.');
+                    }
+                }
+            </script>
         </ui:define>
     </ui:composition>
 

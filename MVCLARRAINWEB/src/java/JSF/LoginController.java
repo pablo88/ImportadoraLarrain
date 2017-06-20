@@ -33,15 +33,16 @@ public class LoginController implements Serializable {
     private Usuario current;
     private Administrador current2;
     private int selectedItemIndex;
-    private String alerta=null;
+    private String alerta = null;
     private boolean erroractiva = false;
     private boolean errorpass = false;
     private boolean errororreo = false;
-    private FacesContext context = FacesContext.getCurrentInstance();
+    private FacesContext context;
+
     public String getAlerta() {
         return alerta;
     }
-   
+
     public Usuario getSelected() {
         if (current == null) {
             current = new Usuario();
@@ -53,14 +54,14 @@ public class LoginController implements Serializable {
     private UsuarioFacade getFacade() {
         return ejbFacade;
     }
-  
-    
+
+
     public String autenticarUsuario() {
         boolean erroractiva = false;
         boolean errorcorreo = false;
         boolean errorpass = false;
         boolean autenticar = false;
-       
+        context = FacesContext.getCurrentInstance();
         for (Usuario usu : getFacade().findAll()) {
             if (current.getCorreo().compareToIgnoreCase(usu.getCorreo()) == 0) {
                 if (current.getPass().compareTo(usu.getPass()) == 0) {
@@ -100,22 +101,22 @@ public class LoginController implements Serializable {
     }
 
     public String cerrarSesion() {
-            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-            return "/login/index?faces-redirect=true";
-           
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/login/index?faces-redirect=true";
+
     }
-    
-        public String cerrarAdmin() {
-             FacesContext.getCurrentInstance().getExternalContext().invalidateSession(); 
-            return "/login/indexAdmin?faces-redirect=true";
+
+    public String cerrarAdmin() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/login/indexAdmin?faces-redirect=true";
     }
-    
+
     public String autenticarAdmin() {
         boolean erroractiva = false;
         boolean errorcorreo = false;
         boolean errorpass = false;
         boolean autenticar = false;
-        FacesContext context = FacesContext.getCurrentInstance();
+        context = FacesContext.getCurrentInstance();
         for (Usuario usu : getFacade().findAll()) {
             if (current.getCorreo().compareToIgnoreCase(usu.getCorreo()) == 0) {
                 if (current.getPass().compareTo(usu.getPass()) == 0) {
@@ -154,7 +155,6 @@ public class LoginController implements Serializable {
         return null;
     }
 
-   
     /**
      * @return the ejbFacade2
      */

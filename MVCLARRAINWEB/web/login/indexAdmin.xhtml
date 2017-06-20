@@ -9,9 +9,9 @@
             <h:outputText value="#{bundle.ViewLoginTitle}"></h:outputText>
         </ui:define>
         <ui:define name="head">
-            <c:if test="${sessionScope.sesion != null}">
+            <c:if test="${sessionScope.sesionAdmin != null}">
                 <script type="text/javascript">
-                    window.location.href = "../menusCliente/inicioAdmin.xhtml";
+                    window.location.href = "../menusAdmin/inicioAdmin.xhtml";
                 </script>
             </c:if>
         </ui:define>

@@ -70,6 +70,10 @@ public class Compra implements Serializable {
         this.idCompra = idCompra;
         this.fechaCompra = fechaCompra;
     }
+    
+    public Compra(Date fechaCompra) {
+        this.fechaCompra = fechaCompra;
+    }
 
     public BigDecimal getIdCompra() {
         return idCompra;

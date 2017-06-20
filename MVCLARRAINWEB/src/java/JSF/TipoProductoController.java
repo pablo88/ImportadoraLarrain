@@ -37,7 +37,7 @@ public class TipoProductoController implements Serializable {
     private int selectedItemIndex;
     private String[] selectedProd;
     private List<TipoProducto> tipos;
-    private List<Producto> productos = new ArrayList<>();
+    private List<Producto> productost = new ArrayList<>();
     private String alerta=null;
     private RepeatPaginator paginator;
     
@@ -50,8 +50,8 @@ public class TipoProductoController implements Serializable {
         return paginator;
     }
 
-    public List<Producto> getProductos() {
-        return productos;
+    public List<Producto> getProductost() {
+        return productost;
     }
 
     @PostConstruct
@@ -72,21 +72,21 @@ public class TipoProductoController implements Serializable {
     }
 
     public String listaProductos() {
-        productos.clear();
+        productost.clear();
         for (String id : getSelectedProd()) {
             for (Producto prod : ejbFacade1.findAll()) {
                 String ids = prod.getIdTipoProducto().toString().replaceAll("[^0-9]", "").trim();
                 if (id.compareTo(ids) == 0) {
-                    productos.add(prod);
+                    productost.add(prod);
                     alerta="";
                 }
             }
         }
-        if(productos.isEmpty())
+        if(productost.isEmpty()&& getSelectedProd().length>0)
         {
             alerta="<script>alert('No hay productos de ese tipo,actualmente.');</script>";
         }
-        paginator = new RepeatPaginator(productos);
+        paginator= new RepeatPaginator(productost);
         return "/menusCliente/inicioC.xhtml?faces-redirect=true";
     }
 

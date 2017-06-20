@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="head">
+            <c:if test="${sessionScope.sesion == null}">
+                <script type="text/javascript">
+                    alert('Sesion no iniciada\nNo puede ingresar a esta pagina.');
+                    window.location.href = "../login/index.xhtml";
+                </script>
+            </c:if>
+        </ui:define>
+        <ui:define name="titleP">
+            <h:outputText value="Pago"></h:outputText>
+        </ui:define>
+        <ui:define name="title">
+            <h:outputText class="col-md-8 col-md-offset-2" value="Pago"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup class="contenedor carrito col-md-12" layout="block">
+                <h:panelGroup class="tabla carrito col-md-8 col-md-offset-2" layout="block">
+                    <h:form>
+                       
+                    </h:form>
+                </h:panelGroup>
+            </h:panelGroup>
+        </ui:define>>
+    </ui:composition>
+</html>
+

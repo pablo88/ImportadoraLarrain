@@ -1,34 +1,54 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-        <h:form>
-           <h:commandButton class="boton cerrar sesion col-md-offset-8" action="#{loginController.cerrarAdmin()}" value="Cerrar Sesion" />
-        </h:form>
-        <br />
-        <h:link outcome="/administrador/List" value="Show All Administrador Items"/>
-        <br />
-        <h:link outcome="/agente/List" value="Show All Agente Items"/>
-        <br />
-        <h:link outcome="/cliente/List" value="Show All Cliente Items"/>
-        <br />
-        <h:link outcome="/encargadoBodega/List" value="Show All EncargadoBodega Items"/>
-        <br />
-        <h:link outcome="/producto/List" value="Show All Producto Items"/>
-        <br />
-        <h:link outcome="/proveedores/List" value="Show All Proveedores Items"/>
-        <br />
-        <h:link outcome="/supervisor/List" value="Show All Supervisor Items"/>
-        <br />
-        <h:link outcome="/usuario/List" value="Show All Usuario Items"/>
-        <br />
-        <h:link outcome="/vendedor/List" value="Show All Vendedor Items"/>
-        <br />
-    </h:body>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titleP">
+            <h:outputText value="Bienvenido Administrador"></h:outputText>
+        </ui:define>
+        <ui:define name="head">
+            <c:if test="${sessionScope.sesionAdmin == null}">
+                <script type="text/javascript">
+                    alert('Sesion no iniciada\nNo puede acceder.');
+                    window.location.href = "../login/indexAdmin.xhtml";
+                </script>
+            </c:if>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:panelGroup class="menu administrador col-md-4 col-md-offset-4" layout="block">
+                <h1 class="contenido administrador titulo"><h:outputText value="Menu Administrador"></h:outputText></h1>
+                <h:link class="boton administrador btn btn-default" outcome="/administrador/List" value="Administrador"/>
+                <br />
+                <h:link class="boton administrador btn btn-default" outcome="/agente/List" value="Agente"/>
+                <br />
+                <h:link class="boton administrador btn btn-default" outcome="/cliente/List" value="Cliente"/>
+                <br />
+                <h:link  class="boton administrador btn btn-default" outcome="/encargadoBodega/List" value="Encargado Bodega"/>
+                <br />
+                <h:link  class="boton administrador btn btn-default" outcome="/producto/List" value="Producto"/>
+                <br />
+                <h:link class="boton administrador btn btn-default" outcome="/tipoProducto/List" value="Tipo Producto"/>
+                <br />
+                <h:link class="boton administrador btn btn-default" outcome="/proveedores/List" value="Proveedores"/>
+                <br />
+                <h:link class="boton administrador btn btn-default" outcome="/supervisor/List" value="Supervisor"/>
+                <br />
+                <h:link class="boton administrador btn btn-default" outcome="/usuario/List" value="Usuario"/>
+                <br />
+                <h:link class="boton administrador btn btn-default" outcome="/vendedor/List" value="Vendedor"/>
+                <br />
+                <h:panelGroup class="menu administrador boton col-md-8 col-md-offset-2" layout="block">
+                    <h:form>
+                        <h:commandButton class="boton cerrar sesion administrador" action="#{loginController.cerrarAdmin()}" value="Cerrar Sesion" />
+                    </h:form>
+                </h:panelGroup>
+            </h:panelGroup>
+            <h:outputText value="" escape="false"/>
+        </ui:define>
+    </ui:composition>
 </html>

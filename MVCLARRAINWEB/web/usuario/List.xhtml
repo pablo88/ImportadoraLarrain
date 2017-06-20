@@ -6,67 +6,73 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListUsuarioTitle}"></h:outputText>
-        </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListUsuarioEmpty}" rendered="#{usuarioController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{usuarioController.items.rowCount > 0}">
-                    <h:outputText value="#{usuarioController.pagination.pageFirstItem + 1}..#{usuarioController.pagination.pageLastItem + 1}/#{usuarioController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{usuarioController.previous}" value="#{bundle.Previous} #{usuarioController.pagination.pageSize}" rendered="#{usuarioController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{usuarioController.next}" value="#{bundle.Next} #{usuarioController.pagination.pageSize}" rendered="#{usuarioController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{usuarioController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuarioTitle_idUsuario}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idUsuario}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuarioTitle_correo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.correo}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuarioTitle_pass}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.pass}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuarioTitle_activa}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.activa}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuarioTitle_keyActivacion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.keyActivacion}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{usuarioController.prepareView}" value="#{bundle.ListUsuarioViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{usuarioController.prepareEdit}" value="#{bundle.ListUsuarioEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{usuarioController.destroy}" value="#{bundle.ListUsuarioDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
+                <h:panelGroup class="administrador contenido col-md-8 col-md-offset-2" layout="block">
+                    <h1 class="contenido administrador titulo"><h:outputText value="Lista Usuarios"></h:outputText></h1>
+                    <h:outputText escape="false" value="#{bundle.ListUsuarioEmpty}" rendered="#{usuarioController.items.rowCount == 0}"/>
+                    <h:panelGroup rendered="#{usuarioController.items.rowCount > 0}">
+
+                        <h:dataTable class="col-md-12" value="#{usuarioController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListUsuarioTitle_idUsuario}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idUsuario}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListUsuarioTitle_correo}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.correo}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListUsuarioTitle_pass}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.pass}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListUsuarioTitle_activa}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.activa}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Key Activacion"/>
+                                </f:facet>
+                                <h:outputText value="#{item.keyActivacion}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="&nbsp;"/>
+                                </f:facet>
+                                <h:commandLink class="btn btn-primary" action="#{usuarioController.prepareView}" value="Detalle"/>
+                                <h:outputText value=" "/>
+                                <h:commandLink class="btn btn-warning" action="#{usuarioController.prepareEdit}" value="Editar"/>
+                                <h:outputText value=" "/>
+                                <h:commandLink class="btn btn-danger" action="#{usuarioController.destroy}" value="Eliminar"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:panelGroup>
+                    <br />
+                    <h:panelGroup class="administrador botones pie" layout="block">
+                        <h:panelGroup class="col-md-3" layout="block">
+                            <h:commandLink class="btn btn-success col-md-offset-1" action="#{usuarioController.prepareCreate}" value="Crear Usuario"/>
+                        </h:panelGroup>
+                        <h:panelGroup class="col-md-3 col-md-offset-1" layout="block">
+                            <h:commandLink value="Anterior" class="glyphicon glyphicon-chevron-left btn btn-default col-md-offset-2" action="#{usuarioController.previous}" rendered="#{usuarioController.pagination.hasPreviousPage}"/>
+                            <h:commandLink value="Siguiente" class="glyphicon glyphicon-chevron-right btn btn-default col-md-offset-2" action="#{usuarioController.next}"  rendered="#{usuarioController.pagination.hasNextPage}"/>
+                        </h:panelGroup>
+                        <h:panelGroup class="col-md-3 col-md-offset-1" layout="block">
+                            <h:link outcome="/menusAdmin/inicioAdmin?faces-redirect=true" class="btn btn-danger col-md-offset-2" value="Volver"/>
+                        </h:panelGroup>
+                    </h:panelGroup>
                 </h:panelGroup>
-                <br />
-                <h:commandLink action="#{usuarioController.prepareCreate}" value="#{bundle.ListUsuarioCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListUsuarioIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>
