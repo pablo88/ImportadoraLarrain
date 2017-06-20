@@ -3,42 +3,60 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewUsuarioTitle}"></h:outputText>
+        <ui:define name="head">
+            <c:if test="${sessionScope.sesionAdmin == null}">
+                <script type="text/javascript">
+                    alert('Sesion no iniciada\nNo puede acceder.');
+                    window.history.back();
+                </script>
+            </c:if>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewUsuarioLabel_idUsuario}"/>
-                    <h:outputText value="#{usuarioController.selected.idUsuario}" title="#{bundle.ViewUsuarioTitle_idUsuario}"/>
-                    <h:outputText value="#{bundle.ViewUsuarioLabel_correo}"/>
-                    <h:outputText value="#{usuarioController.selected.correo}" title="#{bundle.ViewUsuarioTitle_correo}"/>
-                    <h:outputText value="#{bundle.ViewUsuarioLabel_pass}"/>
-                    <h:outputText value="#{usuarioController.selected.pass}" title="#{bundle.ViewUsuarioTitle_pass}"/>
-                    <h:outputText value="#{bundle.ViewUsuarioLabel_activa}"/>
-                    <h:outputText value="#{usuarioController.selected.activa}" title="#{bundle.ViewUsuarioTitle_activa}"/>
-                    <h:outputText value="#{bundle.ViewUsuarioLabel_keyActivacion}"/>
-                    <h:outputText value="#{usuarioController.selected.keyActivacion}" title="#{bundle.ViewUsuarioTitle_keyActivacion}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{usuarioController.destroyAndView}" value="#{bundle.ViewUsuarioDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewUsuarioEditLink}"/>
-                <br />
-                <h:commandLink action="#{usuarioController.prepareCreate}" value="#{bundle.ViewUsuarioCreateLink}" />
-                <br />
-                <h:commandLink action="#{usuarioController.prepareList}" value="#{bundle.ViewUsuarioShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/menusAdmin/inicioAdmin?faces-redirect=true" value="#{bundle.ViewUsuarioIndexLink}"/>
-
+                <h:panelGroup class="administrador contenido col-md-8 col-md-offset-2" layout="block">
+                    <h1 class="contenido administrador titulo"><h:outputText value="Detalle Usuario"></h:outputText></h1>
+                    <h:panelGrid columns="2" class="administrador detalle col-md-10 col-md-offset-1">
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_idUsuario}"/>
+                        <h:outputText value="#{usuarioController.selected.idUsuario}" title="#{bundle.ViewUsuarioTitle_idUsuario}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_correo}"/>
+                        <h:outputText value="#{usuarioController.selected.correo}" title="#{bundle.ViewUsuarioTitle_correo}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_pass}"/>
+                        <h:outputText value="#{usuarioController.selected.pass}" title="#{bundle.ViewUsuarioTitle_pass}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_activa}"/>
+                        <h:outputText value="#{usuarioController.selected.activa}" title="#{bundle.ViewUsuarioTitle_activa}"/>
+                        <h:outputText value="Key Activacion:"/>
+                        <h:outputText value="#{usuarioController.selected.keyActivacion}" title="#{bundle.ViewUsuarioTitle_keyActivacion}"/>
+                    </h:panelGrid>
+                    <br />
+                    <h:panelGroup class="administrador detalle pie col-md-12" layout="block">
+                        <h:panelGroup class="botones superiores detalle administrador col-md-12" layout="block">
+                            <h:panelGroup class="col-md-3 col-md-offset-1" layout="block">
+                                <h:commandLink class="boton detalle administrador btn btn-success" action="#{usuarioController.prepareCreate}" value="Crear Usuario" />
+                            </h:panelGroup>    
+                            <h:panelGroup class="col-md-3" layout="block">
+                                <h:link class="boton detalle administrador btn btn-warning" outcome="Edit" value="Editar"/>
+                            </h:panelGroup>
+                            <h:panelGroup class="col-md-3" layout="block">
+                                <h:commandLink class="boton detalle administrador btn btn-danger" action="#{usuarioController.destroyAndView}" value="Eliminar"/>
+                            </h:panelGroup> 
+                        </h:panelGroup>
+                        <h:panelGroup class="botones inferiores detalle administrador col-md-12" layout="block">
+                            <h:panelGroup class="col-md-3 col-md-offset-1" layout="block">
+                                <h:commandLink  class="boton detalle administrador btn btn-default" action="#{usuarioController.prepareList}" value="Lista Usuarios"/>
+                            </h:panelGroup>
+                            <h:panelGroup class="col-md-3 col-md-offset-4" layout="block">
+                                <h:link class="boton detalle administrador btn btn-default" outcome="/menusAdmin/inicioAdmin?faces-redirect=true" value="Index"/>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
             </h:form>
         </ui:define>
     </ui:composition>

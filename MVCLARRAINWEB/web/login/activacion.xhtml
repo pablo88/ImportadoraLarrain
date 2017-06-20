@@ -39,7 +39,7 @@ and open the template in the editor.
         <c:otherwise>
             <script type="text/javascript">
                 alert('Sesion iniciada.\nNo puede acceder a esta pagina.');
-                window.location.href = "../login/index.xhtml";
+                window.history.back();
             </script>
         </c:otherwise>
 

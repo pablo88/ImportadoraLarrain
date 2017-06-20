@@ -11,6 +11,11 @@ a.boton.administrador.btn.btn-default {
     margin-bottom: 10px;
     margin-top: 5px;
 }
+table.order_form_riskcheckboxes {
+    text-align: left;
+}
+
+
 .menu.administrador{
     background: black;
     opacity: 0.9;
@@ -38,6 +43,62 @@ table{
 .col-md-3{
     margin-top: 3%;
     margin-bottom: 2%;
+}
+.administrador.detalle>tbody{
+    border: solid;
+}
+.botones.inferiores.detalle.administrador {
+    padding: 0%;
+}
+.botones.superiores.detalle.administrador {
+    padding: 0%;
+}
+.crear.administrador>a {
+    width: 100%;
+}
+.crear.administrador.boton{
+    margin-top: 6%;
+}
+.botones.superiores.detalle.administrador.col-md-12>.col-md-3 {
+    margin-right: 4.2%;
+}
+.crear.administrador.contenido>h1 {
+    padding-bottom: 10%;
+}
+.crear.administrador.contenido{
+    padding-bottom: 3%;
+}
+table.crear.administrador{
+    padding-bottom: 3%;
+}
+table.crear.administrador>tbody>tr>td>label {
+    margin-bottom: 2%;
+    color: white;
+}
+table.crear.administrador>tbody>tr>td>input {
+    margin-bottom: 10%;
+    width: 70%;
+}
+table.crear.administrador>tbody>tr>td>textarea {
+    margin-bottom: 10%;
+    width: 70%;
+}
+table.crear.administrador>tbody>tr>td>select {
+    width: 70%;
+    margin-bottom: 10%;
+}
+
+a.boton.detalle.administrador.btn {
+    width: 100%;
+}
+.administrador.detalle{
+    margin-top: 2%;
+}
+.administrador.detalle>tbody>tr>td {
+    font-size: 20px;
+    color: white;
+    text-align: left;
+    /* border: solid; */
 }
 .elemento.centro>input {
     width: 13%;
@@ -202,15 +263,15 @@ h1.login.titulo {
 .boton.cerrar.sesion{
     background: black;
     color: white;
-    border: none;
+    border: solid;
     margin-top: 1%;
     font-weight: bold;
 }
 .boton.cerrar.sesion.administrador{
     background: black;
+    margin-top: 15%;
     color: white;
     border: none;
-    margin-top: 1%;
     font-weight: bold;
     border:solid;
     width: 100%;

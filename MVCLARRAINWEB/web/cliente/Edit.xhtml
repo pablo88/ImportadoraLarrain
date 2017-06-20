@@ -3,50 +3,61 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditClienteTitle}"></h:outputText>
+        <ui:define name="head">
+            <c:if test="${sessionScope.sesionAdmin == null}">
+                <script type="text/javascript">
+                    alert('Sesion no iniciada\nNo puede acceder.');
+                    window.history.back();
+                </script>
+            </c:if>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditClienteLabel_idCliente}" for="idCliente" />
-                    <h:inputText id="idCliente" value="#{clienteController.selected.idCliente}" title="#{bundle.EditClienteTitle_idCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idCliente}"/>
-                    <h:outputLabel value="#{bundle.EditClienteLabel_nombreCliente}" for="nombreCliente" />
-                    <h:inputText id="nombreCliente" value="#{clienteController.selected.nombreCliente}" title="#{bundle.EditClienteTitle_nombreCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_nombreCliente}"/>
-                    <h:outputLabel value="#{bundle.EditClienteLabel_appCliente}" for="appCliente" />
-                    <h:inputText id="appCliente" value="#{clienteController.selected.appCliente}" title="#{bundle.EditClienteTitle_appCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_appCliente}"/>
-                    <h:outputLabel value="#{bundle.EditClienteLabel_apmCliente}" for="apmCliente" />
-                    <h:inputText id="apmCliente" value="#{clienteController.selected.apmCliente}" title="#{bundle.EditClienteTitle_apmCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_apmCliente}"/>
-                    <h:outputLabel value="#{bundle.EditClienteLabel_rutCliente}" for="rutCliente" />
-                    <h:inputText id="rutCliente" value="#{clienteController.selected.rutCliente}" title="#{bundle.EditClienteTitle_rutCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_rutCliente}"/>
-                    <h:outputLabel value="#{bundle.EditClienteLabel_correoCliente}" for="correoCliente" />
-                    <h:inputText id="correoCliente" value="#{clienteController.selected.correoCliente}" title="#{bundle.EditClienteTitle_correoCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_correoCliente}"/>
-                    <h:outputLabel value="#{bundle.EditClienteLabel_direccionCliente}" for="direccionCliente" />
-                    <h:inputText id="direccionCliente" value="#{clienteController.selected.direccionCliente}" title="#{bundle.EditClienteTitle_direccionCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_direccionCliente}"/>
-                    <h:outputLabel value="#{bundle.EditClienteLabel_telefono}" for="telefono" />
-                    <h:inputText id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.EditClienteTitle_telefono}" />
-                    <h:outputLabel value="#{bundle.EditClienteLabel_codigoPostal}" for="codigoPostal" />
-                    <h:inputText id="codigoPostal" value="#{clienteController.selected.codigoPostal}" title="#{bundle.EditClienteTitle_codigoPostal}" />
-                    <h:outputLabel value="#{bundle.EditClienteLabel_idUsuario}" for="idUsuario" />
-                    <h:selectOneMenu id="idUsuario" value="#{clienteController.selected.idUsuario}" title="#{bundle.EditClienteTitle_idUsuario}" >
-                        <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <h:commandLink action="#{clienteController.update}" value="#{bundle.EditClienteSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditClienteViewLink}"/>
-                <br />
-                <h:commandLink action="#{clienteController.prepareList}" value="#{bundle.EditClienteShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/menusAdmin/inicioAdmin?faces-redirect=true" value="#{bundle.EditClienteIndexLink}" />
+                <h:panelGroup class="crear administrador contenido col-md-4 col-md-offset-4" layout="block">
+                    <h1 class="contenido administrador titulo"><h:outputText value="Editar Cliente"></h:outputText></h1>
+                    <h:panelGrid columns="2" class="crear administrador col-md-12" >
+                        <h:outputLabel value="#{bundle.EditClienteLabel_idCliente}" for="idCliente" />
+                        <br/><h:inputText id="idCliente" value="#{clienteController.selected.idCliente}" title="#{bundle.EditClienteTitle_idCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idCliente}"/>
+                        <br/><h:outputLabel value="#{bundle.EditClienteLabel_nombreCliente}" for="nombreCliente" />
+                        <br/><h:inputText id="nombreCliente" value="#{clienteController.selected.nombreCliente}" title="#{bundle.EditClienteTitle_nombreCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_nombreCliente}"/>
+                        <br/><h:outputLabel value="#{bundle.EditClienteLabel_appCliente}" for="appCliente" />
+                        <br/><h:inputText id="appCliente" value="#{clienteController.selected.appCliente}" title="#{bundle.EditClienteTitle_appCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_appCliente}"/>
+                        <br/><h:outputLabel value="#{bundle.EditClienteLabel_apmCliente}" for="apmCliente" />
+                        <br/><h:inputText id="apmCliente" value="#{clienteController.selected.apmCliente}" title="#{bundle.EditClienteTitle_apmCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_apmCliente}"/>
+                        <br/><h:outputLabel value="#{bundle.EditClienteLabel_rutCliente}" for="rutCliente" />
+                        <br/><h:inputText id="rutCliente" value="#{clienteController.selected.rutCliente}" title="#{bundle.EditClienteTitle_rutCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_rutCliente}"/>
+                        <br/><h:outputLabel value="#{bundle.EditClienteLabel_correoCliente}" for="correoCliente" />
+                        <br/><h:inputText id="correoCliente" value="#{clienteController.selected.correoCliente}" title="#{bundle.EditClienteTitle_correoCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_correoCliente}"/>
+                        <br/><h:outputLabel value="#{bundle.EditClienteLabel_direccionCliente}" for="direccionCliente" />
+                        <br/><h:inputText id="direccionCliente" value="#{clienteController.selected.direccionCliente}" title="#{bundle.EditClienteTitle_direccionCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_direccionCliente}"/>
+                        <br/><h:outputLabel value="#{bundle.EditClienteLabel_telefono}" for="telefono" />
+                        <br/><h:inputText id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.EditClienteTitle_telefono}" />
+                        <br/><h:outputLabel value="#{bundle.EditClienteLabel_codigoPostal}" for="codigoPostal" />
+                        <br/><h:inputText id="codigoPostal" value="#{clienteController.selected.codigoPostal}" title="#{bundle.EditClienteTitle_codigoPostal}" />
+                        <br/><h:outputLabel value="#{bundle.EditClienteLabel_idUsuario}" for="idUsuario" />
+                        <br/><h:selectOneMenu id="idUsuario" value="#{clienteController.selected.idUsuario}" title="#{bundle.EditClienteTitle_idUsuario}" >
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"/>
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+                    <h:panelGroup class="crear administrador boton col-md-4 col-md-offset-4" layout="block">
+                        <h:commandLink class="btn btn-success" action="#{clienteController.create}" value="Guardar" />
+                    </h:panelGroup>
+                    <h:panelGroup class="col-md-12" layout="block">
+                        <h:panelGroup class="crear administrador boton col-md-4 col-md-offset-1" layout="block">
+                            <h:commandLink class="btn btn-default" action="#{clienteController.prepareList}" value="Volver" immediate="true"/>
+                        </h:panelGroup>
+                        <h:panelGroup class="crear administrador boton col-md-4 col-md-offset-2" layout="block">
+                            <h:link class="btn btn-default" outcome="/menusAdmin/inicioAdmin?faces-redirect=true" value="Index"/>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
             </h:form>
         </ui:define>
     </ui:composition>

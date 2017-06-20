@@ -11,7 +11,8 @@
         <ui:define name="head">
             <c:if test="${sessionScope.sesionAdmin != null}">
                 <script type="text/javascript">
-                    window.location.href = "../menusAdmin/inicioAdmin.xhtml";
+                    alert('Sesion Iniciada.');
+                    window.history.back();
                 </script>
             </c:if>
         </ui:define>

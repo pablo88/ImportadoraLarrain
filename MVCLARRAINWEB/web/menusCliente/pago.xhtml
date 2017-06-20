@@ -9,7 +9,7 @@
             <c:if test="${sessionScope.sesion == null}">
                 <script type="text/javascript">
                     alert('Sesion no iniciada\nNo puede ingresar a esta pagina.');
-                    window.location.href = "../login/index.xhtml";
+                    window.history.back();
                 </script>
             </c:if>
         </ui:define>

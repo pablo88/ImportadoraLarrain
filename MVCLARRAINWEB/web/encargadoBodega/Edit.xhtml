@@ -3,42 +3,53 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditEncargadoBodegaTitle}"></h:outputText>
+        <ui:define name="head">
+            <c:if test="${sessionScope.sesionAdmin == null}">
+                <script type="text/javascript">
+                    alert('Sesion no iniciada\nNo puede acceder.');
+                    window.history.back();
+                </script>
+            </c:if>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditEncargadoBodegaLabel_idEncargadoBodega}" for="idEncargadoBodega" />
-                    <h:inputText id="idEncargadoBodega" value="#{encargadoBodegaController.selected.idEncargadoBodega}" title="#{bundle.EditEncargadoBodegaTitle_idEncargadoBodega}" required="true" requiredMessage="#{bundle.EditEncargadoBodegaRequiredMessage_idEncargadoBodega}"/>
-                    <h:outputLabel value="#{bundle.EditEncargadoBodegaLabel_nombreEncargadoBodega}" for="nombreEncargadoBodega" />
-                    <h:inputText id="nombreEncargadoBodega" value="#{encargadoBodegaController.selected.nombreEncargadoBodega}" title="#{bundle.EditEncargadoBodegaTitle_nombreEncargadoBodega}" required="true" requiredMessage="#{bundle.EditEncargadoBodegaRequiredMessage_nombreEncargadoBodega}"/>
-                    <h:outputLabel value="#{bundle.EditEncargadoBodegaLabel_appEncargadoBodega}" for="appEncargadoBodega" />
-                    <h:inputText id="appEncargadoBodega" value="#{encargadoBodegaController.selected.appEncargadoBodega}" title="#{bundle.EditEncargadoBodegaTitle_appEncargadoBodega}" required="true" requiredMessage="#{bundle.EditEncargadoBodegaRequiredMessage_appEncargadoBodega}"/>
-                    <h:outputLabel value="#{bundle.EditEncargadoBodegaLabel_apmEncargadoBodega}" for="apmEncargadoBodega" />
-                    <h:inputText id="apmEncargadoBodega" value="#{encargadoBodegaController.selected.apmEncargadoBodega}" title="#{bundle.EditEncargadoBodegaTitle_apmEncargadoBodega}" required="true" requiredMessage="#{bundle.EditEncargadoBodegaRequiredMessage_apmEncargadoBodega}"/>
-                    <h:outputLabel value="#{bundle.EditEncargadoBodegaLabel_correoEncargadoBodega}" for="correoEncargadoBodega" />
-                    <h:inputText id="correoEncargadoBodega" value="#{encargadoBodegaController.selected.correoEncargadoBodega}" title="#{bundle.EditEncargadoBodegaTitle_correoEncargadoBodega}" required="true" requiredMessage="#{bundle.EditEncargadoBodegaRequiredMessage_correoEncargadoBodega}"/>
-                    <h:outputLabel value="#{bundle.EditEncargadoBodegaLabel_idUsuario}" for="idUsuario" />
-                    <h:selectOneMenu id="idUsuario" value="#{encargadoBodegaController.selected.idUsuario}" title="#{bundle.EditEncargadoBodegaTitle_idUsuario}" >
-                        <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <h:commandLink action="#{encargadoBodegaController.update}" value="#{bundle.EditEncargadoBodegaSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditEncargadoBodegaViewLink}"/>
-                <br />
-                <h:commandLink action="#{encargadoBodegaController.prepareList}" value="#{bundle.EditEncargadoBodegaShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/menusAdmin/inicioAdmin?faces-redirect=true" value="#{bundle.EditEncargadoBodegaIndexLink}" />
+                <h:panelGroup class="crear administrador contenido col-md-4 col-md-offset-4" layout="block">
+                    <h1 class="contenido administrador titulo"><h:outputText value="Editar Bodeguero"></h:outputText></h1>
+                    <h:panelGrid columns="2" class="crear administrador col-md-12" >
+                        <h:outputLabel value="#{bundle.EditEncargadoBodegaLabel_idEncargadoBodega}" for="idEncargadoBodega" />
+                        <br/><h:inputText id="idEncargadoBodega" value="#{encargadoBodegaController.selected.idEncargadoBodega}" title="#{bundle.EditEncargadoBodegaTitle_idEncargadoBodega}" required="true" requiredMessage="#{bundle.EditEncargadoBodegaRequiredMessage_idEncargadoBodega}"/>
+                        <br/><h:outputLabel value="#{bundle.EditEncargadoBodegaLabel_nombreEncargadoBodega}" for="nombreEncargadoBodega" />
+                        <br/><h:inputText id="nombreEncargadoBodega" value="#{encargadoBodegaController.selected.nombreEncargadoBodega}" title="#{bundle.EditEncargadoBodegaTitle_nombreEncargadoBodega}" required="true" requiredMessage="#{bundle.EditEncargadoBodegaRequiredMessage_nombreEncargadoBodega}"/>
+                        <br/><h:outputLabel value="#{bundle.EditEncargadoBodegaLabel_appEncargadoBodega}" for="appEncargadoBodega" />
+                        <br/><h:inputText id="appEncargadoBodega" value="#{encargadoBodegaController.selected.appEncargadoBodega}" title="#{bundle.EditEncargadoBodegaTitle_appEncargadoBodega}" required="true" requiredMessage="#{bundle.EditEncargadoBodegaRequiredMessage_appEncargadoBodega}"/>
+                        <br/><h:outputLabel value="#{bundle.EditEncargadoBodegaLabel_apmEncargadoBodega}" for="apmEncargadoBodega" />
+                        <br/><h:inputText id="apmEncargadoBodega" value="#{encargadoBodegaController.selected.apmEncargadoBodega}" title="#{bundle.EditEncargadoBodegaTitle_apmEncargadoBodega}" required="true" requiredMessage="#{bundle.EditEncargadoBodegaRequiredMessage_apmEncargadoBodega}"/>
+                        <br/><h:outputLabel value="#{bundle.EditEncargadoBodegaLabel_correoEncargadoBodega}" for="correoEncargadoBodega" />
+                        <br/><h:inputText id="correoEncargadoBodega" value="#{encargadoBodegaController.selected.correoEncargadoBodega}" title="#{bundle.EditEncargadoBodegaTitle_correoEncargadoBodega}" required="true" requiredMessage="#{bundle.EditEncargadoBodegaRequiredMessage_correoEncargadoBodega}"/>
+                        <br/><h:outputLabel value="#{bundle.EditEncargadoBodegaLabel_idUsuario}" for="idUsuario" />
+                        <br/><h:selectOneMenu id="idUsuario" value="#{encargadoBodegaController.selected.idUsuario}" title="#{bundle.EditEncargadoBodegaTitle_idUsuario}" >
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"/>
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+                    <h:panelGroup class="crear administrador boton col-md-4 col-md-offset-4" layout="block">
+                        <h:commandLink class="btn btn-success" action="#{encargadoBodegaController.create}" value="Guardar" />
+                    </h:panelGroup>
+                    <h:panelGroup class="col-md-12" layout="block">
+                        <h:panelGroup class="crear administrador boton col-md-4 col-md-offset-1" layout="block">
+                            <h:commandLink class="btn btn-default" action="#{encargadoBodegaController.prepareList}" value="Volver" immediate="true"/>
+                        </h:panelGroup>
+                        <h:panelGroup class="crear administrador boton col-md-4 col-md-offset-2" layout="block">
+                            <h:link class="btn btn-default" outcome="/menusAdmin/inicioAdmin?faces-redirect=true" value="Index"/>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
             </h:form>
         </ui:define>
     </ui:composition>

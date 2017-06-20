@@ -3,44 +3,62 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewEncargadoBodegaTitle}"></h:outputText>
+        <ui:define name="head">
+            <c:if test="${sessionScope.sesionAdmin == null}">
+                <script type="text/javascript">
+                    alert('Sesion no iniciada\nNo puede acceder.');
+                    window.history.back();
+                </script>
+            </c:if>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_idEncargadoBodega}"/>
-                    <h:outputText value="#{encargadoBodegaController.selected.idEncargadoBodega}" title="#{bundle.ViewEncargadoBodegaTitle_idEncargadoBodega}"/>
-                    <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_nombreEncargadoBodega}"/>
-                    <h:outputText value="#{encargadoBodegaController.selected.nombreEncargadoBodega}" title="#{bundle.ViewEncargadoBodegaTitle_nombreEncargadoBodega}"/>
-                    <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_appEncargadoBodega}"/>
-                    <h:outputText value="#{encargadoBodegaController.selected.appEncargadoBodega}" title="#{bundle.ViewEncargadoBodegaTitle_appEncargadoBodega}"/>
-                    <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_apmEncargadoBodega}"/>
-                    <h:outputText value="#{encargadoBodegaController.selected.apmEncargadoBodega}" title="#{bundle.ViewEncargadoBodegaTitle_apmEncargadoBodega}"/>
-                    <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_correoEncargadoBodega}"/>
-                    <h:outputText value="#{encargadoBodegaController.selected.correoEncargadoBodega}" title="#{bundle.ViewEncargadoBodegaTitle_correoEncargadoBodega}"/>
-                    <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_idUsuario}"/>
-                    <h:outputText value="#{encargadoBodegaController.selected.idUsuario}" title="#{bundle.ViewEncargadoBodegaTitle_idUsuario}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{encargadoBodegaController.destroyAndView}" value="#{bundle.ViewEncargadoBodegaDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewEncargadoBodegaEditLink}"/>
-                <br />
-                <h:commandLink action="#{encargadoBodegaController.prepareCreate}" value="#{bundle.ViewEncargadoBodegaCreateLink}" />
-                <br />
-                <h:commandLink action="#{encargadoBodegaController.prepareList}" value="#{bundle.ViewEncargadoBodegaShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/menusAdmin/inicioAdmin?faces-redirect=true" value="#{bundle.ViewEncargadoBodegaIndexLink}"/>
-
+                <h:panelGroup class="administrador contenido col-md-8 col-md-offset-2" layout="block">
+                    <h1 class="contenido administrador titulo"><h:outputText value="Detalle bodeguero"></h:outputText></h1>
+                    <h:panelGrid columns="2" class="administrador detalle col-md-10 col-md-offset-1">
+                        <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_idEncargadoBodega}"/>
+                        <h:outputText value="#{encargadoBodegaController.selected.idEncargadoBodega}" title="#{bundle.ViewEncargadoBodegaTitle_idEncargadoBodega}"/>
+                        <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_nombreEncargadoBodega}"/>
+                        <h:outputText value="#{encargadoBodegaController.selected.nombreEncargadoBodega}" title="#{bundle.ViewEncargadoBodegaTitle_nombreEncargadoBodega}"/>
+                        <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_appEncargadoBodega}"/>
+                        <h:outputText value="#{encargadoBodegaController.selected.appEncargadoBodega}" title="#{bundle.ViewEncargadoBodegaTitle_appEncargadoBodega}"/>
+                        <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_apmEncargadoBodega}"/>
+                        <h:outputText value="#{encargadoBodegaController.selected.apmEncargadoBodega}" title="#{bundle.ViewEncargadoBodegaTitle_apmEncargadoBodega}"/>
+                        <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_correoEncargadoBodega}"/>
+                        <h:outputText value="#{encargadoBodegaController.selected.correoEncargadoBodega}" title="#{bundle.ViewEncargadoBodegaTitle_correoEncargadoBodega}"/>
+                        <h:outputText value="#{bundle.ViewEncargadoBodegaLabel_idUsuario}"/>
+                        <h:outputText value="#{encargadoBodegaController.selected.idUsuario}" title="#{bundle.ViewEncargadoBodegaTitle_idUsuario}"/>
+                    </h:panelGrid>
+                    <br />
+                    <h:panelGroup class="administrador detalle pie col-md-12" layout="block">
+                        <h:panelGroup class="botones superiores detalle administrador col-md-12" layout="block">
+                            <h:panelGroup class="col-md-3 col-md-offset-1" layout="block">
+                                <h:commandLink class="boton detalle administrador btn btn-success" action="#{encargadoBodegaController.prepareCreate}" value="Crear Bodeguero" />
+                            </h:panelGroup>    
+                            <h:panelGroup class="col-md-3" layout="block">
+                                <h:link class="boton detalle administrador btn btn-warning" outcome="Edit" value="Editar"/>
+                            </h:panelGroup>
+                            <h:panelGroup class="col-md-3" layout="block">
+                                <h:commandLink class="boton detalle administrador btn btn-danger" action="#{encargadoBodegaController.destroyAndView}" value="Eliminar"/>
+                            </h:panelGroup> 
+                        </h:panelGroup>
+                        <h:panelGroup class="botones inferiores detalle administrador col-md-12" layout="block">
+                            <h:panelGroup class="col-md-3 col-md-offset-1" layout="block">
+                                <h:commandLink  class="boton detalle administrador btn btn-default" action="#{encargadoBodegaController.prepareList}" value="Lista Bodegueros"/>
+                            </h:panelGroup>
+                            <h:panelGroup class="col-md-3 col-md-offset-4" layout="block">
+                                <h:link class="boton detalle administrador btn btn-default" outcome="/menusAdmin/inicioAdmin?faces-redirect=true" value="Index"/>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
             </h:form>
         </ui:define>
     </ui:composition>

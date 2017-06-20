@@ -14,7 +14,7 @@
             <c:if test="${sessionScope.sesion != null}">
                 <script type="text/javascript">
                     alert('Sesion iniciada\nNo se puede registrar.');
-                    window.location.href = "../login/index.xhtml";
+                    window.history.back();
                 </script>
             </c:if>
         </ui:define>

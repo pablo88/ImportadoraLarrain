@@ -3,52 +3,70 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewClienteTitle}"></h:outputText>
+        <ui:define name="head">
+            <c:if test="${sessionScope.sesionAdmin == null}">
+                <script type="text/javascript">
+                    alert('Sesion no iniciada\nNo puede acceder.');
+                    window.history.back();
+                </script>
+            </c:if>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewClienteLabel_idCliente}"/>
-                    <h:outputText value="#{clienteController.selected.idCliente}" title="#{bundle.ViewClienteTitle_idCliente}"/>
-                    <h:outputText value="#{bundle.ViewClienteLabel_nombreCliente}"/>
-                    <h:outputText value="#{clienteController.selected.nombreCliente}" title="#{bundle.ViewClienteTitle_nombreCliente}"/>
-                    <h:outputText value="#{bundle.ViewClienteLabel_appCliente}"/>
-                    <h:outputText value="#{clienteController.selected.appCliente}" title="#{bundle.ViewClienteTitle_appCliente}"/>
-                    <h:outputText value="#{bundle.ViewClienteLabel_apmCliente}"/>
-                    <h:outputText value="#{clienteController.selected.apmCliente}" title="#{bundle.ViewClienteTitle_apmCliente}"/>
-                    <h:outputText value="#{bundle.ViewClienteLabel_rutCliente}"/>
-                    <h:outputText value="#{clienteController.selected.rutCliente}" title="#{bundle.ViewClienteTitle_rutCliente}"/>
-                    <h:outputText value="#{bundle.ViewClienteLabel_correoCliente}"/>
-                    <h:outputText value="#{clienteController.selected.correoCliente}" title="#{bundle.ViewClienteTitle_correoCliente}"/>
-                    <h:outputText value="#{bundle.ViewClienteLabel_direccionCliente}"/>
-                    <h:outputText value="#{clienteController.selected.direccionCliente}" title="#{bundle.ViewClienteTitle_direccionCliente}"/>
-                    <h:outputText value="#{bundle.ViewClienteLabel_telefono}"/>
-                    <h:outputText value="#{clienteController.selected.telefono}" title="#{bundle.ViewClienteTitle_telefono}"/>
-                    <h:outputText value="#{bundle.ViewClienteLabel_codigoPostal}"/>
-                    <h:outputText value="#{clienteController.selected.codigoPostal}" title="#{bundle.ViewClienteTitle_codigoPostal}"/>
-                    <h:outputText value="#{bundle.ViewClienteLabel_idUsuario}"/>
-                    <h:outputText value="#{clienteController.selected.idUsuario}" title="#{bundle.ViewClienteTitle_idUsuario}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{clienteController.destroyAndView}" value="#{bundle.ViewClienteDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewClienteEditLink}"/>
-                <br />
-                <h:commandLink action="#{clienteController.prepareCreate}" value="#{bundle.ViewClienteCreateLink}" />
-                <br />
-                <h:commandLink action="#{clienteController.prepareList}" value="#{bundle.ViewClienteShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/menusAdmin/inicioAdmin?faces-redirect=true" value="#{bundle.ViewClienteIndexLink}"/>
-
+                <h:panelGroup class="administrador contenido col-md-8 col-md-offset-2" layout="block">
+                    <h1 class="contenido administrador titulo"><h:outputText value="Detalle Cliente"></h:outputText></h1>
+                    <h:panelGrid columns="2" class="administrador detalle col-md-10 col-md-offset-1">
+                        <h:outputText value="#{bundle.ViewClienteLabel_idCliente}"/>
+                        <h:outputText value="#{clienteController.selected.idCliente}" title="#{bundle.ViewClienteTitle_idCliente}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_nombreCliente}"/>
+                        <h:outputText value="#{clienteController.selected.nombreCliente}" title="#{bundle.ViewClienteTitle_nombreCliente}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_appCliente}"/>
+                        <h:outputText value="#{clienteController.selected.appCliente}" title="#{bundle.ViewClienteTitle_appCliente}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_apmCliente}"/>
+                        <h:outputText value="#{clienteController.selected.apmCliente}" title="#{bundle.ViewClienteTitle_apmCliente}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_rutCliente}"/>
+                        <h:outputText value="#{clienteController.selected.rutCliente}" title="#{bundle.ViewClienteTitle_rutCliente}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_correoCliente}"/>
+                        <h:outputText value="#{clienteController.selected.correoCliente}" title="#{bundle.ViewClienteTitle_correoCliente}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_direccionCliente}"/>
+                        <h:outputText value="#{clienteController.selected.direccionCliente}" title="#{bundle.ViewClienteTitle_direccionCliente}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_telefono}"/>
+                        <h:outputText value="#{clienteController.selected.telefono}" title="#{bundle.ViewClienteTitle_telefono}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_codigoPostal}"/>
+                        <h:outputText value="#{clienteController.selected.codigoPostal}" title="#{bundle.ViewClienteTitle_codigoPostal}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_idUsuario}"/>
+                        <h:outputText value="#{clienteController.selected.idUsuario}" title="#{bundle.ViewClienteTitle_idUsuario}"/>
+                    </h:panelGrid>
+                    <br />
+                    <h:panelGroup class="administrador detalle pie col-md-12" layout="block">
+                        <h:panelGroup class="botones superiores detalle administrador col-md-12" layout="block">
+                            <h:panelGroup class="col-md-3 col-md-offset-1" layout="block">
+                                <h:commandLink class="boton detalle administrador btn btn-success" action="#{clienteController.prepareCreate}" value="Crear Cliente" />
+                            </h:panelGroup>    
+                            <h:panelGroup class="col-md-3" layout="block">
+                                <h:link class="boton detalle administrador btn btn-warning" outcome="Edit" value="Editar"/>
+                            </h:panelGroup>
+                            <h:panelGroup class="col-md-3" layout="block">
+                                <h:commandLink class="boton detalle administrador btn btn-danger" action="#{clienteController.destroyAndView}" value="Eliminar"/>
+                            </h:panelGroup> 
+                        </h:panelGroup>
+                        <h:panelGroup class="botones inferiores detalle administrador col-md-12" layout="block">
+                            <h:panelGroup class="col-md-3 col-md-offset-1" layout="block">
+                                <h:commandLink  class="boton detalle administrador btn btn-default" action="#{clienteController.prepareList}" value="Lista Cliente"/>
+                            </h:panelGroup>
+                            <h:panelGroup class="col-md-3 col-md-offset-4" layout="block">
+                                <h:link class="boton detalle administrador btn btn-default" outcome="/menusAdmin/inicioAdmin?faces-redirect=true" value="Index"/>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
             </h:form>
         </ui:define>
     </ui:composition>
