@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -91,6 +92,11 @@ public class CarritoController implements Serializable {
         alerta = null;
     }
 
+    @PostConstruct
+    public void init() {
+        alerta = "";
+    }
+
     public CarritoController() {
         alerta = "";
     }
@@ -106,47 +112,65 @@ public class CarritoController implements Serializable {
         return "carrito.xhtml?faces-redirect=true";
     }
 
-    //metodos
+    public boolean comprobarStock() {
+        int i = 0;
+        boolean flag = false;
+        for (Integer cantidade : cantidades) {
+            if (carrito.get(i).getStockProducto().compareTo(new BigInteger("" + cantidade)) == -1) {
+                break;
+            } else {
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+//metodos
     public String comprar() {
-        
+
         FacesContext context = FacesContext.getCurrentInstance();
         correo_ = context.getExternalContext().getSessionMap().get("sesion").toString();
         usuario_ = usuarioController.buscarUsuarioParaBoleta(correo_);
         cliente_ = clienteFacade_.find(usuario_.getIdUsuario());
         DateFormat dt = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         Date date_ = new Date();
-        compra_.setFechaCompra(new Date(dt.format(date_)));
-        compra_.setIdCliente(cliente_);
-        compra_.setIdCompra(BigDecimal.ONE);
-        compra_.setIdEstadoCompra(estadoCompraFacade_.find(new BigDecimal(2)));
-
-        compraFacade_.create(compra_);
-        boleta_.setFechaBoleta(new Date(dt.format(date_)));
-        boleta_.setIdBoleta(BigDecimal.ZERO);
-        boleta_.setMonto(new BigInteger(totalCompra.toString()));
-        boleta_.setNumeroBoletaFiscal(new BigInteger(crearRandom()));
-        boletaFacade_.create(boleta_);
 
         int i = 0;
         for (Integer cantidade : cantidades) {
-            prodCompra_.setIdProductosCompra(BigDecimal.ZERO);
-            prodCompra_.setIdCompra(compraFacade_.findAll().get(compraFacade_.findAll().size() - 1));
-            prodCompra_.setIdProducto(carrito.get(i));
-            prodCompra_.setCantidad(new BigInteger(cantidade.toString()));
-            prodCompra_.setTotal(carrito.get(i).getPrecioProducto().multiply(BigInteger.valueOf(cantidade)));
-            productoCompraFac_.create(prodCompra_);
+            if ((carrito.get(i).getStockProducto().compareTo(new BigInteger("" + cantidade)) == 1) || (carrito.get(i).getStockProducto().compareTo(new BigInteger("" + cantidade)) == 0)) {
+                compra_.setFechaCompra(new Date(dt.format(date_)));
+                compra_.setIdCliente(cliente_);
+                compra_.setIdCompra(BigDecimal.ONE);
+                compra_.setIdEstadoCompra(estadoCompraFacade_.find(new BigDecimal(2)));
 
-            bolProdComp_.setIdBoleta(boletaFacade_.findAll().get(boletaFacade_.findAll().size() - 1));
-            bolProdComp_.setIdBoletaCompra(BigDecimal.ZERO);
-            for (ProdCompra pc : productoCompraFac_.findAll()) {
-                if (pc.getIdCompra().toString().compareToIgnoreCase(prodCompra_.getIdCompra().toString())==0) {
-                    bolProdComp_.setIdProductosCompra(pc);
+                compraFacade_.create(compra_);
+                boleta_.setFechaBoleta(new Date(dt.format(date_)));
+                boleta_.setIdBoleta(BigDecimal.ZERO);
+                boleta_.setMonto(new BigInteger(totalCompra.toString()));
+                boleta_.setNumeroBoletaFiscal(new BigInteger(crearRandom()));
+                boletaFacade_.create(boleta_);
+
+                prodCompra_.setIdProductosCompra(BigDecimal.ZERO);
+                prodCompra_.setIdCompra(compraFacade_.findAll().get(compraFacade_.findAll().size() - 1));
+                prodCompra_.setIdProducto(carrito.get(i));
+                prodCompra_.setCantidad(new BigInteger(cantidade.toString()));
+                prodCompra_.setTotal(carrito.get(i).getPrecioProducto().multiply(BigInteger.valueOf(cantidade)));
+                productoCompraFac_.create(prodCompra_);
+
+                bolProdComp_.setIdBoleta(boletaFacade_.findAll().get(boletaFacade_.findAll().size() - 1));
+                bolProdComp_.setIdBoletaCompra(BigDecimal.ZERO);
+                for (ProdCompra pc : productoCompraFac_.findAll()) {
+                    if (pc.getIdCompra().toString().compareToIgnoreCase(prodCompra_.getIdCompra().toString()) == 0) {
+                        bolProdComp_.setIdProductosCompra(pc);
+                    }
                 }
+                boletaprodCompraFac_.create(bolProdComp_);
+                carrito.get(i).setStockProducto(carrito.get(i).getStockProducto().subtract(new BigInteger("" + cantidade)));
+                productoFacade.edit(carrito.get(i));
+                i++;
+            } else {
+                return "carrito.xhtml?faces-redirect=true";
             }
-            boletaprodCompraFac_.create(bolProdComp_);
-            carrito.get(i).setStockProducto(carrito.get(i).getStockProducto().subtract(new BigInteger(""+cantidade)));
-            productoFacade.edit(carrito.get(i));
-            i++;
         }
         return "pago.xhtml?faces-redirect=true";
     }

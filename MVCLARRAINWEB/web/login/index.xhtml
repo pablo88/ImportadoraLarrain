@@ -14,7 +14,7 @@
             <c:if test="${sessionScope.sesion != null}">
                 <script type="text/javascript">
                     alert('Sesion iniciada.');
-                    window.history.back();
+                     window.open("http://localhost:7001/MVCLARRAINWEB/faces/menusCliente/inicioC.xhtml",'_self');
                 </script>
             </c:if>
         </ui:define>

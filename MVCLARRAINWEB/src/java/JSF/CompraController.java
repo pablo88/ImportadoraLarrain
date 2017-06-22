@@ -3,10 +3,19 @@ package JSF;
 import Models.Compra;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
+import JSF.util.RepeatPaginator;
+import Models.Boleta;
+import Models.BoletaProdCompra;
+import Models.Cliente;
+import Models.ProdCompra;
+import Models.Producto;
 import SessionBeans.CompraFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -23,13 +32,29 @@ import javax.faces.model.SelectItem;
 public class CompraController implements Serializable {
 
     private Compra current;
+    private RepeatPaginator paginator;
     private DataModel items = null;
     @EJB
     private SessionBeans.CompraFacade ejbFacade;
+    @EJB
+    private SessionBeans.ClienteFacade cliF;
+    @EJB
+    private SessionBeans.ProdCompraFacade prodCF;
+    @EJB
+    private SessionBeans.BoletaProdCompraFacade bolPCF;
+    @EJB
+    private SessionBeans.BoletaFacade bolF;
+    @EJB
+    private SessionBeans.ProductoFacade prodf;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private String correo = null;
 
     public CompraController() {
+    }
+
+    public RepeatPaginator getPaginator() {
+        return paginator;
     }
 
     public Compra getSelected() {
@@ -230,6 +255,60 @@ public class CompraController implements Serializable {
             }
         }
 
+    }
+
+    public String getCorreo() {
+        return this.correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+
+    public ArrayList<ArrayList<String>> listaCompras() {
+        ArrayList<ArrayList<String>> mc = new ArrayList<ArrayList<String>>();
+
+        BigDecimal idC = BigDecimal.ZERO;
+        Compra compra = new Compra();
+        Boleta boleta = new Boleta();
+        ArrayList<ProdCompra> prodcompra = new ArrayList<>();
+        ArrayList<Producto> producto = new ArrayList<>();
+        for (Cliente cli : cliF.findAll()) {
+            if (cli.getCorreoCliente().compareToIgnoreCase(correo) == 0) {
+                idC = cli.getIdCliente();
+                break;
+            }
+        }
+        for (Compra com : ejbFacade.findAll()) {
+            ArrayList<String> datos = new ArrayList<String>();
+            if (com.getIdCliente().equals(cliF.find(idC))) {
+                compra = com;
+                for (ProdCompra pc : prodCF.findAll()) {
+                    if (pc.getIdCompra().equals(compra)) {
+                        datos.add(pc.getCantidad().toString());
+                        datos.add(pc.getTotal().toString());
+                        producto.add(pc.getIdProducto());
+                        prodcompra.add(pc);
+                    }
+                }
+
+                for (ProdCompra pc : prodcompra) {
+                    if (pc.getIdCompra().equals(ejbFacade.find(compra.getIdCompra()))) {
+                        datos.add(pc.getIdProducto().getNombreProducto());
+                    }
+                }
+            }
+            mc.add(datos);
+        }
+        /*
+        for (Producto p : prodf.findAll()) {
+
+            datos.add(p.getNombreProducto());
+            datos.add(p.getPrecioProducto().toString());
+            mc.add(datos);
+        }*/
+        return mc;
     }
 
 }

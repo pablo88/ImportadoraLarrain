@@ -9,13 +9,19 @@
             <c:if test="${sessionScope.sesion == null}">
                 <script type="text/javascript">
                     alert('Sesion no iniciada\nNo puede ingresar a esta pagina.');
-                    window.history.back();
+                    window.open("http://localhost:7001/MVCLARRAINWEB/faces/login/index.xhtml", '_self');
                 </script>
             </c:if>
             <c:if test="#{empty carritoController.carrito}">
                 <script type="text/javascript">
                     alert('No hay productos en el carrito.\nNo puede ingresar a esta pagina.');
-                    window.history.back();
+                    window.open("http://localhost:7001/MVCLARRAINWEB/faces/menusCliente/inicioC.xhtml", '_self');
+                </script>
+            </c:if>
+            <c:if test="#{carritoController.cantidades == null}">
+                <script type="text/javascript">
+                    alert('No hay productos en el carrito.\nNo puede ingresar a esta pagina.');
+                    window.open("http://localhost:7001/MVCLARRAINWEB/faces/menusCliente/inicioC.xhtml", '_self');
                 </script>
             </c:if>
         </ui:define>
@@ -29,26 +35,32 @@
             <h:panelGroup class="contenedor carrito col-md-12" layout="block">
                 <h:panelGroup class="tabla carrito col-md-8 col-md-offset-2" layout="block">
                     <h:form>
-                        <div class="titulo izquierdo col-md-4">
+                        <div class="titulo izquierdo col-md-3">
                             <p>Nombre</p>
                         </div>
-                        <div class="titulo centro col-md-3">
+                        <div  class="titulo izquierdo col-md-2">
+                            <p>Stock Maximo</p>
+                        </div>
+                        <div class="titulo centro col-md-2">
                             <p>Cantidad</p>
                         </div>
                         <div class="titulo derecho col-md-3">                            
                             <p>Precio</p>
                         </div>
                         <ui:repeat var="carrito" varStatus="status" value="#{carritoController.carrito}">
-                            <div class="elemento izquierdo col-md-4">
+                            <div class="elemento izquierdo col-md-3">
                                 <p>#{carrito.nombreProducto}</p>
                             </div>
-                            <div class="elemento centro col-md-3">
+                            <div class="elemento izquierdo col-md-2">
+                                <p>#{carrito.stockProducto}</p>
+                            </div>
+                            <div class="elemento derecho col-md-2">
                                 <h:inputText id="nombre" value="#{carritoController.cantidad}"  required="true"/>
                             </div>
                             <div class="elemento derecho col-md-3">
                                 <p>#{carrito.precioProducto}</p>
                             </div>
-                            <div class="elemento derecho col-md-2">
+                            <div class="elemento derecho col-md-1">
                                 <h:commandLink value="Remover" action="#{carritoController.quitardelCarrito(carrito.idProducto)}" class="btn-sm btn-danger"/>
                             </div>
                         </ui:repeat>
@@ -64,19 +76,31 @@
                         </div>
                         <div class="btn-group btn-group-justified" role="group" aria-label="...">
                             <div class="btn-group" role="group">
-                                <h:commandLink type="button" class="btn-volver"  value="volver"/>
+                                <h:link outcome="/menusCliente/inicioC?faces-redirect=true" type="button"   class="btn-volver"  value="volver"/>
                             </div>
                             <div class="btn-group" role="group">
-                                
-                            </div>
-                            <div class="btn-group" role="group">
-                                <h:commandLink type="button" class="btn-comprar" value="comprar" action="#{carritoController.comprar()}"/>
 
+                            </div>
+                            <div class="btn-group" role="group">
+
+                                <h:commandLink type="button" class="btn-comprar" value="comprar" action="#{carritoController.comprar()}"  
+                                               onclick="fCompra(#{carritoController.comprobarStock()});" />
                             </div>
                         </div>
                     </h:form>
                 </h:panelGroup>
             </h:panelGroup>
+            <script type="text/javascript">
+                function fCompra(stock) {
+                    this.stock
+                    if (stock)
+                    {
+                    } else {
+                        alert('Su pedido supera nuestro stock');
+                    }
+                }
+            </script>
+            <h:outputText value="#{carritoController.alerta}" escape="false"/>
         </ui:define>>
     </ui:composition>
 </html>

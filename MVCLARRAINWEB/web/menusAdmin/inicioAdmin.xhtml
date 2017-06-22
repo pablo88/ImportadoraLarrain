@@ -12,7 +12,7 @@
             <c:if test="${sessionScope.sesionAdmin == null}">
                 <script type="text/javascript">
                     alert('Sesion no iniciada\nNo puede acceder.');
-                    window.history.back();
+                    window.open("http://localhost:7001/MVCLARRAINWEB/faces/login/indexAdmin.xhtml",'_self');
                 </script>
             </c:if>
         </ui:define>

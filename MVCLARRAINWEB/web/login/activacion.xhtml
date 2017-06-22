@@ -19,27 +19,27 @@ and open the template in the editor.
                 <c:if test="#{registrarController.activarCuenta()}">
                     <script type="text/javascript">
                         alert('Cuenta activada exitosamente.');
-                        window.location.href = "../login/index.xhtml";
+                       window.open("http://localhost:7001/MVCLARRAINWEB/faces/login/index.xhtml",'_self');
                     </script>
                 </c:if>
                 <c:otherwise>
                     <script type="text/javascript">
                         alert('Ocurrio un error.\nNo se puedo activar la cuenta.');
-                        window.location.href = "../login/index.xhtml";
+                        window.open("http://localhost:7001/MVCLARRAINWEB/faces/login/index.xhtml",'_self');
                     </script>
                 </c:otherwise>
             </c:if>
             <c:otherwise>
                 <script type="text/javascript">
                     alert('La llave no es valida.');
-                    window.location.href = "../login/index.xhtml";
+                   window.open("http://localhost:7001/MVCLARRAINWEB/faces/login/index.xhtml",'_self');
                 </script>
             </c:otherwise>
         </c:if>
         <c:otherwise>
             <script type="text/javascript">
                 alert('Sesion iniciada.\nNo puede acceder a esta pagina.');
-                window.history.back();
+               window.open("http://localhost:7001/MVCLARRAINWEB/faces/login/index.xhtml",'_self');
             </script>
         </c:otherwise>
 

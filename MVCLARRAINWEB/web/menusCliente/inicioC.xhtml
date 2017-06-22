@@ -24,8 +24,8 @@
                     <a class="navbar-brand" href="#">Bienvenido</a>
                     <ul class="nav navbar-nav">                              
                         <li><a class="glyphicon glyphicon-shopping-cart" href="../menusCliente/carrito.xhtml">Compra</a></li>
-                        <li><a href="#" class="fa fa-money">Pago</a></li>
-                        <li><a href="#">Link</a></li>
+                        <li><a href="pago.xhtml" class="fa fa-money">Pago</a></li>
+                        <li><a href="miscompras.xhtml">Mis Compras</a></li>
                     </ul>     
                     <h:form>
                         <h:commandButton class="boton cerrar sesion col-md-offset-6" action="#{loginController.cerrarSesion()}" value="Cerrar Sesion" />
@@ -96,7 +96,7 @@
                         confirmar = confirm('Producto añadido.\n¿Desea finalizar su compra?');
                         if (confirmar)
                         {
-                            window.open("../menusCliente/carrito.xhtml",'_self');
+                            window.open("http://localhost:7001/MVCLARRAINWEB/faces/menusCliente/carrito.xhtml",'_self');
                         }
                     } else {
                         alert('No hay stock.');

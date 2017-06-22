@@ -6,6 +6,7 @@ import JSF.util.PaginationHelper;
 import SessionBeans.PagoFacade;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -28,6 +29,42 @@ public class PagoController implements Serializable {
     private SessionBeans.PagoFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private String tarjetaCredito;
+    private BigInteger cantcuotas;
+    private BigInteger cuotas;
+    private BigInteger monto;
+
+    public String getTarjetaCredito() {
+        return tarjetaCredito;
+    }
+
+    public void setTarjetaCredito(String tarjetaCredito) {
+        this.tarjetaCredito = tarjetaCredito;
+    }
+
+    public BigInteger getCantcuotas() {
+        return cantcuotas;
+    }
+
+    public void setCantcuotas(BigInteger cantcuotas) {
+        this.cantcuotas = cantcuotas;
+    }
+
+    public BigInteger getCuotas() {
+        return cuotas;
+    }
+
+    public void setCuotas(BigInteger cuotas) {
+        this.cuotas = cuotas;
+    }
+
+    public BigInteger getMonto() {
+        return monto;
+    }
+
+    public void setMonto(BigInteger monto) {
+        this.monto = monto;
+    }
 
     public PagoController() {
     }
@@ -230,6 +267,10 @@ public class PagoController implements Serializable {
             }
         }
 
+    }
+
+    public String realizarPago() {
+        return "hola";
     }
 
 }

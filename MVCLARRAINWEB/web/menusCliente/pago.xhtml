@@ -9,7 +9,7 @@
             <c:if test="${sessionScope.sesion == null}">
                 <script type="text/javascript">
                     alert('Sesion no iniciada\nNo puede ingresar a esta pagina.');
-                    window.history.back();
+                    window.open("http://localhost:7001/MVCLARRAINWEB/faces/login/index.xhtml", '_self');
                 </script>
             </c:if>
         </ui:define>
@@ -23,11 +23,31 @@
             <h:panelGroup class="contenedor carrito col-md-12" layout="block">
                 <h:panelGroup class="tabla carrito col-md-8 col-md-offset-2" layout="block">
                     <h:form>
-                       
+                        <h:panelGroup class="pago contenido col-md-6 col-md-offset-3" layout="block">
+                            <h:outputLabel value="Ingrese Numero de tarjeta de credito"/>
+                            <h:inputText value="#{pagoController.tarjetaCredito}"/>
+                            <h:outputLabel  value="Desea cuotas?"/>
+                            <h:selectBooleanCheckbox onclick="myFunction()" value="#{pagoController.cuotas}" />
+                            <div  id="cantCuotas">
+                                <h:outputLabel  value="Ingrese cantidad de cuotas"/>
+                                <h:inputText value="#{pagoController.cantcuotas}" />
+                            </div>
+                            <br/><h:commandLink class="btn btn-success" value="Pagar" action="#{pagoController.realizarPago()}"/>
+                        </h:panelGroup>
                     </h:form>
                 </h:panelGroup>
             </h:panelGroup>
-        </ui:define>>
+            <script>
+                function myFunction() {
+                    var x = document.getElementById('cantCuotas');
+                    if (x.style.display === 'block') {
+                        x.style.display = 'none';
+                    } else {
+                        x.style.display = 'block';
+                    }
+                }
+            </script>
+        </ui:define>
     </ui:composition>
 </html>
 

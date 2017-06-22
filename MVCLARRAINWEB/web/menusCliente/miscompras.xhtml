@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="head">
+            <c:if test="${sessionScope.sesion == null}">
+                <script type="text/javascript">
+                    alert('Sesion no iniciada\nNo puede ingresar a esta pagina.');
+                    window.open("http://localhost:7001/MVCLARRAINWEB/faces/login/index.xhtml", '_self');
+                </script>
+            </c:if>
+        </ui:define>
+        <ui:define name="titleP">
+            <h:outputText value="Mis Compras"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup class="contenedor carrito col-md-12" layout="block">
+                <h:panelGroup class="tabla carrito col-md-10 col-md-offset-1" layout="block">
+                    <h1><h:outputText class="col-md-10 col-md-offset-1" value="Mis Compras"></h:outputText></h1>
+                            #{compraController.setCorreo(sessionScope.sesion)}
+                    
+                </h:panelGroup>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+</html>
+

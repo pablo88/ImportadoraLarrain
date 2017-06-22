@@ -2,6 +2,24 @@
     width: 100%;
     margin-bottom: 1%;
 }
+.pago.contenido.col-md-6.col-md-offset-3>label {
+    width: 100%;
+}
+.pago.contenido.col-md-6.col-md-offset-3>input {
+    color: black;
+    width: 40%;
+}
+.pago.contenido.col-md-6.col-md-offset-3>#cantCuotas>label {
+    width: 100%;
+}
+.pago.contenido.col-md-6.col-md-offset-3>#cantCuotas>input {
+    color: black;
+    width: 40%;
+}
+#cantCuotas {
+
+    display: none;
+}
 .menu.administrador>a {
     text-decoration: none;
 }
@@ -14,8 +32,13 @@ a.boton.administrador.btn.btn-default {
 table.order_form_riskcheckboxes {
     text-align: left;
 }
-
-
+label.detalle.miscompras {
+    margin-right: 15%;
+}
+label.miscompras.etiqueta {
+    margin-right: 14%;
+    margin-left: 8%;
+}
 .menu.administrador{
     background: black;
     opacity: 0.9;
@@ -100,16 +123,42 @@ a.boton.detalle.administrador.btn {
     text-align: left;
     /* border: solid; */
 }
-.elemento.centro>input {
-    width: 13%;
+.elemento.izquierdo{
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+.elemento.centro{
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+.elemento.derecho{
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+.elemento.derecho>input {
+    width: 33%;
     text-align: center;
     color: black;
+    margin-top: 0%;
+    margin-bottom: 0%;
 }
 .elemento.derecho.final.total{
     padding-top: 1%;
 }
 .elemento.derecho.final{
     padding-top: 1%;
+}
+.titulo.izquierdo {
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+.titulo.centro {
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+.titulo.derecho {
+    margin-top: 0%;
+    margin-bottom: 0%;
 }
 
 .nav-bar.col-md-12 {
