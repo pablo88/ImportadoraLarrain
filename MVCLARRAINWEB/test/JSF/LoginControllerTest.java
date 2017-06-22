@@ -18,22 +18,22 @@ import static org.junit.Assert.*;
  * @author Home
  */
 public class LoginControllerTest {
-    
+
     public LoginControllerTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -48,8 +48,9 @@ public class LoginControllerTest {
         String expResult = null;
         String result = instance.getAlerta();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        if (!result.equals(expResult)) {
+            fail();
+        }
     }
 
     /**
@@ -77,7 +78,9 @@ public class LoginControllerTest {
         String result = instance.autenticarUsuario();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        if (!result.equals(expResult)) {
+            fail("The test case is a prototype.");
+        }
     }
 
     /**
@@ -91,8 +94,9 @@ public class LoginControllerTest {
         String result = instance.cerrarSesion();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        if(!result.equals(expResult))
-        fail("The test case is a prototype.");
+        if (!result.equals(expResult)) {
+            fail("The test case is a prototype.");
+        }
     }
-    
+
 }

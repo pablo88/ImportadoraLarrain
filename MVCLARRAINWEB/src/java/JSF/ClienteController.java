@@ -232,4 +232,14 @@ public class ClienteController implements Serializable {
 
     }
 
+    public Object ObtenerCliente(String correo) {
+        /*Cliente cli = new Cliente();
+        for (Cliente cliente : ejbFacade.findAll()) {
+            if(cliente.getCorreoCliente().compareToIgnoreCase(correo)==0)
+            {
+                cli=cliente;
+            }
+        }*/
+        return ejbFacade.find(67);
+    }
 }

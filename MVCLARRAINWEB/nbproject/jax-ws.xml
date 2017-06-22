@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
-    <service name="consultarEstadoCompra_WS">
-      <implementation-class>WebService.consultarEstadoCompra_WS</implementation-class>
+    <service name="consultarEstado_WS">
+      <implementation-class>como.webLarrain.webserviceUso_.consultarEstado_WS</implementation-class>
+    </service>
+  </services>
+  <clients>
+    <client name="consultarEstado_WS">
       <wsdl-url>http://localhost:7001/consultarEstado_WS/consultarEstado_WS?wsdl</wsdl-url>
       <local-wsdl-file>localhost_7001/consultarEstado_WS/consultarEstado_WS.wsdl</local-wsdl-file>
-      <service-name>consultarEstado_WS</service-name>
-      <port-name>consultarEstado_WSPort</port-name>
-      <package-name>webservice</package-name>
+      <package-name forceReplace="true">WebServiceConsumo</package-name>
       <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
       <wsimport-options>
         <wsimport-option>
           <wsimport-option-name>extension</wsimport-option-name>
@@ -24,6 +25,10 @@
           <wsimport-option-value>false</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
+          <wsimport-option-name>wsdlLocation</wsimport-option-name>
+          <wsimport-option-value>http://localhost:7001/consultarEstado_WS/consultarEstado_WS?wsdl</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
           <wsimport-option-value>true</wsimport-option-value>
         </wsimport-option>
@@ -31,9 +36,12 @@
           <wsimport-option-name>xendorsed</wsimport-option-name>
           <wsimport-option-value>true</wsimport-option-value>
         </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>package</wsimport-option-name>
+          <wsimport-option-value>WebServiceConsumo</wsimport-option-value>
+        </wsimport-option>
       </wsimport-options>
-    </service>
-  </services>
-  <clients/>
+    </client>
+  </clients>
   <jsr109>true</jsr109>
 </jax-ws>

@@ -13,6 +13,7 @@ import SessionBeans.CompraFacade;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
@@ -26,6 +27,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import ws.Consumo;
 
 @Named("compraController")
 @SessionScoped
@@ -49,6 +51,15 @@ public class CompraController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private String correo = null;
+    private String pepe = "";
+
+    public String getPepe() {
+        return pepe;
+    }
+
+    public void setPepe(String pepe) {
+        this.pepe = pepe;
+    }
 
     public CompraController() {
     }
@@ -265,7 +276,6 @@ public class CompraController implements Serializable {
         this.correo = correo;
     }
 
-
     public ArrayList<ArrayList<String>> listaCompras() {
         ArrayList<ArrayList<String>> mc = new ArrayList<ArrayList<String>>();
 
@@ -309,6 +319,13 @@ public class CompraController implements Serializable {
             mc.add(datos);
         }*/
         return mc;
+    }
+
+    public String obtenerEstadoCompra() {
+        ClienteController cc = new ClienteController();
+        Consumo ws = new Consumo();
+        pepe = ws.consultarEstadoCompra(new BigDecimal("" + 91),new BigDecimal(""+67));
+        return "miscompras.xhtml?faces-redirect=true";
     }
 
 }

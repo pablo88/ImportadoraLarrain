@@ -10,6 +10,23 @@
                 JAX-WS WSGEN SECTION
                 ===================
             -->
+    <target name="wsgen-init" depends="init, -do-compile">
+        <mkdir dir="${build.generated.sources.dir}/jax-ws/resources/"/>
+        <mkdir dir="${build.classes.dir}"/>
+        <mkdir dir="${build.classes.dir}/META-INF"/>
+        <property name="j2ee.platform.wsgen.classpath" value="${libs.jaxws21.classpath}"/>
+        <taskdef name="wsgen" classname="com.sun.tools.ws.ant.WsGen">
+            <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsgen-consultarEstado_WS" depends="wsgen-init">
+        <copy todir="${build.classes.dir}/META-INF">
+            <fileset dir="${webinf.dir}" includes="wsit-como.webLarrain.webserviceUso_.consultarEstado_WS.xml"/>
+        </copy>
+        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="como.webLarrain.webserviceUso_.consultarEstado_WS" xendorsed="true">
+            <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
+        </wsgen>
+    </target>
     <!--
                 ===================
                 JAX-WS WSIMPORT SECTION
@@ -26,24 +43,21 @@
             <isset property="conf.dir"/>
         </condition>
     </target>
-    <target name="wsimport-service-consultarEstadoCompra_WS" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/consultarEstadoCompra_WS"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/consultarEstadoCompra_WS" destdir="${build.generated.dir}/jax-wsCache/service/consultarEstadoCompra_WS" wsdl="${basedir}/${conf-dir}xml-resources/web-services/consultarEstadoCompra_WS/wsdl/localhost_7001/consultarEstado_WS/consultarEstado_WS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" xnocompile="true" xendorsed="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/consultarEstadoCompra_WS/wsdl/localhost_7001/consultarEstado_WS/consultarEstado_WS.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/consultarEstadoCompra_WS"/>
+    <target name="wsimport-client-consultarEstado_WS" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/consultarEstado_WS"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/consultarEstado_WS" destdir="${build.generated.dir}/jax-wsCache/consultarEstado_WS" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/consultarEstado_WS/wsdl/localhost_7001/consultarEstado_WS/consultarEstado_WS.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:7001/consultarEstado_WS/consultarEstado_WS?wsdl" xnocompile="true" xendorsed="true" package="WebServiceConsumo">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/consultarEstado_WS/wsdl/localhost_7001/consultarEstado_WS/consultarEstado_WS.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/consultarEstado_WS"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/consultarEstadoCompra_WS">
+            <fileset dir="${build.generated.dir}/jax-wsCache/consultarEstado_WS">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/consultarEstadoCompra_WS">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/consultarEstadoCompra_WS/wsdl/"/>
-        </copy>
     </target>
-    <target name="wsimport-service-clean-consultarEstadoCompra_WS" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/webservice"/>
-        <delete dir="${build.generated.dir}/jax-wsCache/service/consultarEstadoCompra_WS"/>
+    <target name="wsimport-client-clean-consultarEstado_WS" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/WebServiceConsumo"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/consultarEstado_WS"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-consultarEstadoCompra_WS"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-consultarEstado_WS"/>
 </project>

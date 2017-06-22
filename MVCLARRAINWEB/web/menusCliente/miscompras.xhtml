@@ -21,7 +21,11 @@
                 <h:panelGroup class="tabla carrito col-md-10 col-md-offset-1" layout="block">
                     <h1><h:outputText class="col-md-10 col-md-offset-1" value="Mis Compras"></h:outputText></h1>
                             #{compraController.setCorreo(sessionScope.sesion)}
-                    
+
+                    <h:form>
+                        <h:inputText  id="estadoCompra" value="#{compraController.pepe}" />
+                        <h:commandButton  value="Valores por defecto" action="#{compraController.obtenerEstadoCompra()}"/>
+                    </h:form>
                 </h:panelGroup>
             </h:panelGroup>
         </ui:define>
