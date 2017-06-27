@@ -23,8 +23,11 @@
                             #{compraController.setCorreo(sessionScope.sesion)}
 
                     <h:form>
-                        <h:inputText  id="estadoCompra" value="#{compraController.pepe}" />
-                        <h:commandButton  value="Valores por defecto" action="#{compraController.obtenerEstadoCompra()}"/>
+                        <ui:repeat var="compras" value="#{compraController.misCompras()}">
+                            <ui:repeat value="#{compras}" var="compra">
+                                <h:outputText  value="#{compra}"/>
+                            </ui:repeat>
+                        </ui:repeat>
                     </h:form>
                 </h:panelGroup>
             </h:panelGroup>

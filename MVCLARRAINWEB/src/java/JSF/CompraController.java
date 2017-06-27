@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -27,6 +28,9 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import ws.Consumo;
 
 @Named("compraController")
@@ -276,7 +280,7 @@ public class CompraController implements Serializable {
         this.correo = correo;
     }
 
-    public ArrayList<ArrayList<String>> listaCompras() {
+    /*public ArrayList<ArrayList<String>> listaCompras() {
         ArrayList<ArrayList<String>> mc = new ArrayList<ArrayList<String>>();
 
         BigDecimal idC = BigDecimal.ZERO;
@@ -317,14 +321,26 @@ public class CompraController implements Serializable {
             datos.add(p.getNombreProducto());
             datos.add(p.getPrecioProducto().toString());
             mc.add(datos);
-        }*/
+        }
         return mc;
+    }*/
+    public List misCompras() {
+
+        List compras = new ArrayList();
+        Cliente idCliente = new Cliente();
+        for (Cliente cli : cliF.findAll()) {
+            if (cli.getCorreoCliente().compareToIgnoreCase(correo) == 0) {
+                idCliente = cli;
+            }
+        }
+        compras = ejbFacade.allDatosCompra(idCliente);
+        return compras;
     }
 
     public String obtenerEstadoCompra() {
         ClienteController cc = new ClienteController();
         Consumo ws = new Consumo();
-        pepe = ws.consultarEstadoCompra(new BigDecimal("" + 91),new BigDecimal(""+67));
+        pepe = ws.consultarEstadoCompra(new BigDecimal("" + 91), new BigDecimal("" + 67));
         return "miscompras.xhtml?faces-redirect=true";
     }
 
