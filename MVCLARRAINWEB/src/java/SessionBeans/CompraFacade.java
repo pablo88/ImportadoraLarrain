@@ -32,7 +32,7 @@ public class CompraFacade extends AbstractFacade<Compra> {
         return em;
     }
 
-    public List allDatosCompra(Cliente idCliente) {
+    public List<Compra> allDatosCompra(Cliente idCliente) {
         try {
             return em.createNamedQuery("Compra.allDatosCompra").setParameter("idCliente",
                     idCliente).getResultList();

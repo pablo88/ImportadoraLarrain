@@ -21,14 +21,23 @@
                 <h:panelGroup class="tabla carrito col-md-10 col-md-offset-1" layout="block">
                     <h1><h:outputText class="col-md-10 col-md-offset-1" value="Mis Compras"></h:outputText></h1>
                             #{compraController.setCorreo(sessionScope.sesion)}
-
-                    <h:form>
-                        <ui:repeat var="compras" value="#{compraController.misCompras()}">
-                            <ui:repeat value="#{compras}" var="compra">
-                                <h:outputText  value="#{compra}"/>
+                    <div class="miscompras col-md-12">
+                        <h:form>
+                            <ui:repeat var="compras" value="#{compraController.misCompras()}">
+                                <h:outputText  value="#{compras[2]}"/>
+                                <br/>
+                                <h:outputText  value="#{compras[3]}"/>
+                                <br/>
+                                <h:outputText  value="#{compras[4]}"/>
+                                <br/>
+                                <h:outputText  value="#{compras[5]}"/>
+                                <br/>
+                                <h:inputText  id="estadoCompra" value="#{compraController.pepe}" />
+                                <br/>
+                                <h:commandButton  value="Valores por defecto" action="#{compraController.obtenerEstadoCompra(compras[0],compras[1].idCliente)}"/>
                             </ui:repeat>
-                        </ui:repeat>
-                    </h:form>
+                        </h:form>
+                    </div>
                 </h:panelGroup>
             </h:panelGroup>
         </ui:define>

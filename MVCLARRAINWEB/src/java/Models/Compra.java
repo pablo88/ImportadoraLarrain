@@ -36,8 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Compra.findAll", query = "SELECT c FROM Compra c"),
     @NamedQuery(name = "Compra.findByIdCompra", query = "SELECT c FROM Compra c WHERE c.idCompra = :idCompra"),
     @NamedQuery(name = "Compra.findByFechaCompra", query = "SELECT c FROM Compra c WHERE c.fechaCompra = :fechaCompra"),
-    @NamedQuery(name = "Compra.allDatosCompra", query = "select C,PC,BPC from Compra C inner join C.prodCompraCollection PC "
-            + "inner join PC.boletaProdCompraCollection BPC"
+    @NamedQuery(name = "Compra.allDatosCompra", query = "select C.idCompra,C.idCliente,C.fechaCompra,PC.idProducto,PC.cantidad,PC.total from Compra C join FETCH C.prodCompraCollection PC "
             + "where C.idCliente= :idCliente")})
 
 public class Compra implements Serializable {

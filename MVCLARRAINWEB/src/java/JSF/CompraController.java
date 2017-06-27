@@ -324,7 +324,7 @@ public class CompraController implements Serializable {
         }
         return mc;
     }*/
-    public List misCompras() {
+    public List<Compra> misCompras() {
 
         List compras = new ArrayList();
         Cliente idCliente = new Cliente();
@@ -337,10 +337,10 @@ public class CompraController implements Serializable {
         return compras;
     }
 
-    public String obtenerEstadoCompra() {
+    public String obtenerEstadoCompra(BigDecimal idCompra,BigDecimal idCliente) {
         ClienteController cc = new ClienteController();
         Consumo ws = new Consumo();
-        pepe = ws.consultarEstadoCompra(new BigDecimal("" + 91), new BigDecimal("" + 67));
+        pepe = ws.consultarEstadoCompra(idCompra, idCliente);
         return "miscompras.xhtml?faces-redirect=true";
     }
 
