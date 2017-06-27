@@ -3,9 +3,11 @@ package JSF;
 import Models.Pago;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
+import Models.Boleta;
 import SessionBeans.PagoFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -22,53 +24,68 @@ import javax.faces.model.SelectItem;
 @Named("pagoController")
 @SessionScoped
 public class PagoController implements Serializable {
-
+    
+    private FacesContext context;
     private Pago current;
+    private Boleta boleta_;
     private DataModel items = null;
     @EJB
     private SessionBeans.PagoFacade ejbFacade;
+    @EJB
+    private SessionBeans.BoletaFacade bolFacade;
+    @EJB
+    private SessionBeans.TipoPagoFacade tipPagoFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private String tarjetaCredito;
     private BigInteger cantcuotas;
-    private BigInteger cuotas;
+    private boolean cuotas;
     private BigInteger monto;
-
+    private String alerta;
+    
+    public String getAlerta() {
+        return alerta;
+    }
+    
+    public void setAlerta(String alerta) {
+        this.alerta = alerta;
+    }
+    
     public String getTarjetaCredito() {
         return tarjetaCredito;
     }
-
+    
     public void setTarjetaCredito(String tarjetaCredito) {
         this.tarjetaCredito = tarjetaCredito;
     }
-
+    
     public BigInteger getCantcuotas() {
         return cantcuotas;
     }
-
+    
     public void setCantcuotas(BigInteger cantcuotas) {
         this.cantcuotas = cantcuotas;
     }
-
-    public BigInteger getCuotas() {
+    
+    public boolean getCuotas() {
         return cuotas;
     }
-
-    public void setCuotas(BigInteger cuotas) {
+    
+    public void setCuotas(boolean cuotas) {
         this.cuotas = cuotas;
     }
-
+    
     public BigInteger getMonto() {
         return monto;
     }
-
+    
     public void setMonto(BigInteger monto) {
         this.monto = monto;
     }
-
+    
     public PagoController() {
     }
-
+    
     public Pago getSelected() {
         if (current == null) {
             current = new Pago();
@@ -76,20 +93,20 @@ public class PagoController implements Serializable {
         }
         return current;
     }
-
+    
     private PagoFacade getFacade() {
         return ejbFacade;
     }
-
+    
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
-
+                
                 @Override
                 public int getItemsCount() {
                     return getFacade().count();
                 }
-
+                
                 @Override
                 public DataModel createPageDataModel() {
                     return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
@@ -98,24 +115,24 @@ public class PagoController implements Serializable {
         }
         return pagination;
     }
-
+    
     public String prepareList() {
         recreateModel();
         return "List";
     }
-
+    
     public String prepareView() {
         current = (Pago) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
-
+    
     public String prepareCreate() {
         current = new Pago();
         selectedItemIndex = -1;
         return "Create";
     }
-
+    
     public String create() {
         try {
             getFacade().create(current);
@@ -126,13 +143,13 @@ public class PagoController implements Serializable {
             return null;
         }
     }
-
+    
     public String prepareEdit() {
         current = (Pago) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
-
+    
     public String update() {
         try {
             getFacade().edit(current);
@@ -143,7 +160,7 @@ public class PagoController implements Serializable {
             return null;
         }
     }
-
+    
     public String destroy() {
         current = (Pago) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -152,7 +169,7 @@ public class PagoController implements Serializable {
         recreateModel();
         return "List";
     }
-
+    
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -165,7 +182,7 @@ public class PagoController implements Serializable {
             return "List";
         }
     }
-
+    
     private void performDestroy() {
         try {
             getFacade().remove(current);
@@ -174,7 +191,7 @@ public class PagoController implements Serializable {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
-
+    
     private void updateCurrentItem() {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
@@ -189,49 +206,49 @@ public class PagoController implements Serializable {
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
-
+    
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
         }
         return items;
     }
-
+    
     private void recreateModel() {
         items = null;
     }
-
+    
     private void recreatePagination() {
         pagination = null;
     }
-
+    
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
-
+    
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
-
+    
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
-
+    
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-
+    
     public Pago getPago(java.math.BigDecimal id) {
         return ejbFacade.find(id);
     }
-
+    
     @FacesConverter(forClass = Pago.class)
     public static class PagoControllerConverter implements Converter {
-
+        
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
@@ -241,19 +258,19 @@ public class PagoController implements Serializable {
                     getValue(facesContext.getELContext(), null, "pagoController");
             return controller.getPago(getKey(value));
         }
-
+        
         java.math.BigDecimal getKey(String value) {
             java.math.BigDecimal key;
             key = new java.math.BigDecimal(value);
             return key;
         }
-
+        
         String getStringKey(java.math.BigDecimal value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
         }
-
+        
         @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
@@ -266,11 +283,28 @@ public class PagoController implements Serializable {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Pago.class.getName());
             }
         }
-
+        
     }
-
-    public String realizarPago() {
-        return "hola";
+    
+    public String realizarPago(String idx) {
+        BigDecimal id = new BigDecimal(idx);
+        boleta_= bolFacade.find(id);
+        Pago pago_ = new Pago();
+        pago_.setIdBoleta(boleta_);
+        pago_.setMonto(boleta_.getMonto());
+        if (cuotas) {
+            pago_.setCuotas(BigInteger.ONE);
+            pago_.setCantCuotas(cantcuotas);
+        }
+        if (!cuotas) {
+            pago_.setCuotas(BigInteger.ZERO);
+            pago_.setCantCuotas(BigInteger.ZERO);
+        }
+        pago_.setIdTipoPago(tipPagoFacade.find(new BigDecimal("0")));
+        pago_.setIdPago(BigDecimal.ZERO);
+        ejbFacade.create(pago_);
+        alerta = "<script>alert('Compra finalizada exitosamente');</script>";
+        return "inicioC.xhtml?faces-redirect=true";
     }
-
+    
 }

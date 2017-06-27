@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/template.xhtml">
         <ui:define name="head">
             <c:if test="${sessionScope.sesion == null}">
@@ -23,18 +24,29 @@
                             #{compraController.setCorreo(sessionScope.sesion)}
                     <div class="miscompras col-md-12">
                         <h:form>
+                            <h:outputLabel value="Estado de la compra"/>
+                            <br/>
+                            <h:inputText  id="estadoCompra" value="#{compraController.pepe}" />
+                            <br/>
                             <ui:repeat var="compras" value="#{compraController.misCompras()}">
-                                <h:outputText  value="#{compras[2]}"/>
-                                <br/>
-                                <h:outputText  value="#{compras[3]}"/>
-                                <br/>
-                                <h:outputText  value="#{compras[4]}"/>
-                                <br/>
-                                <h:outputText  value="#{compras[5]}"/>
-                                <br/>
-                                <h:inputText  id="estadoCompra" value="#{compraController.pepe}" />
-                                <br/>
-                                <h:commandButton  value="Valores por defecto" action="#{compraController.obtenerEstadoCompra(compras[0],compras[1].idCliente)}"/>
+                                <div class="miscompras detalle col-md-3">
+                                    <h:outputLabel value="Fecha:" />
+                                    <h:outputText  value="#{compras[2]}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                    <br/>
+                                    <h:outputLabel value="Producto:" />
+                                    <h:outputText  value="#{compraController.obtenerDatosProducto(compras[3])}"/>
+                                    <br/>
+                                    <h:outputLabel value="Cantidad:" />
+                                    <h:outputText  value="#{compras[4]}"/>
+                                    <br/>
+                                    <h:outputLabel value="Precio" />
+                                    <h:outputText  value="#{compras[5]}"/>
+                                    <br/>
+                                    <h:commandButton  value="Estado Compra" action="#{compraController.obtenerEstadoCompra(compras[0],compras[1])}"/>
+                                    <br/>
+                                </div>
                             </ui:repeat>
                         </h:form>
                     </div>

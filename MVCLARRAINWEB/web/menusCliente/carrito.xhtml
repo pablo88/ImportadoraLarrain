@@ -83,25 +83,14 @@
                             </div>
                             <div class="btn-group" role="group">
 
-                                <h:commandLink type="button" class="btn-comprar" value="comprar" action="#{carritoController.comprar()}"  
-                                               onclick="fCompra(#{carritoController.comprobarStock()});" />
+                                <h:commandLink type="button" class="btn-comprar" value="comprar" action="#{carritoController.comprar()}"/>
                             </div>
                         </div>
                     </h:form>
                 </h:panelGroup>
             </h:panelGroup>
-            <script type="text/javascript">
-                function fCompra(stock) {
-                    this.stock
-                    if (stock)
-                    {
-                    } else {
-                        alert('Su pedido supera nuestro stock');
-                    }
-                }
-            </script>
             <h:outputText value="#{carritoController.alerta}" escape="false"/>
-        </ui:define>>
+        </ui:define>
     </ui:composition>
 </html>
 

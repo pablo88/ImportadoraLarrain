@@ -50,7 +50,7 @@
                                         <div class="producto detalle texto col-md-12">
                                             <p>Nombre: #{productos.nombreProducto}</p>
                                             <p>Precio: $#{productos.precioProducto}</p>
-                                            <h:commandButton class="btn agregar" action="#{carritoController.agregarAlCarrito(productos.idProducto)}" value="+Agregar" onclick="fCompra(#{productos.stockProducto});"/>
+                                            <h:commandButton class="btn agregar" action="#{carritoController.agregarAlCarrito(productos.idProducto)}" value="+Agregar"/>
                                         </div>
                                     </div> 
                                 </ui:repeat>
@@ -87,22 +87,7 @@
             </h:panelGroup>
             <h:outputText value="#{tipoProductoController.alerta}" escape="false"/>
             <h:outputText value="#{carritoController.alerta}" escape="false"/>
-
-            <script type="text/javascript">
-                function fCompra(stock) {
-                    this.stock
-                    if (stock > 0)
-                    {
-                        confirmar = confirm('Producto añadido.\n¿Desea finalizar su compra?');
-                        if (confirmar)
-                        {
-                            window.open("http://localhost:7001/MVCLARRAINWEB/faces/menusCliente/carrito.xhtml",'_blank');
-                        }
-                    } else {
-                        alert('No hay stock.');
-                    }
-                }
-            </script>
+            <h:outputText value="#{pagoController.alerta}" escape="false"/>
         </ui:define>
     </ui:composition>
 

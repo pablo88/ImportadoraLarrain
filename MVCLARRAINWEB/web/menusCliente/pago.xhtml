@@ -32,7 +32,8 @@
                                 <h:outputLabel  value="Ingrese cantidad de cuotas"/>
                                 <h:inputText value="#{pagoController.cantcuotas}" />
                             </div>
-                            <br/><h:commandLink class="btn btn-success" value="Pagar" action="#{pagoController.realizarPago()}"/>
+                            <h:outputLabel  value="${sessionScope.boleta}"/>
+                            <br/><h:commandLink class="btn btn-success" value="Pagar" action="#{pagoController.realizarPago(sessionScope.boleta)}"/>
                         </h:panelGroup>
                     </h:form>
                 </h:panelGroup>

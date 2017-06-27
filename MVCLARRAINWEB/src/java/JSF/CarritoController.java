@@ -86,7 +86,16 @@ public class CarritoController implements Serializable {
     private String alerta = "";
     private int cantidad = 1;
     private String correo_;
-    private List<Integer> cantidades;
+    private ArrayList<Integer> cantidades= new ArrayList<>();
+    private boolean compStock = false;
+
+    public boolean getCompStock() {
+        return compStock;
+    }
+
+    public void setCompStock(boolean compStock) {
+        this.compStock = compStock;
+    }
 
     public void clear() {
         alerta = null;
@@ -112,43 +121,29 @@ public class CarritoController implements Serializable {
         return "carrito.xhtml?faces-redirect=true";
     }
 
-    public boolean comprobarStock() {
-        int i = 0;
-        boolean flag = false;
-        for (Integer cantidade : cantidades) {
-            if (carrito.get(i).getStockProducto().compareTo(new BigInteger("" + cantidade)) == -1) {
-                break;
-            } else {
-                flag = true;
-            }
-        }
-        return flag;
-    }
-
 //metodos
     public String comprar() {
-
         FacesContext context = FacesContext.getCurrentInstance();
         correo_ = context.getExternalContext().getSessionMap().get("sesion").toString();
         usuario_ = usuarioController.buscarUsuarioParaBoleta(correo_);
         cliente_ = clienteFacade_.find(usuario_.getIdUsuario());
         DateFormat dt = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         Date date_ = new Date();
-
         int i = 0;
+        
         for (Integer cantidade : cantidades) {
             if ((carrito.get(i).getStockProducto().compareTo(new BigInteger("" + cantidade)) == 1) || (carrito.get(i).getStockProducto().compareTo(new BigInteger("" + cantidade)) == 0)) {
                 compra_.setFechaCompra(new Date(dt.format(date_)));
                 compra_.setIdCliente(cliente_);
                 compra_.setIdCompra(BigDecimal.ONE);
-                compra_.setIdEstadoCompra(estadoCompraFacade_.find(new BigDecimal(2)));
-
+                if(carrito.get(i).getOnlineProducto().compareTo(BigInteger.ZERO)==0){
+                    compra_.setIdEstadoCompra(estadoCompraFacade_.find(new BigDecimal(2)));
+                }
+                else
+                {
+                    compra_.setIdEstadoCompra(estadoCompraFacade_.find(new BigDecimal(0)));
+                }
                 compraFacade_.create(compra_);
-                boleta_.setFechaBoleta(new Date(dt.format(date_)));
-                boleta_.setIdBoleta(BigDecimal.ZERO);
-                boleta_.setMonto(new BigInteger(totalCompra.toString()));
-                boleta_.setNumeroBoletaFiscal(new BigInteger(crearRandom()));
-                boletaFacade_.create(boleta_);
 
                 prodCompra_.setIdProductosCompra(BigDecimal.ZERO);
                 prodCompra_.setIdCompra(compraFacade_.findAll().get(compraFacade_.findAll().size() - 1));
@@ -157,7 +152,17 @@ public class CarritoController implements Serializable {
                 prodCompra_.setTotal(carrito.get(i).getPrecioProducto().multiply(BigInteger.valueOf(cantidade)));
                 productoCompraFac_.create(prodCompra_);
 
+                boleta_.setFechaBoleta(new Date(dt.format(date_)));
+                boleta_.setIdBoleta(BigDecimal.ZERO);
+                boleta_.setMonto(new BigInteger(totalCompra.toString()));
+                boleta_.setNumeroBoletaFiscal(new BigInteger(crearRandom()));
+                boletaFacade_.create(boleta_);
+                
+               
+                
                 bolProdComp_.setIdBoleta(boletaFacade_.findAll().get(boletaFacade_.findAll().size() - 1));
+                context = FacesContext.getCurrentInstance();
+                context.getExternalContext().getSessionMap().put("boleta", bolProdComp_.getIdBoleta().getIdBoleta().toPlainString());
                 bolProdComp_.setIdBoletaCompra(BigDecimal.ZERO);
                 for (ProdCompra pc : productoCompraFac_.findAll()) {
                     if (pc.getIdCompra().toString().compareToIgnoreCase(prodCompra_.getIdCompra().toString()) == 0) {
@@ -168,7 +173,9 @@ public class CarritoController implements Serializable {
                 carrito.get(i).setStockProducto(carrito.get(i).getStockProducto().subtract(new BigInteger("" + cantidade)));
                 productoFacade.edit(carrito.get(i));
                 i++;
+                alerta = "<script></script>";
             } else {
+                alerta = "<script>alert('Su pedido supera nuestro stock');</script>";
                 return "carrito.xhtml?faces-redirect=true";
             }
         }
@@ -189,7 +196,8 @@ public class CarritoController implements Serializable {
     }
 
     public void agregarAlCarrito(BigDecimal idProducto) {
-        alerta = null;
+        PagoController pago = new PagoController();
+        pago.setAlerta(null);
         setIdProductoSeleccionado(idProducto);
         Producto p = buscarProductoCarrito(getIdProductoSeleccionado());
         if (p != null && Integer.valueOf(p.getStockProducto().toString()) > 0) {
@@ -199,6 +207,14 @@ public class CarritoController implements Serializable {
             if (Integer.valueOf(getProductoSelecionado().getStockProducto().toString()) > 0) {
                 getCarrito().add(getProductoSelecionado());
                 setTotalCompra(getTotalCompra().add(new BigDecimal(getProductoSelecionado().getPrecioProducto().doubleValue())));
+                alerta = "<script>confirmar = confirm('Producto añadido.\\n¿Desea finalizar su compra?');\n"
+                        + "if (confirmar)\n"
+                        + "{\n"
+                        + "window.open(\"http://localhost:7001/MVCLARRAINWEB/faces/menusCliente/carrito.xhtml\",'_self');\n"
+                        + "}</script>";
+            }
+            if (Integer.valueOf(getProductoSelecionado().getStockProducto().toString()) < 1) {
+                alerta = "<script>alert('No hay Stock');</script>";
             }
         }
     }
@@ -335,7 +351,7 @@ public class CarritoController implements Serializable {
     /**
      * @param cantidades the cantidades to set
      */
-    public void setCantidades(List<Integer> cantidades) {
+    public void setCantidades(ArrayList <Integer> cantidades) {
         this.cantidades = cantidades;
     }
 
